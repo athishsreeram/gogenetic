@@ -18,3 +18,9 @@ Project Structure
     +gen - file to perfrom above 4 steps
     +template 
     +toml
+
+
+How to run:
+cd gogenetic/gen
+go run proto_gen.go
+

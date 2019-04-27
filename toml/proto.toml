@@ -1,0 +1,15 @@
+# This is a TOML grpc document
+
+[API]
+name = "Test"
+request = "AddReq"
+response = "AddRes"
+protocol = "POST"
+operation = "/add"
+
+[APIRequest]
+a = 1
+b = 2
+
+[APIResponse]
+result = 3

@@ -11,6 +11,8 @@ gogenerate steps
 3. Parse & Load value dynamically
 3. Generate a Go file with Go Template
 
+Note:
+Need to figure out a way to create the structs dynamically from 
 
 Project Structure
     +gen - file to perfrom above 4 steps

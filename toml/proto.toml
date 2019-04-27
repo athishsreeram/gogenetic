@@ -1,15 +1,11 @@
 # This is a TOML grpc document
 
 [API]
-name = "Test"
-request = "AddReq"
-response = "AddRes"
-protocol = "POST"
-operation = "/add"
+Name = "Test"
+Operations = [ { operation = "/add" , request = "AddReq" , response = "AddRes", protocol = "POST" } ]
 
-[APIRequest]
-a = 1
-b = 2
 
-[APIResponse]
-result = 3
+
+[Models]
+Model = [{ name = "AddReq", Variable = [{ name = "a", value = "1" , type = "int" } , { name = "b", value = "2" , type = "int" }] },
+        { name = "AddRes", Variable = [{ name = "result", value = "1" , type = "int" } ] }]

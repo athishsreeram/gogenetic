@@ -5,14 +5,25 @@ package proto;
 import "google/api/annotations.proto";
 
 
+    
+{{range .Models.Model}}
+message {{.Name}} {
+        {{range .Variable}}
+            {{.Type}} {{.Name}} = {{.Value}};
+        {{end}}    
+}
+{{end}}
+
+ 
 
 service {{.API.Name}} {
-  rpc create({{.API.Request}}) returns ({{.API.Response}}){
-    option (google.api.http) = {
-      {{.API.Protocol}}: "{{.API.Operation}}"
-      body: "*"
-    };
-  }
-  
+{{range .API.Operations}} 
+    rpc create({{.Request}}) returns ({{.Response}}){
+        option (google.api.http) = {
+            {{.Protocol}}: "{{.Operation}}"
+            body: "*"
+        };
+    }
+{{end}}
 
 }

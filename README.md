@@ -2,7 +2,7 @@
 
 Bussiness Steps
 1. Create a TOML 
-2. Run gogenerate
+2. Run gogenerate CLI
 
 
 gogenerate steps
@@ -30,14 +30,20 @@ cd gogenetic/gen
 1.Go run
 
 Runs with default value
+    
     go run gogentic.go 
-    or
+    
+                (or)
+
     go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
 
 or 
 
 2. CLI
     Runs with default value
+    
     gogenetic 
-        or 
+    
+        (or) 
+    
     gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto

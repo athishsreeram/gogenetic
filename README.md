@@ -19,8 +19,25 @@ Project Structure
     +template 
     +toml
 
+Build
+
+go build gogenetic.go
+
 
 How to run:
 cd gogenetic/gen
-go run proto_gen.go
 
+1.Go run
+
+Runs with default value
+    go run gogentic.go 
+    or
+    go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
+
+or 
+
+2. CLI
+    Runs with default value
+    gogenetic 
+        or 
+    gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto

@@ -2,7 +2,8 @@
 
 [API]
 Name = "Test"
-Operations = [ { operation = "/add" , request = "AddReq" , response = "AddRes", protocol = "POST" } ]
+Operations = [ { operation = "/add" , request = "AddReq" , response = "AddRes", protocol = "POST" },
+                { operation = "/mul" , request = "AddRes" , response = "AddRes", protocol = "POST" } ]
 
 
 

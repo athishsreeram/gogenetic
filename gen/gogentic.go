@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -8,6 +9,8 @@ import (
 	"io/ioutil"
 
 	"github.com/BurntSushi/toml"
+
+	"flag"
 )
 
 // Create & copied from https://xuri.me/toml-to-go/
@@ -44,14 +47,28 @@ func check(e error) {
 
 func main() {
 
+	os.Chdir("../")
+
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+
+	//0. Argument Options Simple CLI with go-command-line-flags
+	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
+	templateFile := flag.String("templateFile", dir+"/template/grpctemplate.goproto", " Input the TOML File.")
+	flag.Parse()
+
+	//go run gogentic.go /Users/anharay/go/src/gogenetic/toml/test.toml /Users/anharay/go/src/gogenetic/template/grpctemplate.goproto
 	//1. Load TOML file
-	tomlData, err := ioutil.ReadFile("/Users/anharay/go/src/gogenetic/toml/proto.toml")
+	tomlData, err := ioutil.ReadFile(*tomlFile)
 	check(err)
 	log.Print("Parsed TOML")
 	log.Print(string(tomlData))
 
 	//2. Load Template
-	tmpl, err := ioutil.ReadFile("/Users/anharay/go/src/gogenetic/template/proto_template.goproto")
+	tmpl, err := ioutil.ReadFile(*templateFile)
 	check(err)
 	log.Print("Parsed Template")
 	log.Print(string(tmpl))

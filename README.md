@@ -19,7 +19,7 @@ Project Structure
     +gen - file to perfrom above 4 steps
 
     +template 
-    
+
     +toml
 
 Build
@@ -48,14 +48,14 @@ or
 
 2. CLI
     Runs with default value
+     
+        gogenetic 
+     
+        (or) 
     
-     gogenetic 
-    
-     (or) 
-    
-     gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
+        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
 
-     (or)
+        (or)
 
-     gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggerdtemplate.goproto
+        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggerdtemplate.goproto
 

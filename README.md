@@ -22,6 +22,14 @@ Project Structure
 
     +toml
 
+gogenetic available for:
+
+1. grpcresttemplate.toml
+2. resttemplate.toml
+3. severtemplate.toml
+4. swaggertemplate.toml
+
+
 Build
 
 go build gogenetic.go
@@ -44,6 +52,10 @@ Runs with default value
 
     go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggertemplate.goproto
 
+                (or)
+
+    go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servertemplate.goproto
+
 or 
 
 2. CLI
@@ -59,3 +71,6 @@ or
 
         gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggerdtemplate.goproto
 
+        (or)
+
+        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servertemplate.goproto

@@ -15,8 +15,11 @@ Note:
 Need to figure out a way to create the structs dynamically from 
 
 Project Structure
+
     +gen - file to perfrom above 4 steps
+    
     +template 
+
     +toml
 
 Build
@@ -46,13 +49,22 @@ or
 2. CLI
     Runs with default value
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> caef02e46790f0999eea0cb352b117745ab51128
      gogenetic 
     
      (or) 
     
+<<<<<<< HEAD
      gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
 
      (or)
 
      gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggertemplate.goproto
 
+=======
+     
+     gogentic -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
+>>>>>>> caef02e46790f0999eea0cb352b117745ab51128

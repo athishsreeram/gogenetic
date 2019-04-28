@@ -20,7 +20,7 @@ service {{.API.Name}} {
 {{range .API.Operations}} 
     rpc create({{.Request}}) returns ({{.Response}}){
         option (google.api.http) = {
-            {{.Protocol}}: "{{.Operation}}"
+            {{.Protocol}}: "{{.URL}}"
             body: "*"
         };
     }

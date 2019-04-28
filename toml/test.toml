@@ -2,11 +2,11 @@
 
 [API]
 Name = "Test"
-Operations = [ { operation = "/add" , request = "AddReq" , response = "AddRes", protocol = "POST" },
-                { operation = "/mul" , request = "AddRes" , response = "AddRes", protocol = "POST" } ]
+Operations = [ { url = "/add" , request = "AddReq" , response = "AddRes", protocol = "post" , operationid  = "Add"},
+                { url = "/mul" , request = "AddRes" , response = "AddRes", protocol = "post" , operationid  = "Mul"} ]
 
 
 
 [Models]
-Model = [{ name = "AddReq", Variable = [{ name = "a", value = "1" , type = "int" } , { name = "b", value = "2" , type = "int" }] },
+Model = [{ name = "AddReq", Variable = [{ name = "a", value = "1" , type = "int"  } , { name = "b", value = "2" , type = "int" }] },
         { name = "AddRes", Variable = [{ name = "result", value = "1" , type = "int" } ] }]

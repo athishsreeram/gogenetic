@@ -3,10 +3,10 @@
 [API]
 Name = "Test"
 Operations = [ { url = "/add" , request = "AddReq" , response = "AddRes", protocol = "post" , operationid  = "Add"},
-                { url = "/mul" , request = "AddRes" , response = "AddRes", protocol = "post" , operationid  = "Mul"} ]
+                { url = "/mul" , request = "AddReq" , response = "AddRes", protocol = "post" , operationid  = "Mul"} ]
 
 
 
 [Models]
-Model = [{ name = "AddReq", Variable = [{ name = "a", value = "1" , type = "int"  } , { name = "b", value = "2" , type = "int" }] },
-        { name = "AddRes", Variable = [{ name = "result", value = "1" , type = "int" } ] }]
+Model = [{ name = "AddReq" , Variable = [{ name = "a", value = "1" , type = "int"  } , { name = "b", value = "2" , type = "int" }] },
+        { name = "AddRes" , Variable = [{ name = "result", value = "1" , type = "int" } ] }]

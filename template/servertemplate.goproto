@@ -1,36 +1,43 @@
-package main
+package grpc
 
 import (
 	"context"
-	"microservice/proto"
+	"log"
 	"net"
+	"os"
+	"os/signal"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
+
+	"gogenetic/pkg/api/v1"
 )
-
-type server struct{}
-
-func main() {
-	listener, err := net.Listen("tcp", ":4040")
+{{$apiname := .API.Name}}
+// RunServer runs gRPC service to publish ToDo service
+func RunServer(ctx context.Context, v1API v1.{{$apiname}}Server, port string) error {
+	listen, err := net.Listen("tcp", ":"+port)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	srv := grpc.NewServer()
-	proto.RegisterAddServiceServer(srv, &server{})
-	reflection.Register(srv)
+	// register service
+	server := grpc.NewServer()
+	v1.Register{{$apiname}}Server(server, v1API)
 
-	if e := srv.Serve(listener); e != nil {
-		panic(e)
-	}
+	// graceful shutdown
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		for range c {
+			// sig is a ^C, handle it
+			log.Println("shutting down gRPC server...")
 
+			server.GracefulStop()
+
+			<-ctx.Done()
+		}
+	}()
+
+	// start gRPC server
+	log.Println("starting gRPC server...")
+	return server.Serve(listen)
 }
-
-{{range  $i, $e := .API.Operations}}
-func (s *server) {{$e.Operationid}}(ctx context.Context, request *proto.Request) (*proto.Response, error) {
-	
-
-	return &proto.Response{Result: result}, nil
-}
-{{end}}

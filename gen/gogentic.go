@@ -11,6 +11,7 @@ import (
 	"github.com/BurntSushi/toml"
 
 	"flag"
+	"strings"
 )
 
 var fns = template.FuncMap{
@@ -24,6 +25,8 @@ var fns = template.FuncMap{
 			return "integer"
 		}
 		return ""
+	}, "lowercase": func(x string) string {
+		return strings.ToLower(x)
 	},
 }
 

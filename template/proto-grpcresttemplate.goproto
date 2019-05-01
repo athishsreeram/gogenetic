@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto;
+package  v1;
 
 import "google/api/annotations.proto";
 
@@ -9,7 +9,7 @@ import "google/api/annotations.proto";
 {{range .Models.Model}}
 message {{.Name}} {
         {{range .Variable}}
-            {{.Type}} {{.Name}} = {{.Value}};
+            {{(convertproto .Type)}} {{.Name}} = {{.Value}};
         {{end}}    
 }
 {{end}}
@@ -18,7 +18,7 @@ message {{.Name}} {
 
 service {{.API.Name}} {
 {{range .API.Operations}} 
-    rpc create({{.Request}}) returns ({{.Response}}){
+    rpc {{.Operationid}}({{.Request}}) returns ({{.Response}}){
         option (google.api.http) = {
             {{.Protocol}}: "{{.URL}}"
             body: "*"

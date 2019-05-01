@@ -9,7 +9,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	"gogenetic/pkg/api/v1"
+	"output/pkg/api/v1"
 )
 {{$apiname := .API.Name}}
 // RunServer runs gRPC service to publish ToDo service

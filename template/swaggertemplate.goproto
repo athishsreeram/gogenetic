@@ -60,7 +60,7 @@
       "properties": {
         {{range .Variable}}  
         "{{.Name}}": {
-          "type": "{{ (convert .Type)}}",
+          "type": "{{ (convertswagger .Type)}}",
         },
         {{end}}
       }

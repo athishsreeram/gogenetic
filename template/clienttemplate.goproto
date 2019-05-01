@@ -9,7 +9,7 @@ import (
 	"github.com/golang/protobuf/ptypes"
 	"google.golang.org/grpc"
 
-	"gogenetic/pkg/api/v1"
+	"output/pkg/api/v1"
 )
 
 {{$apiname := .API.Name}} {{$model := .Models.Model}}

@@ -9,8 +9,8 @@ import (
 	// mysql driver
 	_ "github.com/go-sql-driver/mysql"
 
-	"gogenetic/pkg/protocol/grpc"
-	"gogenetic/pkg/service/v1"
+	"output/pkg/protocol/grpc"
+	"output/pkg/service/v1"
 )
 {{$apiname := .API.Name}}
 // Config is configuration for Server

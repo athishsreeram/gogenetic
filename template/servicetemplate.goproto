@@ -2,15 +2,7 @@ package v1
 
 import (
 	"context"
-	"database/sql"
-	"fmt"
-	"time"
-
-	"github.com/golang/protobuf/ptypes"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-
-	"output/pkg/api/v1"
+	"output/proto"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
 const (
@@ -18,50 +10,32 @@ const (
 	apiVersion = "v1"
 )
 
-// {{(lowercase $apiname)}}Server is implementation of v1.{{$apiname}}Server proto interface
+
+
+// {{(lowercase $apiname)}}Server is implementation of proto.{{$apiname}}Server proto interface
 type {{(lowercase $apiname)}}Server struct {
-	db *sql.DB
+
 }
 
 // New{{$apiname}}Server creates ToDo service
-func New{{$apiname}}Server(db *sql.DB) v1.{{$apiname}}Server {
-	return &{{(lowercase $apiname)}}erver{db: db}
+func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
+	return &{{(lowercase $apiname)}}Server{}
 }
 
-// connect returns SQL database connection from the pool
-func (s *{{(lowercase $apiname)}}Server) connect(ctx context.Context) (*sql.Conn, error) {
-	c, err := s.db.Conn(ctx)
-	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
-	}
-	return c, nil
-}
 
 {{range  $i, $e := .API.Operations}}
 
 // Create new todo task
-func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *v1.{{$e.Request}}) (*v1.{{$e.Response}}, error) {
-	// get SQL connection from pool
-	c, err := s.connect(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer c.Close()
-
-	reminder, err := ptypes.Timestamp(req.ToDo.Reminder)
-	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, "reminder field has invalid format-> "+err.Error())
-	}
+func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
+	
 
 	// TO-DO
 
-	return &v1.{{$e.Response}}{ {{range $k := $model}} {{if eq $e.Response .Name}} {{range .Variable}}  
- 					{{.Name}}: {{.Name}},
+	return &proto.{{$e.Response}}{ {{range $k := $model}} {{if eq $e.Response .Name}} {{range .Variable}}  
+ 					{{ (titlecase .Name)}}: {{.Value}},
 				{{end}}{{end}}{{end}}
 	}, nil
 }
 
 
 {{end}}
-
-}

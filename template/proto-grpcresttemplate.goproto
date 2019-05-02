@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-package  v1;
+package proto;
 
 import "google/api/annotations.proto";
-
 
     
 {{range .Models.Model}}
@@ -16,7 +15,7 @@ message {{.Name}} {
 
  
 
-service {{.API.Name}} {
+service {{.API.Name}}Service {
 {{range .API.Operations}} 
     rpc {{.Operationid}}({{.Request}}) returns ({{.Response}}){
         option (google.api.http) = {

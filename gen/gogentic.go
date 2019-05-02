@@ -32,6 +32,8 @@ var fns = template.FuncMap{
 		return ""
 	}, "lowercase": func(x string) string {
 		return strings.ToLower(x)
+	}, "titlecase": func(x string) string {
+		return strings.Title(x)
 	},
 }
 
@@ -70,19 +72,19 @@ func check(e error) {
 
 func fileloc(templateFile string) string {
 	if strings.Contains(templateFile, "proto-") {
-		return "pkg/api/proto/v1/"
+		return "proto/"
 	}
 	if strings.Contains(templateFile, "cmd") {
-		return "pkg/cmd/"
+		return "cmd/"
 	}
 	if strings.Contains(templateFile, "grpcserver") {
-		return "pkg/protocol/grpc/"
+		return "server/"
 	}
 	if strings.Contains(templateFile, "service") {
-		return "pkg/service/v1/"
+		return "service/v1/"
 	}
 	if strings.Contains(templateFile, "client") {
-		return "pkg/cmd/"
+		return "client/v1/"
 	}
 
 	return ""

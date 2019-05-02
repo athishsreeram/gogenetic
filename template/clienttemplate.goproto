@@ -6,16 +6,15 @@ import (
 	"log"
 	"time"
 
-	"github.com/golang/protobuf/ptypes"
 	"google.golang.org/grpc"
 
-	"output/pkg/api/v1"
+	v1 "output/proto"
 )
 
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
 func main() {
 	// get configuration
-	address := flag.String("server", "", "gRPC server in format host:port")
+	address := flag.String("server", "localhost:4040", "gRPC server in format host:port")
 	flag.Parse()
 
 	// Set up a connection to the server.
@@ -25,26 +24,23 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := v1.New{{$apiname}}Client(conn)
+	c := v1.New{{$apiname}}ServiceClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	t := time.Now().In(time.UTC)
-	reminder, _ := ptypes.TimestampProto(t)
-	pfx := t.Format(time.RFC3339Nano)
-
+	
 	{{range  $i, $e := .API.Operations}}
 	// Call Create
-	req1 := v1.{{$e.Request}}{
+	req{{$i}} := v1.{{$e.Request}}{
 		{{range $k := $model}} {{if eq $e.Request .Name}} {{range .Variable}}  
- 					{{.Name}}: {{.Name}}, {{end}}{{end}}{{end}}
+ 					{{titlecase .Name}}: {{.Value}}, {{end}}{{end}}{{end}}
 	}
-	res1, err := c.{{$e.Operationid}}(ctx, &req1)
+	res{{$i}}, err := c.{{$e.Operationid}}(ctx, &req{{$i}})
 	if err != nil {
 		log.Fatalf("Create failed: %v", err)
 	}
-	log.Printf("Create result: <%+v>\n\n", res1)
+	log.Printf("Create result: <%+v>\n\n", res{{$i}})
 	{{end}}
 		
 }

@@ -31,4 +31,5 @@ func RunServer() error {
 	v1API := v1.NewTestServiceServer()
 
 	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
+	
 }

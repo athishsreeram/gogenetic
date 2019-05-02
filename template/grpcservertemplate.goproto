@@ -1,16 +1,20 @@
 package main
 
 import (
-	"output/proto"
-	v1 "output/service/v1"
+	"context"
 	"net"
+	"net/http"
+	"output/proto"
+	gw "output/proto"
+	v1 "output/service/v1"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 func main() {
-	listener, err := net.Listen("tcp", ":4040")
+	listener, err := net.Listen("tcp", ":4045")
 	if err != nil {
 		panic(err)
 	}
@@ -24,5 +28,7 @@ func main() {
 	if e := srv.Serve(listener); e != nil {
 		panic(e)
 	}
+
+
 
 }

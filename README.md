@@ -2,7 +2,7 @@
 
 Bussiness Steps
 1. Create a TOML 
-2. Run gogenerate CLI
+2. Run gogenerate sh file
 
 
 gogenerate steps
@@ -11,8 +11,6 @@ gogenerate steps
 3. Parse & Load value dynamically
 3. Generate a Go file with Go Template
 
-Note:
-Need to figure out a way to create the structs dynamically from 
 
 Project Structure
 
@@ -22,12 +20,14 @@ Project Structure
 
     +toml
 
-gogenetic available for:
+gogenetic available for please refer toml folder:
 
-1. grpcresttemplate.toml
-2. resttemplate.toml
-3. severtemplate.toml
-4. swaggertemplate.toml
+    grpc
+    grpcrest
+    swagger
+    client
+    server
+    service
 
 
 Build
@@ -36,41 +36,8 @@ go build gogenetic.go
 
 
 How to run:
-cd gogenetic/gen
 
-1.Go run
+./gogenetic-run.sh
 
-Runs with default value
-    
-    go run gogentic.go 
-    
-                (or)
+Code Generated Output:
 
-    go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
-
-                (or)
-
-    go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggertemplate.goproto
-
-                (or)
-
-    go run gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servertemplate.goproto
-
-or 
-
-2. CLI
-    Runs with default value
-     
-        gogenetic 
-     
-        (or) 
-    
-        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcresttemplate.goproto
-
-        (or)
-
-        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/swaggerdtemplate.goproto
-
-        (or)
-
-        gogentic-tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servertemplate.goproto

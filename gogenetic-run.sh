@@ -6,7 +6,7 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.tom
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/cmdservertemplate.goproto 
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/clienttemplate.goproto
 
-cd /Users/anharay/go/src/output
+cd /Users/anharay/go/src/Test-output
 
 ls
 

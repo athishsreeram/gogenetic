@@ -1,19 +1,19 @@
-package main
+package grpc
 
 import (
 	"context"
 	"net"
 	"net/http"
-	"output/proto"
-	gw "output/proto"
-	v1 "output/service/v1"
+	"{{.API.Name}}-output/proto"
+	gw "{{.API.Name}}-output/proto"
+	v1 "{{.API.Name}}-output/service/v1"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
-func main() {
+func main {
 	listener, err := net.Listen("tcp", ":4045")
 	if err != nil {
 		panic(err)
@@ -28,7 +28,5 @@ func main() {
 	if e := srv.Serve(listener); e != nil {
 		panic(e)
 	}
-
-
 
 }

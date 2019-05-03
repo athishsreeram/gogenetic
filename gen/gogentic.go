@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -78,10 +77,10 @@ func fileloc(templateFile string) string {
 		return "cmd/"
 	}
 	if strings.Contains(templateFile, "grpcserver") {
-		return "server/"
+		return "server/grpc/"
 	}
 	if strings.Contains(templateFile, "grpcrestserver") {
-		return "server/"
+		return "server/rest/"
 	}
 	if strings.Contains(templateFile, "service") {
 		return "service/v1/"
@@ -139,7 +138,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(dir)
+	log.Println(dir)
 
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
@@ -176,10 +175,10 @@ func main() {
 		log.Fatal("Parse: ", err)
 		return
 	}
-	log.Println("Output:" + dir + "/output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
-	CreateDirIfNotExist(dir + "/output/" + fileloc(*templateFile))
+	log.Println("Output:" + dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	CreateDirIfNotExist(dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile))
 
-	f, err := os.Create(dir + "/output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	f, err := os.Create(dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
 	if err != nil {
 		log.Println("create file: ", err)
 		return

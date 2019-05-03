@@ -1,4 +1,4 @@
-package main
+package rest
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
-	gw "output/proto"
+	gw "{{.API.Name}}-output/proto"
 )
 
 func run() error {

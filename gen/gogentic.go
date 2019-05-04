@@ -74,7 +74,7 @@ func fileloc(templateFile string) string {
 		return "proto/"
 	}
 	if strings.Contains(templateFile, "cmd") {
-		return "cmd/"
+		return "cmd/main/"
 	}
 	if strings.Contains(templateFile, "grpcserver") {
 		return "server/grpc/"

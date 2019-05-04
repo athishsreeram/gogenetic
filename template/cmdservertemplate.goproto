@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"context"
@@ -19,25 +19,25 @@ type Config struct {
 }
 
 // RunServer runs gRPC server and HTTP gateway
-func main() error {
+func main() {
 	ctx := context.Background()
 
 	// get configuration
 	var cfg Config
 	flag.StringVar(&cfg.GRPCPort, "grpc-port", "4040", "gRPC port to bind")
-	flag.StringVar(&cfg.GRPCPort, "http-port", "8080", "gRPC port to bind")
+	flag.StringVar(&cfg.HTTPPort, "http-port", "8080", "HTTP port to bind")
 
 	flag.Parse()
 
 	if len(cfg.GRPCPort) == 0 {
-		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+		 fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
 	}
 
 	if len(cfg.HTTPPort) == 0 {
-		return fmt.Errorf("invalid HTTP port for HTTP server: '%s'", cfg.HTTPPort)
+		 fmt.Errorf("invalid HTTP port for HTTP server: '%s'", cfg.HTTPPort)
 	}
 
-	grpc.RunServer(ctx, v1API, cfg.GRPCPort)
+	grpc.RunServer(ctx, cfg.GRPCPort)
 	rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
 
 }

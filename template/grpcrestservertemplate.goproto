@@ -2,36 +2,24 @@ package rest
 
 import (
 	"context"
-	"flag"
 	"net/http"
 
-	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 
 	gw "{{.API.Name}}-output/proto"
 )
 
-func run() error {
-	ctx := context.Background()
+func RunServer(ctx context.Context, grpcport string, httpport string) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := gw.Register{{.API.Name}}ServiceHandlerFromEndpoint(ctx, mux, "localhost:4050", opts)
+	err := gw.Register{{.API.Name}}ServiceHandlerFromEndpoint(ctx, mux, "localhost:"+grpcport, opts)
 	if err != nil {
 		return err
 	}
 
-	return http.ListenAndServe(":2020", mux)
-}
-
-func main() {
-	flag.Parse()
-	defer glog.Flush()
-
-	if err := run(); err != nil {
-		glog.Fatal(err)
-	}
+	return http.ListenAndServe(":"+httpport, mux)
 }

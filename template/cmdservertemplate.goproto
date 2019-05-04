@@ -37,7 +37,10 @@ func main() {
 		 fmt.Errorf("invalid HTTP port for HTTP server: '%s'", cfg.HTTPPort)
 	}
 
+	go func() {
+		_ = rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
+	}()
+
 	grpc.RunServer(ctx, cfg.GRPCPort)
-	rest.RunServer(ctx, cfg.GRPCPort, cfg.HTTPPort)
 
 }

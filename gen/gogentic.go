@@ -23,16 +23,30 @@ var fns = template.FuncMap{
 		if x == "int" {
 			return "integer"
 		}
+		if x == "string" {
+			return "string"
+		}
 		return ""
 	}, "convertproto": func(x string) string {
 		if x == "int" {
 			return "int64"
+		}
+		if x == "string" {
+			return "string"
+		}
+		if x == "repeated" {
+			return "repeated"
+		}
+		if x == "object" {
+			return "object"
 		}
 		return ""
 	}, "lowercase": func(x string) string {
 		return strings.ToLower(x)
 	}, "titlecase": func(x string) string {
 		return strings.Title(x)
+	}, "uppercase": func(x string) string {
+		return strings.ToUpper(x)
 	},
 }
 

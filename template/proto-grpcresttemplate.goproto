@@ -7,11 +7,15 @@ import "google/api/annotations.proto";
     
 {{range .Models.Model}}
 message {{.Name}} {
-        {{range .Variable}}
-            {{(convertproto .Type)}} {{.Name}} = {{.Value}};
+        {{range $i, $e :=.Variable}}
+{{ if eq (convertproto .Type) "repeated" }}{{(convertproto .Type)}} {{titlecase .Name}}{{end}}{{ if ne (convertproto .Type) "" }} {{ if and (ne (convertproto .Type) "object")  (ne (convertproto .Type) "repeated") }} {{.Type}} {{end}} {{end}} {{ if eq (convertproto .Type) "object" }} {{titlecase .Name}}{{end}} {{.Name}} = {{(plus1 $i)}};
         {{end}}    
 }
+
+
+
 {{end}}
+
 
  
 
@@ -19,8 +23,8 @@ service {{.API.Name}}Service {
 {{range .API.Operations}} 
     rpc {{.Operationid}}({{.Request}}) returns ({{.Response}}){
         option (google.api.http) = {
-            {{.Protocol}}: "{{.URL}}"
-            body: "*"
+            {{(uppercase .Protocol)}}: "{{.URL}}"
+        {{ if eq (.Protocol) "POST" }}   body: "*" {{end}} {{ if eq (.Protocol) "PUT" }}  body: "*" {{end}}
         };
     }
 {{end}}

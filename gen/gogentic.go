@@ -47,12 +47,9 @@ var fns = template.FuncMap{
 		return strings.Title(x)
 	}, "uppercase": func(x string) string {
 		return strings.ToUpper(x)
-	}, "removelastchar": func(x string) string {
+	}, "removeplural": func(x string) string {
 		a := []rune(x)
-		log.Println("xxxx")
-		log.Println(len(a))
 		return string(a[0 : len(a)-1])
-
 	},
 }
 

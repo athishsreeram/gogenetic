@@ -17,25 +17,20 @@ type {{(lowercase $apiname)}}Server struct {
 
 }
 
-// New{{$apiname}}Server creates ToDo service
+// New{{$apiname}}ServiceServer creates ToDo service
 func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 	return &{{(lowercase $apiname)}}Server{}
 }
 
 
 {{range  $i, $e := .API.Operations}}
-
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
-	
-
 	// TO-DO
-
+	{{range $k := $model}} {{if eq $e.Response .Name}}{{range .Variable}}{{if eq .Type "object"}}var {{.Name}} proto.{{titlecase .Name}}{{end}}{{if eq .Type "repeated"}}{{.Value}} := []*proto.{{removeplural (titlecase .Name)}}{}{{end}}{{end}}{{end}}{{end}}
 	return &proto.{{$e.Response}}{ {{range $k := $model}} {{if eq $e.Response .Name}} {{range .Variable}}  
- 					{{ (titlecase .Name)}}: {{.Value}},
+ 					{{ (titlecase .Name)}}: {{if eq .Type "object"}}&{{end}}{{.Value}},
 				{{end}}{{end}}{{end}}
 	}, nil
 }
-
-
 {{end}}

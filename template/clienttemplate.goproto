@@ -13,7 +13,7 @@ import (
 
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
 func main() {
-	// get configuration
+	// Get configuration
 	address := flag.String("server", "localhost:4040", "gRPC server in format host:port")
 	flag.Parse()
 
@@ -31,16 +31,17 @@ func main() {
 
 	
 	{{range  $i, $e := .API.Operations}}
-	// Call Create
+	// Call {{.Operationid}}
+    {{range $k := $model}} {{if eq $e.Request .Name}}{{range .Variable}}{{if eq .Type "object"}}var {{.Name}}{{$i}} v1.{{titlecase .Name}}{{end}}{{if eq .Type "repeated"}}{{.Value}} := []*proto.{{removeplural (titlecase .Name)}}{}{{end}}{{end}}{{end}}{{end}}
 	req{{$i}} := v1.{{$e.Request}}{
 		{{range $k := $model}} {{if eq $e.Request .Name}} {{range .Variable}}  
- 					{{titlecase .Name}}: {{.Value}}, {{end}}{{end}}{{end}}
+ 					{{titlecase .Name}}:  {{if eq .Type "object"}}&{{end}}{{.Value}}{{if eq .Type "object"}}{{$i}}{{end}}, {{end}}{{end}}{{end}}
 	}
 	res{{$i}}, err := c.{{$e.Operationid}}(ctx, &req{{$i}})
 	if err != nil {
-		log.Fatalf("Create failed: %v", err)
+		log.Fatalf("Call {{.Operationid}} failed: %v", err)
 	}
-	log.Printf("Create result: <%+v>\n\n", res{{$i}})
+	log.Printf("Call {{.Operationid}} result: <%+v>\n\n", res{{$i}})
 	{{end}}
 		
 }

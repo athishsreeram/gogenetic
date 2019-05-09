@@ -1,0 +1,27 @@
+package domain
+
+import (
+	proto "{{.API.Name}}-output/proto"
+	mapstructure "github.com/mitchellh/mapstructure"
+
+){{$DomainModel := .DomainModels.DomainModel}}
+{{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
+type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k1 $k2}}
+	{{$g1.Name}}  {{$g1.Type}} `mapstructure:"{{$g2.To}}"` {{end}}{{end}}{{end}}
+}
+{{end}}
+func convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} proto.{{titlecase $e.To}}) {
+	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
+	if err{{$i}} != nil {
+		panic(err{{$i}})
+	}
+	return {{lowercase $e.To}}
+}{{end}}{{end}}
+{{if eq  $e.Type "dto2domain"}}
+func convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} proto.{{titlecase $e.From}}) ({{lowercase $e.To}} {{titlecase $e.To}}) {
+	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
+	if err{{$i}} != nil {
+		panic(err{{$i}})
+	}
+	return {{lowercase $e.To}}
+}{{end}}{{end}}

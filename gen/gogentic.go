@@ -125,11 +125,17 @@ func fileloc(templateFile string) string {
 	if strings.Contains(templateFile, "service") {
 		return "service/v1/"
 	}
-	if strings.Contains(templateFile, "client") {
+	if strings.Contains(templateFile, "grpcclient") {
 		return "client/v1/"
 	}
 	if strings.Contains(templateFile, "domain") {
 		return "domain/"
+	}
+	if strings.Contains(templateFile, "natspubclient") {
+		return "client/nats/pub/"
+	}
+	if strings.Contains(templateFile, "natssubclient") {
+		return "client/nats/sub/"
 	}
 
 	return ""
@@ -153,14 +159,23 @@ func fileName(templateFile string, apiName string) string {
 	if strings.Contains(templateFile, "swagger") {
 		return apiName + "-swagger.yml"
 	}
-	if strings.Contains(templateFile, "service") {
+	if strings.Contains(templateFile, "servicebasic") {
 		return apiName + "-service.go"
 	}
-	if strings.Contains(templateFile, "client") {
+	if strings.Contains(templateFile, "servicenats") {
+		return apiName + "-nat-service.go"
+	}
+	if strings.Contains(templateFile, "grpcclient") {
 		return apiName + "-client.go"
 	}
 	if strings.Contains(templateFile, "domain") {
 		return apiName + "-domain.go"
+	}
+	if strings.Contains(templateFile, "natspubclient") {
+		return "pub-client.go"
+	}
+	if strings.Contains(templateFile, "natssubclient") {
+		return apiName + "-sub-client.go"
 	}
 
 	return ""

@@ -3,17 +3,14 @@ package pub
 import (
 	"log"
 
-	"flag"
-
 	"github.com/nats-io/go-nats"
 )
 
 var nc *nats.Conn
 
 func Send(subj string, msg string) {
-	var urls = flag.String("s", nats.DefaultURL, "The nats server URLs (separated by comma)")
 	var err error
-	nc, err = nats.Connect(*urls)
+	nc, err = nats.Connect(nats.DefaultURL)
 	if err != nil {
 		log.Println(err)
 	}
@@ -27,8 +24,4 @@ func Send(subj string, msg string) {
 	} else {
 		log.Printf("Published [%s] : '%s'\n", subj, msg)
 	}
-}
-
-func Test() (out string) {
-	return "nil"
 }

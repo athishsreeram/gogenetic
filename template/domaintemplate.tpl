@@ -5,12 +5,67 @@ import (
 	mapstructure "github.com/mitchellh/mapstructure"
 
 ){{$DomainModel := .DomainModels.DomainModel}}
+var conn = "root:@/localhost:3306/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
 {{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k1 $k2}}
 	{{$g1.Name}}  {{$g1.Type}} `mapstructure:"{{$g2.To}}"` {{end}}{{end}}{{end}}
 }
+
+func All{{$e.From}}() []{{$e.From}} {
+	db, err := gorm.Open("sqlite3", "test.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	var {{titlecase $e.From}} []{{$e.From}}
+	db.Find(&{{titlecase $e.From}})
+	log.Println("{}", {{titlecase $e.From}})
+
+	return {{titlecase $e.From}}
+
+}
+
+func Create{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
+
+	db, err := gorm.Open("sqlite3", "test.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	db.Create(&{{titlecase $e.From}})
+	log.Println("Successfully Created {}", {{titlecase $e.From}})
+
+}
+
+func Delete{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
+	db, err := gorm.Open("sqlite3", "test.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	//db.Where("name = ?", name).Find(&domain)
+	db.Delete(&{{titlecase $e.From}})
+
+	log.Println("Successfully Deleted {}", {{titlecase $e.From}})
+}
+
+func Update{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
+	db, err := gorm.Open("sqlite3", "test.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	//db.Where("name = ?", name).Find(&domain)
+
+	db.Save(&{{titlecase $e.From}})
+	log.Println("Successfully Updated {}", {{titlecase $e.From}})
+}
 {{end}}
-func convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} proto.{{titlecase $e.To}}) {
+func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} proto.{{titlecase $e.To}}) {
 	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
 	if err{{$i}} != nil {
 		panic(err{{$i}})
@@ -18,7 +73,7 @@ func convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} inte
 	return {{lowercase $e.To}}
 }{{end}}{{end}}
 {{if eq  $e.Type "dto2domain"}}
-func convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} proto.{{titlecase $e.From}}) ({{lowercase $e.To}} {{titlecase $e.To}}) {
+func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} proto.{{titlecase $e.From}}) ({{lowercase $e.To}} {{titlecase $e.To}}) {
 	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
 	if err{{$i}} != nil {
 		panic(err{{$i}})

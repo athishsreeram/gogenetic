@@ -10,7 +10,7 @@ const (
 	apiVersion = "v1"
 )
 
-
+var key string = "=@="
 
 // {{(lowercase $apiname)}}Server is implementation of proto.{{$apiname}}Server proto interface
 type {{(lowercase $apiname)}}Server struct {
@@ -34,7 +34,8 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 	}
 
 	var msgStr strings.Builder
-	msgStr.WriteString("{{$e.Operationid}}=@=")
+	msgStr.WriteString("{{$e.Operationid}}")
+	msgStr.WriteString(key)
 	msgStr.Write(msg)
 	
 	pub.Send("{{$apiname}}", msgStr.String())

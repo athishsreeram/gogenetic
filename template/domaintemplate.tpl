@@ -10,62 +10,78 @@ var conn = "root:@/localhost:3306/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&l
 type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k1 $k2}}
 	{{$g1.Name}}  {{$g1.Type}} `mapstructure:"{{$g2.To}}"` {{end}}{{end}}{{end}}
 }
-
-func All{{$e.From}}() []{{$e.From}} {
-	db, err := gorm.Open("sqlite3", "test.db")
+func ReadAll{{$e.From}}() []{{$e.From}} {
+	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		panic("failed to connect database")
+		log.Println("failed to connect database")
 	}
 	defer db.Close()
 
-	var {{titlecase $e.From}} []{{$e.From}}
-	db.Find(&{{titlecase $e.From}})
-	log.Println("{}", {{titlecase $e.From}})
+	var {{firstsmall $e.From}} []{{$e.From}}
+	db.Find(&{{firstsmall $e.From}})
+	log.Println("{}", {{firstsmall $e.From}})
 
-	return {{titlecase $e.From}}
+	return {{firstsmall $e.From}}
 
 }
 
-func Create{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
-
-	db, err := gorm.Open("sqlite3", "test.db")
+func Read{{$e.From}}(Sno int) {{$e.From}} {
+	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		panic("failed to connect database")
+		log.Println("failed to connect database")
 	}
 	defer db.Close()
+	var {{firstsmall $e.From}} {{$e.From}}
 
-	db.Create(&{{titlecase $e.From}})
-	log.Println("Successfully Created {}", {{titlecase $e.From}})
+	db.Where("Sno = ?", Sno).Find(&{{firstsmall $e.From}})
+	log.Println("{}", {{firstsmall $e.From}})
+
+	return {{firstsmall $e.From}}
 
 }
 
-func Delete{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
-	db, err := gorm.Open("sqlite3", "test.db")
+func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}) {
+
+	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		panic("failed to connect database")
+		log.Println("failed to connect database")
 	}
 	defer db.Close()
 
-	//db.Where("name = ?", name).Find(&domain)
-	db.Delete(&{{titlecase $e.From}})
+	db.Create(&{{firstsmall $e.From}})
+	log.Println("Successfully Created {}", &{{firstsmall $e.From}})
 
-	log.Println("Successfully Deleted {}", {{titlecase $e.From}})
 }
 
-func Update{{$e.From}}({{titlecase $e.From}} {{$e.From}}) {
-	db, err := gorm.Open("sqlite3", "test.db")
+func Delete{{$e.From}}(Sno int) {
+	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		panic("failed to connect database")
+		log.Println("failed to connect database")
 	}
 	defer db.Close()
 
-	//db.Where("name = ?", name).Find(&domain)
+	var {{firstsmall $e.From}} {{$e.From}}
 
-	db.Save(&{{titlecase $e.From}})
-	log.Println("Successfully Updated {}", {{titlecase $e.From}})
+	db.Where("Sno = ?", Sno).Find(&{{firstsmall $e.From}})
+	db.Delete(&{{firstsmall $e.From}})
+
+	log.Println("Successfully Deleted {}", {{firstsmall $e.From}})
+}
+
+func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}) {{$e.From}} {
+	db, err := gorm.Open("mysql", conn)
+	if err != nil {
+		log.Println("failed to connect database")
+	}
+	defer db.Close()
+
+	db.Where("Sno = ?", Sno).Find(&{{firstsmall $e.From}})
+	log.Println("{}", {{firstsmall $e.From}})
+
+	return {{firstsmall $e.From}}
 }
 {{end}}
-func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} proto.{{titlecase $e.To}}) {
+func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} *proto.{{titlecase $e.To}}) {
 	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
 	if err{{$i}} != nil {
 		panic(err{{$i}})
@@ -73,7 +89,7 @@ func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} inte
 	return {{lowercase $e.To}}
 }{{end}}{{end}}
 {{if eq  $e.Type "dto2domain"}}
-func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} proto.{{titlecase $e.From}}) ({{lowercase $e.To}} {{titlecase $e.To}}) {
+func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} *proto.{{titlecase $e.From}}) ({{lowercase $e.To}} {{titlecase $e.To}}) {
 	err{{$i}} := mapstructure.Decode({{lowercase $e.From}}, &{{lowercase $e.To}})
 	if err{{$i}} != nil {
 		panic(err{{$i}})

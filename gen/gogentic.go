@@ -50,6 +50,14 @@ var fns = template.FuncMap{
 	}, "removeplural": func(x string) string {
 		a := []rune(x)
 		return string(a[0 : len(a)-1])
+	}, "firstsmall": func(x string) string {
+		a := []rune(x)
+
+		var msgStr strings.Builder
+		msgStr.WriteString(strings.ToLower(string(a[0:1])))
+		msgStr.WriteString(string(a[1:len(a)]))
+
+		return msgStr.String()
 	},
 }
 

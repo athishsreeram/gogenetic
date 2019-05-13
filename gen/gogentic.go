@@ -130,6 +130,9 @@ func fileloc(templateFile string) string {
 	if strings.Contains(templateFile, "grpcrestserver") {
 		return "server/rest/"
 	}
+	if strings.Contains(templateFile, "servicetodomain") {
+		return "servicetodomain/"
+	}
 	if strings.Contains(templateFile, "service") {
 		return "service/v1/"
 	}
@@ -166,6 +169,9 @@ func fileName(templateFile string, apiName string) string {
 	}
 	if strings.Contains(templateFile, "swagger") {
 		return apiName + "-swagger.yml"
+	}
+	if strings.Contains(templateFile, "servicetodomain") {
+		return apiName + "-ServiceToDomain.go"
 	}
 	if strings.Contains(templateFile, "servicebasic") {
 		return apiName + "-service.go"

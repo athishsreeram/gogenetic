@@ -3,7 +3,8 @@ package domain
 import (
 	proto "{{.API.Name}}-output/proto"
 	mapstructure "github.com/mitchellh/mapstructure"
-
+	"log"
+	"github.com/jinzhu/gorm"
 ){{$DomainModel := .DomainModels.DomainModel}}
 var conn = "root:@/localhost:3306/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
 {{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 

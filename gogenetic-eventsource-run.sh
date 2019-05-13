@@ -7,6 +7,8 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-cru
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/domaintemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/natssubclienttemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/natspubclienttemplate.tpl
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicetodomaintemplate.tpl
+
 
 cd /Users/anharay/go/src/Test-output
 

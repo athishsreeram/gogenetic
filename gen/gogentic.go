@@ -186,7 +186,7 @@ func fileName(templateFile string, apiName string) string {
 		return apiName + "-domain.go"
 	}
 	if strings.Contains(templateFile, "natspubclient") {
-		return "pub-client.go"
+		return apiName + "-pub-client.go"
 	}
 	if strings.Contains(templateFile, "natssubclient") {
 		return apiName + "-sub-client.go"

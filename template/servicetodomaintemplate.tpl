@@ -25,7 +25,7 @@ func {{$apiname}}ServiceProcesing(data string) {
 }
 
 {{range  $i, $e := .API.Operations}}
-	func {{$e.Operationid}}Processing(key string, msg string) {{if or (eq $e.Operationid "Create") (eq $e.Operationid "Update") (eq $e.Operationid "Read") }} *proto.ToDo {{end}} {{if  (eq $e.Operationid "Delete")  }} bool {{end}} {{if  (eq $e.Operationid "ReadAll")  }} []domain.ToDoDomain {{end}} {
+	func {{$e.Operationid}}Processing(key string, msg string) {{if or (eq $e.Operationid "Create") (eq $e.Operationid "Update") (eq $e.Operationid "Read") }} *proto.ToDo {{end}} {{if  (eq $e.Operationid "Delete")  }} bool {{end}} {{if  (eq $e.Operationid "ReadAll")  }}[]*proto.ToDo {{end}} {
 		// TO-DO
 		var dat proto.{{$e.Request}}
 		err := json.Unmarshal([]byte(msg), &dat)
@@ -66,9 +66,10 @@ func {{$apiname}}ServiceProcesing(data string) {
 			return nil
 		{{end}}
 		{{ if (eq $e.Operationid "ReadAll") }}
-				toDos := []proto.ToDo
-			    for i, domain := range domain.ReadAllToDoDomain() {
-						toDos = append(toDos,domain.ConvertToDoDomain2ToDo(domain))
+				var toDos []*proto.ToDo
+				for _, tododomain := range domain.ReadAllToDoDomain() {
+					toDo := domain.ConvertToDoDomain2ToDo(domain.ReadToDoDomain(tododomain.Sno))
+					toDos = append(toDos, toDo)
 				}
 				return toDos
 		{{end}}

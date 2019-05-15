@@ -40,7 +40,7 @@ func {{$apiname}}ServiceProcesing(data string) {
 		{{ if (eq $e.Operationid "Create") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			log.Println("DTO Data", dat.{{titlecase $e.To}})
-			{{firstsmall $e.From}} := domain.ConvertToDo2ToDoDomains(dat.ToDo)
+			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}(dat.{{titlecase $e.To}})
 			log.Println("Domain Data ", {{firstsmall $e.From}})
 			domain.Create{{$e.From}}({{firstsmall $e.From}})
 			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
@@ -48,37 +48,46 @@ func {{$apiname}}ServiceProcesing(data string) {
 			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 		{{ if (eq $e.Operationid "Update") }}
+			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			log.Println("DTO Data", dat.Id)
-			log.Println("DTO Data", dat.ToDo)
-			tododomain := domain.ConvertToDo2ToDoDomains(dat.ToDo)
-			log.Println("Domain Data ", tododomain)
+			log.Println("DTO Data", dat.{{titlecase $e.To}})
+			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}(dat.{{titlecase $e.To}})
+			log.Println("Domain Data ", {{firstsmall $e.From}})
 
-			domain.UpdateToDoDomains(tododomain.Sno, tododomain)
-			toDo := domain.ConvertToDoDomains2ToDo(domain.ReadToDoDomains(tododomain.Sno))
-			return toDo
+			domain.Update{{$e.From}}({{firstsmall $e.From}}.Sno,{{firstsmall $e.From}} )
+			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
+			return {{$e.To}}
+			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 		{{ if (eq $e.Operationid "Delete") }}
+			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			log.Println("DTO Data", dat.Id)
 			n, err := strconv.Atoi(strconv.FormatInt(dat.Id, 10))
 			if err == nil {
-				domain.DeleteToDoDomains(n)
+				domain.Delete{{titlecase $e.From}}(n)
 			}
 			return true
+			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 		{{ if (eq $e.Operationid "Read") }}
+			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			n, err := strconv.Atoi(strconv.FormatInt(dat.Id, 10))
 			if err == nil {
-				return domain.ConvertToDoDomains2ToDo(domain.ReadToDoDomains(n))
+				{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}(n))
+				return {{$e.To}}
 			}
 			return nil
+			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 		{{ if (eq $e.Operationid "ReadAll") }}
-				var toDos []*proto.ToDo
-				for _, tododomain := range domain.ReadAllToDoDomains() {
-					toDo := domain.ConvertToDoDomains2ToDo(domain.ReadToDoDomains(tododomain.Sno))
-					toDos = append(toDos, toDo)
+				{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
+				var {{$e.To}}s []*proto.ToDo
+				for _, {{firstsmall $e.From}} := range domain.ReadAll{{titlecase $e.From}}() {
+					{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
+					{{$e.To}}s = append({{$e.To}}s, {{$e.To}})
 				}
-				return toDos
+				return {{$e.To}}s
+				{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 	}
 {{end}}

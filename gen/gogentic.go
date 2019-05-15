@@ -137,7 +137,7 @@ func fileloc(templateFile string) string {
 		return "service/v1/"
 	}
 	if strings.Contains(templateFile, "grpcclient") {
-		return "client/v1/"
+		return "client/grpc/v1/"
 	}
 	if strings.Contains(templateFile, "domain") {
 		return "domain/"
@@ -147,6 +147,9 @@ func fileloc(templateFile string) string {
 	}
 	if strings.Contains(templateFile, "natssubclient") {
 		return "client/nats/sub/"
+	}
+	if strings.Contains(templateFile, "natsconutilclient") {
+		return "client/nats/con/"
 	}
 
 	return ""
@@ -190,6 +193,9 @@ func fileName(templateFile string, apiName string) string {
 	}
 	if strings.Contains(templateFile, "natssubclient") {
 		return apiName + "-sub-client.go"
+	}
+	if strings.Contains(templateFile, "natsconutilclient") {
+		return apiName + "-nats-util-client.go"
 	}
 
 	return ""

@@ -1,8 +1,13 @@
 package v1
 
 import (
-	"context"
+	"{{.API.Name}}-output/client/nats/pub"
 	"{{.API.Name}}-output/proto"
+	"context"
+
+	natscon "{{.API.Name}}-output/client/nats/con"
+
+	"github.com/nats-io/go-nats"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
 const (
@@ -27,18 +32,16 @@ func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
 	
-	// TO-DO
-	msg, err := json.Marshal(req)
-	if err != nil {
-		log.Println(err)
-	}
+	pub.Send("{{$apiname}}", "{{$e.Operationid}}", req)
 
-	var msgStr strings.Builder
-	msgStr.WriteString("{{$e.Operationid}}")
-	msgStr.WriteString(key)
-	msgStr.Write(msg)
-	
-	pub.Send("{{$apiname}}", msgStr.String())
+	nc, _ := natscon.ConnectNATSSub(nats.DefaultURL, "")
+
+	subj, i := "{{$apiname}}", 0
+
+	nc.Subscribe(subj, func(msg *nats.Msg) {
+		i += 1
+		natscon.PrintMsg(msg, i)
+	})
 
 	{{range $k := $model}} {{if eq $e.Response .Name}}{{range .Variable}}{{if eq .Type "object"}}var {{.Name}} proto.{{titlecase .Name}}{{end}}{{if eq .Type "repeated"}}{{.Value}} := []*proto.{{removeplural (titlecase .Name)}}{}{{end}}{{end}}{{end}}{{end}}
 	return &proto.{{$e.Response}}{ {{range $k := $model}} {{if eq $e.Response .Name}} {{range .Variable}}  

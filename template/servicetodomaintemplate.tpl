@@ -1,24 +1,26 @@
 package servicetodomain
 
 import (
-	"Test-output/domain"
-	"Test-output/proto"
+	"{{.API.Name}}-output/client/nats/pub"
+	"{{.API.Name}}-output/domain"
+	"{{.API.Name}}-output/proto"
 	"encoding/json"
 	"log"
 	"strconv"
 	"strings"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
+var delimiter = "=@="
 func {{$apiname}}ServiceProcesing(data string) {
 
-	s := strings.Split(data, "=@=")
+	s := strings.Split(data, delimiter)
 	key, msg := s[0], s[1]
 	log.Println("%s %s", key, msg)
 
 	{{range  $i, $e := .API.Operations}}
 
-	if strings.Contains(key, "{{$e.Operationid}}") {
-		{{$e.Operationid}}Processing(key, msg)
+	if key == "{{$e.Operationid}}" {
+		pub.Send("{{$apiname}}", "{{$e.Operationid}}d", {{$e.Operationid}}Processing(key, msg))
 	}
 	
 	{{end}}

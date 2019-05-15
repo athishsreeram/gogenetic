@@ -4,7 +4,9 @@ import (
 	"flag"
 	"log"
 	"runtime"
-	"time"
+
+	natscon "{{.API.Name}}-output/client/nats/con"
+	"{{.API.Name}}-output/servicetodomain"
 
 	"github.com/nats-io/go-nats"
 )
@@ -16,10 +18,6 @@ import (
 func usage() {
 	log.Printf("Usage: nats-sub [-s server] [-creds file] [-t] <subject>\n")
 	flag.PrintDefaults()
-}
-
-func printMsg(m *nats.Msg, i int) {
-	log.Printf("[#%d] Received on [%s]: '%s'", i, m.Subject, string(m.Data))
 }
 
 func main() {
@@ -36,26 +34,24 @@ func main() {
 		usage()
 	}
 
-	// Connect Options.
-	opts := []nats.Option{nats.Name("NATS Sample Subscriber")}
-	opts = setupConnOptions(opts)
+	var urlIn, userCredsIn string
 
-	// Use UserCredentials
-	if *userCreds != "" {
-		opts = append(opts, nats.UserCredentials(*userCreds))
+	if urls != nil { // Check for nil!
+		urlIn = *urls
 	}
 
-	// Connect to NATS
-	nc, err := nats.Connect(*urls, opts...)
-	if err != nil {
-		log.Fatal(err)
+	if userCreds != nil {
+		userCredsIn = *userCreds
 	}
+
+	nc, _ := natscon.ConnectNATSSub(urlIn, userCredsIn)
 
 	subj, i := args[0], 0
 
 	nc.Subscribe(subj, func(msg *nats.Msg) {
 		i += 1
-		printMsg(msg, i)
+		natscon.PrintMsg(msg, i)
+		servicetodomain.TestServiceProcesing(string(msg.Data))
 	})
 	nc.Flush()
 
@@ -71,20 +67,3 @@ func main() {
 	runtime.Goexit()
 }
 
-func setupConnOptions(opts []nats.Option) []nats.Option {
-	totalWait := 10 * time.Minute
-	reconnectDelay := time.Second
-
-	opts = append(opts, nats.ReconnectWait(reconnectDelay))
-	opts = append(opts, nats.MaxReconnects(int(totalWait/reconnectDelay)))
-	opts = append(opts, nats.DisconnectHandler(func(nc *nats.Conn) {
-		log.Printf("Disconnected: will attempt reconnects for %.0fm", totalWait.Minutes())
-	}))
-	opts = append(opts, nats.ReconnectHandler(func(nc *nats.Conn) {
-		log.Printf("Reconnected [%s]", nc.ConnectedUrl())
-	}))
-	opts = append(opts, nats.ClosedHandler(func(nc *nats.Conn) {
-		log.Fatal("Exiting, no servers available")
-	}))
-	return opts
-}

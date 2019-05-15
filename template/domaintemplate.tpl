@@ -5,8 +5,9 @@ import (
 	mapstructure "github.com/mitchellh/mapstructure"
 	"log"
 	"github.com/jinzhu/gorm"
+	_ "github.com/go-sql-driver/mysql"
 ){{$DomainModel := .DomainModels.DomainModel}}
-var conn = "root:@/localhost:3306/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
+var conn = "root:@tcp(localhost:3306)/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
 {{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k1 $k2}}
 	{{$g1.Name}}  {{$g1.Type}} `mapstructure:"{{$g2.To}}"` {{end}}{{end}}{{end}}
@@ -14,7 +15,7 @@ type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := 
 func ReadAll{{$e.From}}() []{{$e.From}} {
 	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		log.Println("failed to connect database")
+		log.Println(err)
 	}
 	defer db.Close()
 
@@ -29,7 +30,7 @@ func ReadAll{{$e.From}}() []{{$e.From}} {
 func Read{{$e.From}}(Sno int) {{$e.From}} {
 	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		log.Println("failed to connect database")
+		log.Println(err)
 	}
 	defer db.Close()
 	var {{firstsmall $e.From}} {{$e.From}}
@@ -45,7 +46,7 @@ func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}) {
 
 	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		log.Println("failed to connect database")
+		log.Println(err)
 	}
 	defer db.Close()
 
@@ -57,7 +58,7 @@ func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}) {
 func Delete{{$e.From}}(Sno int) {
 	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		log.Println("failed to connect database")
+		log.Println(err)
 	}
 	defer db.Close()
 
@@ -72,7 +73,7 @@ func Delete{{$e.From}}(Sno int) {
 func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}) {{$e.From}} {
 	db, err := gorm.Open("mysql", conn)
 	if err != nil {
-		log.Println("failed to connect database")
+		log.Println(err)
 	}
 	defer db.Close()
 

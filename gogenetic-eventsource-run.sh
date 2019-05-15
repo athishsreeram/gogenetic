@@ -4,7 +4,7 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-cru
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcrestservertemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/cmdservertemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcclienttemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/domaintemplate.tpl
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/xormdomaintemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/natssubclienttemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/natspubclienttemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicetodomaintemplate.tpl

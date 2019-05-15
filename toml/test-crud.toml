@@ -24,9 +24,9 @@ Model = [{ name = "ToDo" , Variable = [{ name = "id", value = "1" , type = "int"
         { name = "ReadResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] } ]
 
 [DomainModels]
-DomainModel = [{ name = "ToDoDomain" , Variable = [{ name = "Sno", value = "1" , type = "int"  },{ name = "Description", value = "1" , type = "string"  }] }]
+DomainModel = [{ name = "ToDoDomains" , Variable = [{ name = "Sno", value = "1" , type = "int"  },{ name = "Description", value = "1" , type = "string"  }] }]
 
 
 [Mapping]
-Map = [{ name = "convertToDoDomainToDo" , from = "ToDoDomain" , to = "ToDo" , type="domain2dto", VariableMapping = [{ from = "Sno", to = "Id"   },{ from = "Description", to = "Title"  }]},
-     { name = "convertToDoToDoDomain" , from = "ToDo" , to = "ToDoDomain" , type="dto2domain", VariableMapping = [{ from = "Id", to = "Sno" },{ from = "Title", to = "Description" }]} ]
+Map = [{ name = "convertToDoDomainToDo" , from = "ToDoDomains" , to = "ToDo" , type="domain2dto", VariableMapping = [{ from = "Sno", to = "Id"   },{ from = "Description", to = "Title"  }]},
+     { name = "convertToDoToDoDomain" , from = "ToDo" , to = "ToDoDomains" , type="dto2domain", VariableMapping = [{ from = "Id", to = "Sno" },{ from = "Title", to = "Description" }]} ]

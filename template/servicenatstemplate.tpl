@@ -14,7 +14,7 @@ import (
 	"strings"
 	"github.com/nats-io/go-nats"
 )
-{{$apiname := .API.Name}} {{$model := .Models.Model}}
+{{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (
 	// apiVersion is version of API is provided by server
 	apiVersion = "v1"
@@ -27,7 +27,7 @@ type {{(lowercase $apiname)}}Server struct {
 
 }
 
-// New{{$apiname}}ServiceServer creates ToDo service
+// New{{$apiname}}ServiceServer creates {$apiname}} service
 func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 	return &{{(lowercase $apiname)}}Server{}
 }
@@ -51,8 +51,9 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		log.Println("%s %s", key, data)
 		
 			if key == "{{$e.Operationid}}d" {
-{{if or (eq $e.Operationid "Create") (eq $e.Operationid "Read") (eq $e.Operationid "Update") (eq $e.Operationid "Delete") }} var dat *proto.ToDo {{end}}
-{{if (eq $e.Operationid "ReadAll")  }} var dat []*proto.ToDo  {{end}}
+			{{range  $j, $f := $MappingMap}}	{{if eq  $f.Type "domain2dto"}} {{range  $k, $g := $DomainModel}}{{if eq  $f.From $g.Name}} 
+			 var dat {{if ne  $e.Operationid "Delete"}} {{if eq  $e.Operationid "ReadAll"}}[]{{end}}*proto.{{$f.To}} {{end}} {{if eq  $e.Operationid "Delete"}} bool {{end}}
+			{{end}}{{end}}{{end}}{{end}}
 				err := json.Unmarshal([]byte(data), &dat)
 				if err != nil {
 					log.Println(err)

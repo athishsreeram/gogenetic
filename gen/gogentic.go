@@ -40,6 +40,9 @@ var fns = template.FuncMap{
 		if x == "object" {
 			return "object"
 		}
+		if x == "boolean" {
+			return "bool"
+		}
 		return ""
 	}, "lowercase": func(x string) string {
 		return strings.ToLower(x)

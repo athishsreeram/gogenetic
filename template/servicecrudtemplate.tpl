@@ -17,7 +17,7 @@ type {{(lowercase $apiname)}}Server struct {
 
 }
 
-// New{{$apiname}}ServiceServer creates ToDo service
+// New{{$apiname}}ServiceServer creates {{$apiname}} service
 func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 	return &{{(lowercase $apiname)}}Server{}
 }

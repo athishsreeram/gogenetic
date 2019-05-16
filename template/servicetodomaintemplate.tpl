@@ -30,7 +30,7 @@ func {{$apiname}}ServiceProcesing(data string) {
 {{$MappingMap := .Mapping.Map}}
 
 {{range  $i, $e := .API.Operations}}
-	func {{$e.Operationid}}Processing(key string, msg string) {{if or (eq $e.Operationid "Create") (eq $e.Operationid "Update") (eq $e.Operationid "Read") }} *proto.ToDo {{end}} {{if  (eq $e.Operationid "Delete")  }} bool {{end}} {{if  (eq $e.Operationid "ReadAll")  }}[]*proto.ToDo {{end}} {
+	func {{$e.Operationid}}Processing(key string, msg string) {{if or (eq $e.Operationid "Create") (eq $e.Operationid "Update") (eq $e.Operationid "Read") (eq $e.Operationid "ReadAll")  }} {{range  $j, $f := $MappingMap}}	{{if eq  $f.Type "domain2dto"}} {{range  $k, $g := $DomainModel}}{{if eq  $f.From $g.Name}}  {{if eq  $e.Operationid "ReadAll"}}[]{{end}}*proto.{{$f.To}} {{end}}{{end}}{{end}}{{end}} {{end}} {{if  (eq $e.Operationid "Delete")  }} bool {{end}} {
 		// TO-DO
 		var dat proto.{{$e.Request}}
 		err := json.Unmarshal([]byte(msg), &dat)

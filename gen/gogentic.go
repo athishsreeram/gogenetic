@@ -182,6 +182,9 @@ func fileName(templateFile string, apiName string) string {
 	if strings.Contains(templateFile, "servicenats") {
 		return apiName + "-nat-service.go"
 	}
+	if strings.Contains(templateFile, "servicecrud") {
+		return apiName + "-crud-service.go"
+	}
 	if strings.Contains(templateFile, "grpcclient") {
 		return apiName + "-client.go"
 	}

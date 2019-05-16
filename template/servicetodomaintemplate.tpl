@@ -81,7 +81,7 @@ func {{$apiname}}ServiceProcesing(data string) {
 		{{end}}
 		{{ if (eq $e.Operationid "ReadAll") }}
 				{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
-				var {{$e.To}}s []*proto.ToDo
+				var {{$e.To}}s []*proto.{{$e.To}}
 				for _, {{firstsmall $e.From}} := range domain.ReadAll{{titlecase $e.From}}() {
 					{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
 					{{$e.To}}s = append({{$e.To}}s, {{$e.To}})

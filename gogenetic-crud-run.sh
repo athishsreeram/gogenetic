@@ -1,10 +1,10 @@
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/proto-grpcresttemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicebasictemplate.tpl
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicecrudtemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcservertemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcrestservertemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/cmdservertemplate.tpl
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcclienttemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/domaintemplate.tpl
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test-crud.toml -templateFile=/Users/anharay/go/src/gogenetic/template/xormdomaintemplate.tpl
 
 cd /Users/anharay/go/src/Test-output
 

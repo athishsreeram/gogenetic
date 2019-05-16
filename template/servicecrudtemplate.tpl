@@ -1,8 +1,11 @@
 package v1
 
 import (
-	"context"
 	"{{.API.Name}}-output/proto"
+	"{{.API.Name}}-output/domain"
+	"context"
+	"log"
+	"strconv"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (

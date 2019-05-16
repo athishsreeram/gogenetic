@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	natscon "{{.API.Name}}-output/client/nats/con"
+	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
 
 	"github.com/nats-io/go-nats"
 )

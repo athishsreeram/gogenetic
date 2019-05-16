@@ -5,8 +5,8 @@ import (
 	"flag"
 	"fmt"
 
-	grpc "{{.API.Name}}-output/server/grpc"
-	rest "{{.API.Name}}-output/server/rest"
+	grpc "{{.API.Name}}-{{.Architechture.Name}}-output/server/grpc"
+	rest "{{.API.Name}}-{{.Architechture.Name}}-output/server/rest"
 )
 
 // Config is configuration for Server

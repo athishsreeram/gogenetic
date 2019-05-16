@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"{{.API.Name}}-output/client/nats/pub"
-	"{{.API.Name}}-output/proto"
+	"{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/pub"
+	"{{.API.Name}}-{{.Architechture.Name}}-output/proto"
 
-	natscon "{{.API.Name}}-output/client/nats/con"
+	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
 
 	"context"
 	"encoding/json"

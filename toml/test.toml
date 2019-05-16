@@ -1,4 +1,6 @@
 # This is a TOML Sample to check CRUD & EventSourcing Example
+[Architechture]
+Name = "crud"
 
 [API]
 Name = "Test"

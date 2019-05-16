@@ -1,5 +1,8 @@
 # This is a TOML Support CRUD & EventSourcing Architechture
 
+[Architechture]
+Name = "es"
+
 [API]
 Name = "Test"
 Operations = [ { url = "/todo/all" , request = "ReadAllRequest" , response = "ReadAllResponse", protocol = "GET" , operationid  = "ReadAll"},

@@ -20,9 +20,11 @@ Project Structure
     +.sh file used to run the CRUD or Event Sourcing
 
 Build:
+   
     go build gogenetic.go
 
 How to run:
+    
     CRUD
     ./gogenetic-crud-run.sh
 

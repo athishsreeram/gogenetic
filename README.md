@@ -30,6 +30,7 @@ How to run:
     ./gogenetic-eventsource-run.sh
 
 Output:
+    
     Event Sourcing output :
         client
             grpc

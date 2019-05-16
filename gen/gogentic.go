@@ -230,6 +230,7 @@ func main() {
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
 	templateFile := flag.String("templateFile", dir+"/template/grpctemplate.goproto", " Input the TOML File.")
+	outDir := flag.String("outDir", dir+"/template/grpctemplate.goproto", " Input the TOML File.")
 	flag.Parse()
 
 	//go run gogentic.go /Users/anharay/go/src/gogenetic/toml/test.toml /Users/anharay/go/src/gogenetic/template/grpctemplate.goproto
@@ -262,10 +263,10 @@ func main() {
 		log.Fatal("Parse: ", err)
 		return
 	}
-	log.Println("Output:" + dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
-	CreateDirIfNotExist(dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile))
+	log.Println("Output:" + dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	CreateDirIfNotExist(dir + "/" + *outDir + "/" + fileloc(*templateFile))
 
-	f, err := os.Create(dir + "/" + conf.API.Name + "-output/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	f, err := os.Create(dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
 	if err != nil {
 		log.Println("create file: ", err)
 		return

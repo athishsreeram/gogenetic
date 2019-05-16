@@ -1,4 +1,4 @@
-# This is a TOML grpc document
+# This is a TOML Sample to check CRUD & EventSourcing Example
 
 [API]
 Name = "Test"

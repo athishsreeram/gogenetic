@@ -1,11 +1,11 @@
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/proto-grpcresttemplate.tpl 
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicebasictemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcservertemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcrestservertemplate.tpl
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/cmdservertemplate.tpl 
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcclienttemplate.tpl
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/proto-grpcresttemplate.tpl -outDir=test-output 
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/servicebasictemplate.tpl -outDir=test-output
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcservertemplate.tpl -outDir=test-output
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcrestservertemplate.tpl -outDir=test-output
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/cmdservertemplate.tpl -outDir=test-output 
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/grpcclienttemplate.tpl -outDir=test-output
 
-cd /Users/anharay/go/src/Test-output
+cd /Users/anharay/go/src/test-output
 
 ls
 
@@ -23,3 +23,5 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
   -I$GOPATH/src \
   -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
   --swagger_out=logtostderr=true:proto Test-service.proto
+
+gofmt -w /Users/anharay/go/src/test-output

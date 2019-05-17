@@ -16,13 +16,12 @@ message {{.Name}} {
  
 
 service {{.API.Name}}Service {
-{{range .API.Operations}} 
+{{range .API.Operations}} {{ if or (eq .Operationid "Create") (eq .Operationid "Update") (eq .Operationid "Delete")  }}
     rpc {{.Operationid}}({{.Request}}) returns ({{.Response}}){
         option (google.api.http) = {
             {{(lowercase .Protocol)}}: "{{.URL}}"
         {{ if eq (uppercase .Protocol) "POST" }}   body: "*" {{end}} {{ if eq (uppercase .Protocol) "PUT" }}  body: "*" {{end}}
         };
     }
-{{end}}
-
+{{end}}{{end}}
 }

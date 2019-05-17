@@ -14,9 +14,8 @@ message {{.Name}} {
  
 
 service {{.API.Name}}Service {
-{{range .API.Operations}} 
+{{range .API.Operations}} {{ if or (eq .Operationid "Create") (eq .Operationid "Update") (eq .Operationid "Delete")  }}
     rpc {{.Operationid}}({{.Request}}) returns ({{.Response}}){
     }
-{{end}}
-
+{{end}}{{end}}
 }

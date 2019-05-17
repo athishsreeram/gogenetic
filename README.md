@@ -20,7 +20,6 @@ Project Structure
     +.sh file used to run the CRUD or Event Sourcing
 
 Build:
-   
     go build gogenetic.go
 
 How to run:
@@ -29,11 +28,13 @@ How to run:
     ./gogenetic-crud-run.sh
 
     Event Sourcing
-    ./gogenetic-eventsource-run.sh
+    ./gogenetic-es-with-cqrs-run.sh
+
+    ./gogenetic-es-without-cqrs-run.sh
 
 Output:
     
-    Event Sourcing output :
+    Event Sourcing output without CQRS:
         client
             grpc
             nats
@@ -60,20 +61,29 @@ Output:
             rest
         service
 
-
-
- protoc --proto_path=proto -I/usr/local/include -I. \
-  -I$GOPATH/src \
-  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-  --go_out=plugins=grpc:proto Test-service-CUD.proto
-
-
-protoc --proto_path=proto -I/usr/local/include -I. \
-  -I$GOPATH/src \
-  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-  --grpc-gateway_out=logtostderr=true:proto Test-service-CUD.proto
-
-protoc --proto_path=proto  -I/usr/local/include -I. \
-  -I$GOPATH/src \
-  -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-  --swagger_out=logtostderr=true:proto Test-service-CUD.proto
+    Event Sourcing output with CQRS:
+        CUD:test-es-cud-output
+            client
+                grpc
+                nats
+                    pub
+                    sub
+                    con
+            cmd
+            domain
+            proto
+            server
+                grpc
+                rest
+            service
+            servicetodomain
+         R:test-es-read-output
+            client
+                grpc
+            cmd
+            domain
+            proto
+            server
+                grpc
+                rest
+            service

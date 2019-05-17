@@ -5,8 +5,8 @@ import (
 	"log"
 	"runtime"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/servicetodomain"
+	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
+	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/servicetodomain"
 
 	"github.com/nats-io/go-nats"
 )

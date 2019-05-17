@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/pub"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/pub"
+	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
+	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
 
 	"context"
 	"encoding/json"
@@ -34,6 +34,7 @@ func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 
 
 {{range  $i, $e := .API.Operations}}
+{{ if or (eq $e.Operationid "Create") (eq $e.Operationid "Update") (eq $e.Operationid "Delete") }}
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
 	
@@ -75,4 +76,5 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		}
 	return resp, nil
 }
+{{end}}
 {{end}}

@@ -1,7 +1,7 @@
 package domain
 
 import (
-	proto "{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	proto "{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
 	mapstructure "github.com/mitchellh/mapstructure"
 	"log"
 	_ "github.com/go-sql-driver/mysql"

@@ -6,16 +6,18 @@ import (
 	"strings"
 
 	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
-
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
+	
 	"github.com/nats-io/go-nats"
+	
 )
 
 var nc *nats.Conn
 var delimiter = "=@="
 
-func Send(subj string,key string, v interface{}) {
-	var urls = nats.DefaultURL
-	var userCreds = ""
+func Send(subj string, key string, v interface{}) {
+	var urls = cfg.Conf.NATSurl
+	var userCreds = cfg.Conf.UserCreds
 	var err error
 
 	msg, err := json.Marshal(v)

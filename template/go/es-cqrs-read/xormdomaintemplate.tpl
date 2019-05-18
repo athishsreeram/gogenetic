@@ -6,16 +6,17 @@ import (
 	"log"
 	_ "github.com/go-sql-driver/mysql"
     "github.com/go-xorm/xorm"
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-read-output/config"
 ){{$DomainModel := .DomainModels.DomainModel}}
 var engine *xorm.Engine
-var conn = "root:@tcp(localhost:3306)/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
+
 {{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 type {{$e.From}} struct { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k1 $k2}}
 	{{$g1.Name}}  {{$g1.Type}} `mapstructure:"{{$g2.To}}"` {{end}}{{end}}{{end}}
 }
 func ReadAll{{$e.From}}() []{{$e.From}} {
 	var err error
-    engine, err = xorm.NewEngine("mysql", conn)
+    engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
 	var {{firstsmall $e.From}} []{{$e.From}}
 	engine.Find(&{{firstsmall $e.From}})
@@ -31,7 +32,7 @@ func ReadAll{{$e.From}}() []{{$e.From}} {
 
 func Read{{$e.From}}(Sno int) {{$e.From}} {
 	var err error
-    engine, err = xorm.NewEngine("mysql", conn)
+    engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
 	var {{firstsmall $e.From}}  = {{$e.From}}{Sno:Sno}
 	has, err := engine.Get(&{{firstsmall $e.From}})

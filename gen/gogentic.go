@@ -156,6 +156,9 @@ func fileloc(templateFile string) string {
 	if strings.Contains(templateFile, "natsconutilclient") {
 		return "client/nats/con/"
 	}
+	if strings.Contains(templateFile, "config") {
+		return "config/"
+	}
 
 	return ""
 
@@ -204,6 +207,12 @@ func fileName(templateFile string, apiName string) string {
 	}
 	if strings.Contains(templateFile, "natsconutilclient") {
 		return apiName + "-nats-util-client.go"
+	}
+	if strings.Contains(templateFile, "config") {
+		return apiName + "-config.go"
+	}
+	if strings.Contains(templateFile, "devconf") {
+		return "config-dev.json"
 	}
 
 	return ""

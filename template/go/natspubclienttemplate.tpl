@@ -5,6 +5,7 @@ import (
 	"log"
 
 	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-output/config"
 	gabs "github.com/Jeffail/gabs"
 	"github.com/nats-io/go-nats"
 )
@@ -12,8 +13,8 @@ import (
 var nc *nats.Conn
 
 func Send(subj string,key string, v interface{}) {
-	var urls = nats.DefaultURL
-	var userCreds = ""
+	var urls = cfg.Conf.NATSurl
+	var userCreds = cfg.Conf.UserCreds
 	var err error
 
 
@@ -34,13 +35,12 @@ func Send(subj string,key string, v interface{}) {
 	log.Println(jsonObj)
 
 	
-
-	nc.Publish(subj, msg)
+    nc.Publish(subj, msg)
 	nc.Flush()
 
 	if err := nc.LastError(); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Printf("Published [%s] : '%s'\n", subj, msgStr.String())log.Printf("Published [%s] : '%s'\n", subj, string(msg))
+		 log.Printf("Published [%s] : '%s'\n", subj, string(msg))
 	}
 }

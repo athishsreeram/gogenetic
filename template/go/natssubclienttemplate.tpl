@@ -2,11 +2,14 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os"
 	"runtime"
 
 	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
 	"{{.API.Name}}-{{.Architechture.Name}}-output/servicetodomain"
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-output/config"
 
 	"github.com/nats-io/go-nats"
 )
@@ -21,9 +24,30 @@ func usage() {
 }
 
 func main() {
-	var urls = flag.String("s", nats.DefaultURL, "The nats server URLs (separated by comma)")
-	var userCreds = flag.String("creds", "", "User Credentials File")
-	var showTime = flag.Bool("t", false, "Display timestamps")
+	var configPath string
+	var subj string
+
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	flag.StringVar(&configPath, "config-path", dir+"/../../../config-dev.json", "Config Path")
+	flag.StringVar(&subj, "sub", "Test", "Test Path")
+
+	flag.Parse()
+
+	if len(configPath) == 0 {
+		fmt.Errorf("invalid Config Path: '%s'", configPath)
+	}
+
+	cfg.Conf = cfg.GetConfig(configPath)
+
+	log.Println(cfg.Conf)
+
+	var urls = cfg.Conf.NATSurl
+	var userCreds = cfg.Conf.UserCreds
+	var showTime = cfg.Conf.ShowTime
 
 	log.SetFlags(0)
 	flag.Usage = usage
@@ -34,19 +58,9 @@ func main() {
 		usage()
 	}
 
-	var urlIn, userCredsIn string
+	nc, _ := natscon.ConnectNATSSub(urls, userCreds)
 
-	if urls != nil { // Check for nil!
-		urlIn = *urls
-	}
-
-	if userCreds != nil {
-		userCredsIn = *userCreds
-	}
-
-	nc, _ := natscon.ConnectNATSSub(urlIn, userCredsIn)
-
-	subj, i := args[0], 0
+	i := 0
 
 	nc.Subscribe(subj, func(msg *nats.Msg) {
 		i += 1
@@ -60,10 +74,9 @@ func main() {
 	}
 
 	log.Printf("Listening on [%s]", subj)
-	if *showTime {
+	if showTime == true {
 		log.SetFlags(log.LstdFlags)
 	}
 
 	runtime.Goexit()
 }
-

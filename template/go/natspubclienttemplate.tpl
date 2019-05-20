@@ -3,30 +3,19 @@ package pub
 import (
 	"encoding/json"
 	"log"
-	"strings"
 
 	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
-
+	gabs "github.com/Jeffail/gabs"
 	"github.com/nats-io/go-nats"
 )
 
 var nc *nats.Conn
-var delimiter = "=@="
 
 func Send(subj string,key string, v interface{}) {
 	var urls = nats.DefaultURL
 	var userCreds = ""
 	var err error
 
-	msg, err := json.Marshal(v)
-	if err != nil {
-		log.Println(err)
-	}
-
-	var msgStr strings.Builder
-	msgStr.WriteString(key)
-	msgStr.WriteString(delimiter)
-	msgStr.Write(msg)
 
 	nc, err := natscon.ConnectNATSPub(urls, userCreds)
 
@@ -34,13 +23,24 @@ func Send(subj string,key string, v interface{}) {
 		log.Println(err)
 	}
 	defer nc.Close()
+	
+	msg, err := json.Marshal(v)
+	if err != nil {
+		log.Println(err)
+	}
 
-	nc.Publish(subj, []byte(msgStr.String()))
+	jsonObj, err := gabs.ParseJSON(msg)
+	jsonObj.SetP(key, "command")
+	log.Println(jsonObj)
+
+	
+
+	nc.Publish(subj, msg)
 	nc.Flush()
 
 	if err := nc.LastError(); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Printf("Published [%s] : '%s'\n", subj, msgStr.String())
+		log.Printf("Published [%s] : '%s'\n", subj, msgStr.String())log.Printf("Published [%s] : '%s'\n", subj, string(msg))
 	}
 }

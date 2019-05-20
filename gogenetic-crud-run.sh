@@ -5,6 +5,8 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.tom
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/cmdservertemplate.tpl -outDir=test-crud-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/grpcclienttemplate.tpl -outDir=test-crud-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/xormdomaintemplate.tpl -outDir=test-crud-output
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/configtemplate.tpl -outDir=test-es-output
+go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/devconftemplate.tpl -outDir=test-es-output
 
 cd /Users/anharay/go/src/test-crud-output
 

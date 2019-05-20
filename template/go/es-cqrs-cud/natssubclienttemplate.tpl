@@ -33,7 +33,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	flag.StringVar(&configPath, "config-path", dir+"/../../config-dev.json", "Config Path")
+	flag.StringVar(&configPath, "config-path", dir+"/../../../config-dev.json", "Config Path")
 	flag.StringVar(&subj, "sub", "Test", "Test Path")
 
 	flag.Parse()
@@ -75,7 +75,7 @@ func main() {
 	}
 
 	log.Printf("Listening on [%s]", subj)
-	if *showTime {
+	if showTime == true {
 		log.SetFlags(log.LstdFlags)
 	}
 

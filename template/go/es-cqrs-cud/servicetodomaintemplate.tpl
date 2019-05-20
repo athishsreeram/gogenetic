@@ -7,14 +7,15 @@ import (
 	"encoding/json"
 	"log"
 	"strconv"
-	"strings"
+	"github.com/Jeffail/gabs"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
-var delimiter = "=@="
+
 func {{$apiname}}ServiceProcesing(data string) {
 
-	s := strings.Split(data, delimiter)
-	key, msg := s[0], s[1]
+	jsonObj, _ := gabs.ParseJSON([]byte(data))
+
+	key, msg := jsonObj.Search("command").Data().(string), data
 	log.Println("%s %s", key, msg)
 
 	{{range  $i, $e := .API.Operations}}

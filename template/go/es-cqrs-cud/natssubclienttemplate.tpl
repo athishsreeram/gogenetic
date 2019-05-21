@@ -26,7 +26,6 @@ func usage() {
 func main() {
 
 	var configPath string
-	var subj string
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -34,7 +33,6 @@ func main() {
 	}
 
 	flag.StringVar(&configPath, "config-path", dir+"/../../../config-dev.json", "Config Path")
-	flag.StringVar(&subj, "sub", "Test", "Test Path")
 
 	flag.Parse()
 
@@ -54,8 +52,8 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	args := flag.Args()
-	if len(args) != 1 {
+	subj := cfg.Conf.NATSSubj
+	if len(subj) != 1 {
 		usage()
 	}
 
@@ -66,7 +64,15 @@ func main() {
 	nc.Subscribe(subj, func(msg *nats.Msg) {
 		i += 1
 		natscon.PrintMsg(msg, i)
-		servicetodomain.TestServiceProcesing(string(msg.Data))
+		jsonObj, _ := gabs.ParseJSON(msg.Data)
+
+		if jsonObj.ExistsP("command") == true && jsonObj.ExistsP("event") == true {
+			servicetodomain.TestEventProcesing(string(msg.Data))
+		}
+		if jsonObj.ExistsP("command") == true && jsonObj.ExistsP("event") == false {
+			servicetodomain.TestCommandToEvent(string(msg.Data))
+		}
+
 	})
 	nc.Flush()
 

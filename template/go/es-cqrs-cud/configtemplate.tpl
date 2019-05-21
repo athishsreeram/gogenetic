@@ -21,6 +21,8 @@ type Config struct {
 	UserCreds string
 
 	ShowTime bool
+
+	NATSSubj string
 }
 
 var (

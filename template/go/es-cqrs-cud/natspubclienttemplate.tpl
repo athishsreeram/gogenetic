@@ -14,7 +14,7 @@ import (
 
 var nc *nats.Conn
 
-func Send(subj string, key string, v interface{}) {
+func Send(subj string, key string, meta string, v interface{}) {
 	var urls = cfg.Conf.NATSurl
 	var userCreds = cfg.Conf.UserCreds
 	var err error
@@ -32,15 +32,41 @@ func Send(subj string, key string, v interface{}) {
 	}
 
 	jsonObj, err := gabs.ParseJSON(msg)
-	jsonObj.SetP(key, "command")
+	jsonObj.SetP(key, meta)
 	log.Println(jsonObj)
 
-	nc.Publish(subj,msg)
+	nc.Publish(subj,jsonObj.Bytes())
 	nc.Flush()
 
 	if err := nc.LastError(); err != nil {
 		log.Fatal(err)
 	} else {
-		log.Printf("Published [%s] : '%s'\n", subj, string(msg))
+		log.Printf("Published [%s] : '%s'\n", subj, string(jsonObj.Bytes()))
+	}
+}
+
+func SendMsgStr(subj string, key string, meta string, msg string) {
+	var urls = cfg.Conf.NATSurl
+	var userCreds = cfg.Conf.UserCreds
+	var err error
+
+	nc, err := natscon.ConnectNATSPub(urls, userCreds)
+
+	if err != nil {
+		log.Println(err)
+	}
+	defer nc.Close()
+
+	jsonObj, err := gabs.ParseJSON([]byte(msg))
+	jsonObj.SetP(key, meta)
+	log.Println(jsonObj)
+
+	nc.Publish(subj, jsonObj.Bytes())
+	nc.Flush()
+
+	if err := nc.LastError(); err != nil {
+		log.Fatal(err)
+	} else {
+		log.Printf("Published [%s] : '%s'\n", subj, string(jsonObj.Bytes()))
 	}
 }

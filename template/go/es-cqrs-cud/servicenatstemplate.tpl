@@ -5,14 +5,15 @@ import (
 	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
 
 	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
 
 	"context"
 	"encoding/json"
 	"log"
 	"time"
 
-	"strings"
 	"github.com/nats-io/go-nats"
+	"github.com/Jeffail/gabs"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (
@@ -38,17 +39,18 @@ func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
 	
-	pub.Send("{{$apiname}}", "{{$e.Operationid}}", req)
+	pub.Send(cfg.Conf.NATSSubj, "{{$apiname}}{{$e.Operationid}}Command","command", req)
 
-	nc, _ := natscon.ConnectNATSSub(nats.DefaultURL, "")
+	nc, _ := natscon.ConnectNATSSub(cfg.Conf.NATSurl, "")
 
 	subj, i := "{{$apiname}}", 0
 	var resp *proto.{{$e.Response}}
 	nc.Subscribe(subj, func(msg *nats.Msg) {
 		i += 1
 		natscon.PrintMsg(msg, i)
-		s := strings.Split(string(msg.Data), delimter)
-		key, data := s[0], s[1]
+
+	 	jsonObj, _ := gabs.ParseJSON(msg.Data)
+		key,data := jsonObj.Search("event").Data().(string),msg.Data
 		log.Println("%s %s", key, data)
 		
 			if key == "{{$e.Operationid}}d" {

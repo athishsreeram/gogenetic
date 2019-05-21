@@ -8,22 +8,23 @@ import (
 	"log"
 	"strconv"
 	"github.com/Jeffail/gabs"
+	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
 )
-{{$apiname := .API.Name}} {{$model := .Models.Model}}
+{{$apiname := .API.Name}} {{$model := .Models.Model}}{{$DomainModel := .DomainModels.DomainModel}}
 
-func {{$apiname}}ServiceProcesing(data string) {
+func {{$apiname}}EventProcesing(data string) {
 
 	jsonObj, _ := gabs.ParseJSON([]byte(data))
 
-	key, msg := jsonObj.Search("command").Data().(string), data
+	key, msg := jsonObj.Search("event").Data().(string), data
 	log.Println("%s %s", key, msg)
 
 	{{range  $i, $e := .API.Operations}}
-
-	if key == "{{$e.Operationid}}" {
-		pub.Send("{{$apiname}}", "{{$e.Operationid}}d", {{$e.Operationid}}Processing(key, msg))
+		{{range  $j, $f := $DomainModel}}
+	if key == "{{$e.Operationid}}{{$f.Name}}Event" {
+		pub.Send(cfg.Conf.NATSSubj, "{{$e.Operationid}}Completed{{$f.Name}}Event","event", {{$e.Operationid}}Processing(key, msg))
 	}
-	
+		{{end}}
 	{{end}}
 }
 

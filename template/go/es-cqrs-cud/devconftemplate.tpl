@@ -4,5 +4,6 @@
     "DBCon": "root:@tcp(localhost:3306)/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local",
     "NATSurl": "nats://127.0.0.1:4222",
     "UserCreds":"",
-    "ShowTime":true
+    "ShowTime":true,
+    "NATSSubj": "Test"
 }

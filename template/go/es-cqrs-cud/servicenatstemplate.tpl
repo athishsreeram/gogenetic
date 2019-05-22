@@ -52,9 +52,10 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 	 	jsonObj, _ := gabs.ParseJSON(msg.Data)
 		key,data := jsonObj.Search("event").Data().(string),msg.Data
 		log.Println("%s %s", key, data)
-		
-			if key == "{{$e.Operationid}}d" {
+			
+			
 			{{range  $j, $f := $MappingMap}}	{{if eq  $f.Type "domain2dto"}} {{range  $k, $g := $DomainModel}}{{if eq  $f.From $g.Name}} 
+			if key == "{{$g.Name}}Event{{$e.Operationid}}Completed" {
 			 var dat {{if ne  $e.Operationid "Delete"}} {{if eq  $e.Operationid "ReadAll"}}[]{{end}}*proto.{{$f.To}} {{end}} {{if eq  $e.Operationid "Delete"}} bool {{end}}
 			{{end}}{{end}}{{end}}{{end}}
 				err := json.Unmarshal([]byte(data), &dat)
@@ -73,9 +74,8 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 
 	log.Println("called out")
 		log.Println(resp)
-		if resp == nil {
-			time.Sleep((1) * time.Second)
-		}
+		for resp == nil {
+		} 
 	return resp, nil
 }
 {{end}}

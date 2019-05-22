@@ -21,8 +21,8 @@ func {{$apiname}}EventProcesing(data string) {
 
 	{{range  $i, $e := .API.Operations}}
 		{{range  $j, $f := $DomainModel}}
-	if key == "{{$e.Operationid}}{{$f.Name}}Event" {
-		pub.Send(cfg.Conf.NATSSubj, "{{$e.Operationid}}Completed{{$f.Name}}Event","event", {{$e.Operationid}}Processing(key, msg))
+	if key == "{{$f.Name}}Event{{$e.Operationid}}d" {
+		pub.Send(cfg.Conf.NATSSubj, "{{$f.Name}}Event{{$e.Operationid}}Completed","event", {{$e.Operationid}}Processing(key, msg))
 	}
 		{{end}}
 	{{end}}

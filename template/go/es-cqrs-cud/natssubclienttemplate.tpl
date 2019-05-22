@@ -11,6 +11,7 @@ import (
 	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/servicetodomain"
 	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
 
+	"github.com/Jeffail/gabs"
 	"github.com/nats-io/go-nats"
 )
 

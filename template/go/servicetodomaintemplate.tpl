@@ -1,9 +1,9 @@
 package servicetodomain
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/pub"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/domain"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	"{{.Architechture.Outputdir}}/client/nats/pub"
+	"{{.Architechture.Outputdir}}/domain"
+	"{{.Architechture.Outputdir}}/proto"
 	"encoding/json"
 	"log"
 	"strconv"

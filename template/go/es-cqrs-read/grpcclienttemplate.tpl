@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	v1 "{{.API.Name}}-{{.Architechture.Name}}-read-output/proto"
+	v1 "{{.Architechture.Outputdir}}/proto"
 )
 
 {{$apiname := .API.Name}} {{$model := .Models.Model}}

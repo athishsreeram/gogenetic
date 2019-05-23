@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"log"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/domain"
+	natscon "{{.Architechture.Outputdir}}/client/nats/con"
+	cfg "{{.Architechture.Outputdir}}/config"
+	"{{.Architechture.Outputdir}}/domain"
 	gabs "github.com/Jeffail/gabs"
 	
 	"github.com/nats-io/go-nats"

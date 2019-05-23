@@ -3,7 +3,7 @@ package domain
 import (
 	"log"
 
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
+	cfg "{{.Architechture.Outputdir}}/config"
 	"github.com/Jeffail/gabs"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"

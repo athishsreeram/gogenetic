@@ -1,7 +1,7 @@
 package domain
 
 import (
-	proto "{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	proto "{{.Architechture.Outputdir}}/proto"
 	mapstructure "github.com/mitchellh/mapstructure"
 	"log"
 	"github.com/jinzhu/gorm"

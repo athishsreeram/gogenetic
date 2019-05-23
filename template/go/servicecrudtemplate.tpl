@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-output/proto"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/domain"
+	"{{.Architechture.Outputdir}}/proto"
+	"{{.Architechture.Outputdir}}/domain"
 	"context"
 	"log"
 	"strconv"

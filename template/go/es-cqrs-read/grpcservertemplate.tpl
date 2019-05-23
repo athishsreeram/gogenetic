@@ -1,8 +1,8 @@
 package grpc
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-read-output/proto"
-	v1 "{{.API.Name}}-{{.Architechture.Name}}-read-output/service/v1"
+	"{{.Architechture.Outputdir}}/proto"
+	v1 "{{.Architechture.Outputdir}}/service/v1"
 	"context"
 	"net"
 

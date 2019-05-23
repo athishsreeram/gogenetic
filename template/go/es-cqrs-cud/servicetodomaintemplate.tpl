@@ -1,14 +1,14 @@
 package servicetodomain
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/pub"
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/domain"
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
+	"{{.Architechture.Outputdir}}/client/nats/pub"
+	"{{.Architechture.Outputdir}}/domain"
+	"{{.Architechture.Outputdir}}/proto"
 	"encoding/json"
 	"log"
 	"strconv"
 	"github.com/Jeffail/gabs"
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
+	cfg "{{.Architechture.Outputdir}}/config"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}{{$DomainModel := .DomainModels.DomainModel}}
 

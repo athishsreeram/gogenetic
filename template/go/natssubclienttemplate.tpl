@@ -7,9 +7,9 @@ import (
 	"os"
 	"runtime"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-output/client/nats/con"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/servicetodomain"
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-output/config"
+	natscon "{{.Architechture.Outputdir}}/client/nats/con"
+	"{{.Architechture.Outputdir}}/servicetodomain"
+	cfg "{{.Architechture.Outputdir}}/config"
 
 	"github.com/nats-io/go-nats"
 )

@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/pub"
-	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
+	"{{.Architechture.Outputdir}}/client/nats/pub"
+	"{{.Architechture.Outputdir}}/proto"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
+	natscon "{{.Architechture.Outputdir}}/client/nats/con"
+	cfg "{{.Architechture.Outputdir}}/config"
 	guuid "github.com/google/uuid"
 	
 	"context"

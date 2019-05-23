@@ -1,12 +1,14 @@
 package domain
 
 import (
-	proto "{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	proto "{{.Architechture.Outputdir}}/proto"
+	cfg "{{.Architechture.Outputdir}}/config"
+	
 	mapstructure "github.com/mitchellh/mapstructure"
 	"log"
 	_ "github.com/go-sql-driver/mysql"
     "github.com/go-xorm/xorm"
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-output/config"
+	
 ){{$DomainModel := .DomainModels.DomainModel}}
 var engine *xorm.Engine
 var conn = "root:@tcp(localhost:3306)/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"

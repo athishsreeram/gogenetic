@@ -2,7 +2,7 @@ package v1
 
 import (
 	"context"
-	"{{.API.Name}}-{{.Architechture.Name}}-output/proto"
+	"{{.Architechture.Outputdir}}/proto"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}
 const (

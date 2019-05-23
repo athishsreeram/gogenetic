@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-read-output/config"
-	grpc "{{.API.Name}}-{{.Architechture.Name}}-read-output/server/grpc"
-	rest "{{.API.Name}}-{{.Architechture.Name}}-read-output/server/rest"
+	cfg "{{.Architechture.Outputdir}}/config"
+	grpc "{{.Architechture.Outputdir}}/server/grpc"
+	rest "{{.Architechture.Outputdir}}/server/rest"
 )
 
 

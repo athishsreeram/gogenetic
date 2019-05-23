@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
-	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
-	grpc "{{.API.Name}}-{{.Architechture.Name}}-cud-output/server/grpc"
-	rest "{{.API.Name}}-{{.Architechture.Name}}-cud-output/server/rest"
+	cfg "{{.Architechture.Outputdir}}/config"
+	grpc "{{.Architechture.Outputdir}}/server/grpc"
+	rest "{{.Architechture.Outputdir}}/server/rest"
 )
 
 // RunServer runs gRPC server and HTTP gateway

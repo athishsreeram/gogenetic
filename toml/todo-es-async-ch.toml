@@ -1,0 +1,12 @@
+# This is a TOML Support CRUD & EventSourcing Architechture
+
+[Architechture]
+Name = "es-cmdhandler"
+
+[API]
+Name = "Test"
+
+[CommandToEvent]
+Command =  [{name = "TestCreateCommand", events= [{name = "ToDoDomainsEventCreated"}]},
+            {name = "TestUpdateCommand", events= [{name = "ToDoDomainsEventUpdated"}]},
+            {name = "TestDeleteCommand", events= [{name = "ToDoDomainsEventDeleted"}]}]

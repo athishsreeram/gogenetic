@@ -1,0 +1,35 @@
+# This is a TOML Support CRUD & EventSourcing Architechture
+
+[Architechture]
+Name = "es-eventhandler"
+
+[API]
+Name = "Test"
+Operations = [ { url = "/todo/all" , request = "ReadAllRequest" , response = "ReadAllResponse", protocol = "GET" , operationid  = "ReadAll"},
+               { url = "/todo" , request = "CreateRequest" , response = "CreateResponse", protocol = "POST" , operationid  = "Create"},
+               { url = "/todo/{id}" , request = "UpdateRequest" , response = "UpdateResponse", protocol = "PUT" , operationid  = "Update"},
+               { url = "/todo/{id}" , request = "DeleteRequest" , response = "DeleteResponse", protocol = "DELETE" , operationid  = "Delete"},
+               { url = "/todo/{id}" , request = "ReadRequest" , response = "ReadResponse", protocol = "GET" , operationid  = "Read"}]
+
+
+
+[Models]
+Model = [{ name = "ToDo" , Variable = [{ name = "id", value = "1" , type = "int"  },{ name = "title", value = "1" , type = "string"  }] },
+        { name = "ReadAllRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  }] },
+        { name = "ReadAllResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDos", value = "list" , type = "repeated" } ] },
+        { name = "CreateRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] },
+        { name = "CreateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
+        { name = "UpdateRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] },
+        { name = "UpdateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
+        { name = "DeleteRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" }] },
+        { name = "DeleteResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
+        { name = "ReadRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" }] },
+        { name = "ReadResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] } ]
+
+[DomainModels]
+DomainModel = [{ name = "ToDoDomains" , Variable = [{ name = "Sno", value = "1" , type = "int"  },{ name = "Description", value = "1" , type = "string"  }] }]
+
+
+[Mapping]
+Map = [{ name = "convertToDoDomainToDo" , from = "ToDoDomains" , to = "ToDo" , type="domain2dto", VariableMapping = [{ from = "Sno", to = "Id" , type="int"   },{ from = "Description", to = "Title"  }]},
+     { name = "convertToDoToDoDomain" , from = "ToDo" , to = "ToDoDomains" , type="dto2domain", VariableMapping = [{ from = "Id", to = "Sno" , type="int" },{ from = "Title", to = "Description" }]} ]

@@ -4,16 +4,12 @@ import (
 	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/pub"
 	"{{.API.Name}}-{{.Architechture.Name}}-cud-output/proto"
 
-	natscon "{{.API.Name}}-{{.Architechture.Name}}-cud-output/client/nats/con"
 	cfg "{{.API.Name}}-{{.Architechture.Name}}-cud-output/config"
 	guuid "github.com/google/uuid"
 	
 	"context"
-	"encoding/json"
 	"log"
 
-	"github.com/nats-io/go-nats"
-	"github.com/Jeffail/gabs"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (

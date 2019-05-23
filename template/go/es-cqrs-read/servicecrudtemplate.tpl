@@ -63,7 +63,7 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 				{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 				var list []*proto.{{$e.To}}
 				for _, {{firstsmall $e.From}}Resp := range domain.ReadAll{{titlecase $e.From}}() {
-					{{firstsmall $e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}Resp.{{range $k2, $g2 := $e.VariableMapping}}{{if eq $k2 0}}{{$g2.From}}{{end}}{{end}} ))
+					{{firstsmall $e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{firstsmall $e.From}}Resp)
 					list = append(list, {{firstsmall $e.To}})
 				}
 				{{end}}{{end}}{{end}}{{end}}

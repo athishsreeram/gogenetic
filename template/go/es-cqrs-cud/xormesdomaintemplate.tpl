@@ -8,7 +8,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
 )
-type EventStore struct {
+type EventStores struct {
 	Uuid        string    
 	Data string
 	Event string
@@ -27,7 +27,7 @@ func CreateEvent(data string) {
 		event = jsonObj.Search("event").Data().(string)
 	}
 
-	es := &EventStore{
+	es := &EventStores{
 		Uuid:    jsonObj.Search("uuid").Data().(string),
 		Data:    data,
 		Event:   event,
@@ -41,7 +41,7 @@ func CreateEvent(data string) {
 	if err != nil {
 		log.Println(err)
 	} else {
-		log.Println("Successfully Created {}", &es)
+		log.Println("Successfully Created {}", es)
 	}
 
 }

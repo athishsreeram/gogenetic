@@ -34,23 +34,42 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		{{ if (eq $e.Operationid "Read") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			var {{firstsmall $e.To}} *proto.{{$e.To}}
+			
+			{{range $k2, $g2 := $e.VariableMapping}} {{if eq $k2 0}} 
+			
+			{{if eq $g2.Type "int"}} 
+			
 			n, err := strconv.Atoi(strconv.FormatInt(req.Id, 10))
 			if err == nil {
 				{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}(n))
 			}
+
+			{{end}}
+
+			{{if eq $g2.Type "string"}} 
+			
+				{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}(req.{{$g2.From}}))
+
+			{{end}}
+
+
+
+			{{end}}{{end}}
+
+
 			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 		{{ if (eq $e.Operationid "ReadAll") }}
 				{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
-				var {{firstsmall $e.To}}s []*proto.{{$e.To}}
-				for _, {{firstsmall $e.From}} := range domain.ReadAll{{titlecase $e.From}}() {
-					{{firstsmall $e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
-					{{firstsmall $e.To}}s = append({{firstsmall $e.To}}s, {{firstsmall $e.To}})
+				var list []*proto.{{$e.To}}
+				for _, {{firstsmall $e.From}}Resp := range domain.ReadAll{{titlecase $e.From}}() {
+					{{firstsmall $e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}Resp.{{range $k2, $g2 := $e.VariableMapping}}{{if eq $k2 0}}{{$g2.From}}{{end}}{{end}} ))
+					list = append(list, {{firstsmall $e.To}})
 				}
 				{{end}}{{end}}{{end}}{{end}}
 		{{end}}
 	
-	{{range $k := $model}} {{if eq $e.Response .Name}}{{range .Variable}}{{if eq .Type "repeated"}}{{.Value}} := []*proto.{{removeplural (titlecase .Name)}}{}{{end}}{{end}}{{end}}{{end}}
+	{{range $k := $model}} {{if eq $e.Response .Name}}{{range .Variable}}{{end}}{{end}}{{end}}
 	resp := &proto.{{$e.Response}}{ {{range $k := $model}} {{if eq $e.Response .Name}} {{range .Variable}}  
  					{{ (titlecase .Name)}}: {{if eq .Type "object"}}{{end}}{{.Value}},
 				{{end}}{{end}}{{end}}

@@ -22,7 +22,7 @@ func {{$apiname}}EventProcesing(data string) {
 	{{range  $i, $e := .API.Operations}}
 		{{range  $j, $f := $DomainModel}}
 	if key == "{{$f.Name}}Event{{$e.Operationid}}d" {
-		pub.Send(cfg.Conf.NATSSubj, "{{$f.Name}}Event{{$e.Operationid}}Completed","event", {{$e.Operationid}}Processing(key, msg))
+		pub.Send(cfg.Conf.NATSSubj, "{{$f.Name}}Event{{$e.Operationid}}Completed","event", {{$e.Operationid}}Processing(key, msg),jsonObj.Search("uuid").Data().(string))
 	}
 		{{end}}
 	{{end}}

@@ -31,8 +31,8 @@ DomainModel = [{ name = "ToDoDomains" , Variable = [{ name = "Sno", value = "1" 
 
 
 [Mapping]
-Map = [{ name = "convertToDoDomainToDo" , from = "ToDoDomains" , to = "ToDo" , type="domain2dto", VariableMapping = [{ from = "Sno", to = "Id"   },{ from = "Description", to = "Title"  }]},
-     { name = "convertToDoToDoDomain" , from = "ToDo" , to = "ToDoDomains" , type="dto2domain", VariableMapping = [{ from = "Id", to = "Sno" },{ from = "Title", to = "Description" }]} ]
+Map = [{ name = "convertToDoDomainToDo" , from = "ToDoDomains" , to = "ToDo" , type="domain2dto", VariableMapping = [{ from = "Sno", to = "Id" , type="int"    },{ from = "Description", to = "Title"  }]},
+     { name = "convertToDoToDoDomain" , from = "ToDo" , to = "ToDoDomains" , type="dto2domain", VariableMapping = [{ from = "Id", to = "Sno" , type="int"   },{ from = "Title", to = "Description" }]} ]
 
 [CommandToEvent]
 Command =  [{name = "TestCreateCommand", events= [{name = "ToDoDomainsEventCreated"}]},

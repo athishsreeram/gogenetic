@@ -1,0 +1,26 @@
+# This is a TOML Support CRUD & EventSourcing Architechture
+
+[Architechture]
+Name = "es"
+
+[API]
+Name = "EventStore"
+Operations = [ { url = "/es/all" , request = "ReadAllRequest" , response = "ReadAllResponse", protocol = "GET" , operationid  = "ReadAll"},
+               { url = "/es/{uuid}" , request = "ReadRequest" , response = "ReadResponse", protocol = "GET" , operationid  = "Read"}]
+
+
+
+[Models]
+Model = [{ name = "EventStore" , Variable = [{ name = "uuid", value = "1" , type = "string"  },{ name = "event", value = "1" , type = "string"  },{ name = "command", value = "1" , type = "string"  },{ name = "data", value = "1" , type = "string"  }] },
+        { name = "ReadAllRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  }] },
+        { name = "ReadAllResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "eventStores", value = "list" , type = "repeated" } ] },
+        { name = "ReadRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "1" , type = "string" }] },
+        { name = "ReadResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "eventStore", value = "eventStore" , type = "object" }] } ]
+
+[DomainModels]
+DomainModel = [{ name = "EventStores" , Variable = [{ name = "Uuid", value = "1" , type = "string"  },{ name = "Event", value = "1" , type = "string"  },{ name = "Command", value = "1" , type = "string"  },{ name = "Data", value = "1" , type = "string"  }] }]
+
+
+[Mapping]
+Map = [{ name = "convertEventStoresEventStore" , from = "EventStores" , to = "EventStore" , type="domain2dto", VariableMapping = [{ from = "Uuid", to = "uuid" , type="string"  },{ from = "Event", to = "event"  },{ from = "Command", to = "command"  },{ from = "Data", to = "data"  }]},
+       { name = "convertEventStoreEventStores" , from = "EventStore" , to = "EventStores" , type="dto2domain", VariableMapping = [{ from = "uuid", to = "Uuid" , type="string"   },{ from = "event", to = "Event"  },{ from = "Command", to = "Command"  },{ from = "data", to = "Data"  }]} ]

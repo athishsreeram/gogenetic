@@ -30,11 +30,11 @@ func ReadAll{{$e.From}}() []{{$e.From}} {
 
 }
 
-func Read{{$e.From}}(Sno int) {{$e.From}} {
+func Read{{$e.From}}( {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k2 0}} {{$g2.From}} {{$g2.Type}} {{end}}{{end}} ) {{$e.From}} {
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
-	var {{firstsmall $e.From}}  = {{$e.From}}{Sno:Sno}
+	var {{firstsmall $e.From}}  = {{$e.From}}{ {{range $k2, $g2 := $e.VariableMapping}} {{if eq $k2 0}} {{$g2.From}} : {{$g2.From}} {{end}}{{end}} }
 	has, err := engine.Get(&{{firstsmall $e.From}})
 	log.Println("{}", {{firstsmall $e.From}})
 	if err != nil {

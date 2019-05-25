@@ -27,7 +27,7 @@ Model = [{ name = "ToDo" , Variable = [{ name = "id", value = "1" , type = "int"
         { name = "ReadResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] } ]
 
 [DomainModels]
-DomainModel = [{ name = "ToDoDomains" , Variable = [{ name = "Sno", value = "1" , type = "int"  },{ name = "Description", value = "1" , type = "string"  }] }]
+DomainModel = [{ name = "ToDoDomains" , Variable = [{ name = "Sno", value = "1" , type = "int" , dbtype="int" },{ name = "Description", value = "1" , type = "string" , dbtype="varchar(50)" }] }]
 
 
 [Mapping]

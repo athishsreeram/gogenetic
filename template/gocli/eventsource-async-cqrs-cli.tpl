@@ -1,4 +1,4 @@
-{{if eq .Gogenetic.Read "true"}}
+{{if eq .Gogenetic.Read "True"}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrsread}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Esreadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrsread}}servicecrudtemplate.tpl -outDir={{.Gogenetic.Esreadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrsread}}grpcservertemplate.tpl -outDir={{.Gogenetic.Esreadoutput}}
@@ -9,7 +9,7 @@ go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogen
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrsread}}configtemplate.tpl -outDir={{.Gogenetic.Esreadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrsread}}devconftemplate.tpl -outDir={{.Gogenetic.Esreadoutput}}
 {{end}}
-{{if eq .Gogenetic.Eventsource "true"}}
+{{if eq .Gogenetic.Eventsource "True"}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Gogenetic.Escqrsread}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Eventstorereadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Gogenetic.Escqrsread}}servicecrudtemplate.tpl -outDir={{.Gogenetic.Eventstorereadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Gogenetic.Escqrsread}}grpcservertemplate.tpl -outDir={{.Gogenetic.Eventstorereadoutput}}
@@ -20,7 +20,7 @@ go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Go
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Gogenetic.Escqrsread}}configtemplate.tpl -outDir={{.Gogenetic.Eventstorereadoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.Tomlesread}} -templateFile={{.Gogenetic.Escqrsread}}devconftemplate.tpl -outDir={{.Gogenetic.Eventstorereadoutput}}
 {{end}}
-{{if eq .Gogenetic.Cud "true"}}
+{{if eq .Gogenetic.Cud "True"}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrscud}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Cudoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrscud}}serviceasyncnatstemplate.tpl -outDir={{.Gogenetic.Cudoutput}}
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrscud}}grpcservertemplate.tpl -outDir={{.Gogenetic.Cudoutput}}
@@ -38,7 +38,7 @@ go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogen
 go run ./gen/gogentic.go -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Escqrscud}}xormesdomaintemplate.tpl -outDir={{.Gogenetic.Cudoutput}}
 {{end}}
 
-{{if eq .Gogenetic.Read "true"}}
+{{if eq .Gogenetic.Read "True"}}
 cd {{.Gogenetic.Dir}}{{.Gogenetic.Esreadoutput}}
 
 ls
@@ -62,7 +62,7 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Esreadoutput}}
 {{end}}
 
-{{if eq .Gogenetic.Eventsource "true"}}
+{{if eq .Gogenetic.Eventsource "True"}}
 cd {{.Gogenetic.Dir}}{{.Gogenetic.Eventstorereadoutput}}
 
 ls
@@ -86,7 +86,7 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Eventstorereadoutput}}
 {{end}}
 
-{{if eq .Gogenetic.Cud "true"}}
+{{if eq .Gogenetic.Cud "True"}}
 cd {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
 
 ls

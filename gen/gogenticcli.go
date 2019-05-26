@@ -130,6 +130,7 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println(dir)
+	dir = dir + "/gogenetic"
 
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
@@ -188,7 +189,7 @@ func main() {
 	if *archType == "es-async-cqrs-read" {
 		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
 
-		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-run"
+		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-read-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
@@ -201,10 +202,10 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs-eventstore-read" {
+	if *archType == "es-cqrs-eventstore-read" {
 		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
 
-		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-run"
+		conf.Gogenetic.Shname = "gogenetic-es-eventstore-read-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
@@ -217,10 +218,10 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs-cmd-even-cud" {
+	if *archType == "es-async-cqrs-cmd-event-handler-cud" {
 		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
 
-		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-run"
+		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-event-handler-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
@@ -242,7 +243,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cmdhandler-cqrs" {
+	if *archType == "es-async-eventhandler-cqrs" {
 		templateFile = dir + "/template/gocli/eventsource-async-cqrs-eventhandler-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-eventhandler-run"
@@ -278,6 +279,7 @@ func main() {
 		return
 	}
 
+	log.Println("%v", conf.Gogenetic)
 	err = t1.Execute(f, conf)
 	if err != nil {
 		log.Fatal("Execute: ", err)

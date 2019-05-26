@@ -1,3 +1,4 @@
+
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/proto-grpcresttemplate.tpl -outDir=es-read-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/servicecrudtemplate.tpl -outDir=es-read-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/grpcservertemplate.tpl -outDir=es-read-output
@@ -7,6 +8,7 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/xormdomaintemplate.tpl -outDir=es-read-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/configtemplate.tpl -outDir=es-read-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/devconftemplate.tpl -outDir=es-read-output
+
 
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/eventstore-read.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/proto-grpcresttemplate.tpl -outDir=eventstore-read-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/eventstore-read.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-read/servicecrudtemplate.tpl -outDir=eventstore-read-output
@@ -35,6 +37,8 @@ go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-cud/commandtoeventtemplate.tpl -outDir=es-cud-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo-es-async.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/es-cqrs-cud/xormesdomaintemplate.tpl -outDir=es-cud-output
 
+
+
 cd /Users/anharay/go/src/gogenetic/output/es-read-output
 
 ls
@@ -58,6 +62,7 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
 gofmt -w /Users/anharay/go/src/gogenetic/output/es-read-output
 
 
+
 cd /Users/anharay/go/src/gogenetic/output/eventstore-read-output
 
 ls
@@ -79,6 +84,7 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
   --swagger_out=logtostderr=true:proto EventStore-service.proto
 
 gofmt -w /Users/anharay/go/src/gogenetic/output/eventstore-read-output
+
 
 
 cd /Users/anharay/go/src/gogenetic/output/es-cud-output

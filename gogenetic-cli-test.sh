@@ -13,3 +13,7 @@
 ./gogenetic-cli/gogenetic-cli -tomlFile=$(pwd)/toml/todo-es-async-eh.toml -archType=es-async-eventhandler-cqrs
 
 ./gogenetic-cli/gogenetic-cli -tomlFile=$(pwd)/toml/todo.toml -archType=crud
+
+./gogenetic-cli/gogenetic-cli -tomlFile=$(pwd)/toml/todo.toml -archType=es-without-cqrs
+
+chmod 777 ./shoutput/cli/*.sh

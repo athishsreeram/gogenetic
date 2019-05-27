@@ -264,7 +264,7 @@ func main() {
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
 	templateFile := flag.String("templateFile", dir+"/template/go/grpctemplate.goproto", " Input the TOML File.")
-	outDir := flag.String("outDir", dir+"/template/go/grpctemplate.goproto", " Input the TOML File.")
+	outDir := flag.String("outDir", "/output/temp", " Input the TOML File.")
 	flag.Parse()
 
 	//go run gogentic.go /Users/anharay/go/src/gogenetic/toml/test.toml /Users/anharay/go/src/gogenetic/template/grpctemplate.goproto

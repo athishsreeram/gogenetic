@@ -8,3 +8,5 @@
 
 
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
+
+ls

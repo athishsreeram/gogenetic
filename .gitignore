@@ -1,0 +1,10 @@
+# Remove executable
+gogenetic
+gogenetic.exe
+
+gogenetic-cli/gogenetic-cli
+gogenetic-cli/gogenetic-cli.exe
+
+test-output/
+crud/
+shoutput/

@@ -1,4 +1,4 @@
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/proto-grpcresttemplate.tpl -outDir=test-output 
+go run main.go -tomlFile=$(pwd)/toml/test.toml -templateFile=$(pwd)/template/go/proto-grpcresttemplate.tpl -outDir=test-output 
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/servicebasictemplate.tpl -outDir=test-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/grpcservertemplate.tpl -outDir=test-output
 go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/test.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/grpcrestservertemplate.tpl -outDir=test-output

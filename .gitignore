@@ -5,6 +5,5 @@ gogenetic.exe
 gogenetic-cli/gogenetic-cli
 gogenetic-cli/gogenetic-cli.exe
 
-test-output/
-crud/
-shoutput/
+output/* 
+shoutput/*

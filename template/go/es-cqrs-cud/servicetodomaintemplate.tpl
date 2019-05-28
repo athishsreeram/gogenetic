@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"github.com/Jeffail/gabs"
 	cfg "{{.Architechture.Outputdir}}/config"
+	"github.com/Jeffail/gabs"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}}{{$DomainModel := .DomainModels.DomainModel}}
 
@@ -44,8 +45,10 @@ func {{$apiname}}EventProcesing(data string) {
 			log.Println("DTO Data", dat.{{titlecase $e.To}})
 			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}(dat.{{titlecase $e.To}})
 			log.Println("Domain Data ", {{firstsmall $e.From}})
-			domain.Create{{$e.From}}({{firstsmall $e.From}})
-			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
+			persistedDomain := domain.Create{{$e.From}}({{firstsmall $e.From}})
+			jsonObj, _ := gabs.ParseJSON([]byte(msg))
+			createEvent(jsonObj.Search("event").Data().(string),persistedDomain,jsonObj.Search("uuid").Data().(string),jsonObj.Search("command").Data().(string))
+			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(persistedDomain)
 			return {{$e.To}}
 			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
@@ -56,8 +59,10 @@ func {{$apiname}}EventProcesing(data string) {
 			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}(dat.{{titlecase $e.To}})
 			log.Println("Domain Data ", {{firstsmall $e.From}})
 
-			domain.Update{{$e.From}}({{firstsmall $e.From}}.Sno,{{firstsmall $e.From}} )
-			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.Sno))
+			persistedDomain := domain.Update{{$e.From}}({{firstsmall $e.From}}.Sno,{{firstsmall $e.From}})
+			jsonObj, _ := gabs.ParseJSON([]byte(msg))
+			createEvent(jsonObj.Search("event").Data().(string),persistedDomain,jsonObj.Search("uuid").Data().(string),jsonObj.Search("command").Data().(string))
+			{{$e.To}} := domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(persistedDomain)
 			return {{$e.To}}
 			{{end}}{{end}}{{end}}{{end}}
 		{{end}}
@@ -66,7 +71,9 @@ func {{$apiname}}EventProcesing(data string) {
 			log.Println("DTO Data", dat.Id)
 			n, err := strconv.Atoi(strconv.FormatInt(dat.Id, 10))
 			if err == nil {
-				domain.Delete{{titlecase $e.From}}(n)
+				persistedDomain := domain.Delete{{titlecase $e.From}}(n)
+				jsonObj, _ := gabs.ParseJSON([]byte(msg))
+				createEvent(jsonObj.Search("event").Data().(string),persistedDomain,jsonObj.Search("uuid").Data().(string),jsonObj.Search("command").Data().(string))
 			}
 			return true
 			{{end}}{{end}}{{end}}{{end}}
@@ -93,3 +100,18 @@ func {{$apiname}}EventProcesing(data string) {
 		{{end}}
 	}
 {{end}}
+
+func  createEvent(event string,data interface{},uuid string,cmd string){
+	msg, err := json.Marshal(data)
+	if err != nil {
+		log.Println(err)
+	}
+
+	jsonObj, err := gabs.ParseJSON(msg)
+	jsonObj.SetP(event, "event")
+	jsonObj.SetP(uuid, "uuid")
+	jsonObj.SetP(cmd, "command")
+	log.Println(jsonObj)
+	domain.CreateEvent(string(jsonObj.Bytes()))
+
+}

@@ -46,7 +46,7 @@ func Read{{$e.From}}(Sno int) {{$e.From}} {
 
 }
 
-func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}) {
+func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}){{$e.From}} {
 
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
@@ -57,12 +57,12 @@ func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}) {
 	} else {
 		log.Println("Successfully Created {}", &{{firstsmall $e.From}})
 	}
-
+	return {{firstsmall $e.From}}
 
 
 }
 
-func Delete{{$e.From}}(Sno int) {
+func Delete{{$e.From}}(Sno int){{$e.From}} {
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
@@ -74,10 +74,10 @@ func Delete{{$e.From}}(Sno int) {
 	} else {
 		log.Println("Successfully Deleted {}", &{{firstsmall $e.From}})
 	}
-	
+	return {{firstsmall $e.From}}
 }
 
-func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}){
+func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}){{$e.From}}{
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
@@ -88,6 +88,8 @@ func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}){
 	} else {
 		log.Println("Successfully Updated {}", &{{firstsmall $e.From}})
 	}
+
+	return {{firstsmall $e.From}}
 }
 {{end}}
 func Convert{{titlecase $e.From}}2{{titlecase $e.To}}({{lowercase $e.From}} interface{}) ({{lowercase $e.To}} *proto.{{titlecase $e.To}}) {

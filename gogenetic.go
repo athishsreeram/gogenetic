@@ -212,6 +212,9 @@ func fileName(templateFile string, apiName string) string {
 	if strings.Contains(templateFile, "grpcclient") {
 		return apiName + "-client.go"
 	}
+	if strings.Contains(templateFile, "commandstoredomain") {
+		return apiName + "-cmdsdomain.go"
+	}
 	if strings.Contains(templateFile, "esdomain") {
 		return apiName + "-esdomain.go"
 	}
@@ -307,7 +310,11 @@ func main() {
 	}
 
 	// set out dir into conf
-	conf.Architechture.Outputdir = *outDir
+	dirOut := []rune(*outDir)
+
+	var dirOutStr strings.Builder
+	dirOutStr.WriteString(string(dirOut[1:len(dirOut)]))
+	conf.Architechture.Outputdir = dirOutStr.String()
 
 	err = t1.Execute(f, conf)
 	if err != nil {

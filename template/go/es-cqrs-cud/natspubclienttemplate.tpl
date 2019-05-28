@@ -6,7 +6,6 @@ import (
 
 	natscon "{{.Architechture.Outputdir}}/client/nats/con"
 	cfg "{{.Architechture.Outputdir}}/config"
-	"{{.Architechture.Outputdir}}/domain"
 	gabs "github.com/Jeffail/gabs"
 	
 	"github.com/nats-io/go-nats"
@@ -44,7 +43,6 @@ func Send(subj string, key string, meta string, v interface{},uuid string) {
 		log.Fatal(err)
 	} else {
 		log.Printf("Published [%s] : '%s'\n", subj, string(jsonObj.Bytes()))
-		domain.CreateEvent(string(jsonObj.Bytes()))
 	}
 }
 
@@ -71,6 +69,5 @@ func SendMsgStr(subj string, key string, meta string, msg string) {
 		log.Fatal(err)
 	} else {
 		log.Printf("Published [%s] : '%s'\n", subj, string(jsonObj.Bytes()))
-		domain.CreateEvent(string(jsonObj.Bytes()))
 	}
 }

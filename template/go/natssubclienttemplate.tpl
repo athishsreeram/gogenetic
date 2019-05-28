@@ -32,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	flag.StringVar(&configPath, "config-path", dir+"/../../../config-dev.json", "Config Path")
+	flag.StringVar(&configPath, "config-path", dir+"/config-dev.json", "Config Path")
 	flag.StringVar(&subj, "sub", "Test", "Test Path")
 
 	flag.Parse()

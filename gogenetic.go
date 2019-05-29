@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 
 	"github.com/BurntSushi/toml"
+	"github.com/gobuffalo/packr"
 
 	"flag"
 	"strings"
@@ -258,6 +259,8 @@ func createDirIfNotExist(dir string) {
 
 func main() {
 
+	box := packr.NewBox("./template")
+
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -266,7 +269,7 @@ func main() {
 
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
-	templateFile := flag.String("templateFile", dir+"/template/go/grpctemplate.goproto", " Input the TOML File.")
+	templateFile := flag.String("templateFile", "go/grpctemplate.goproto", " Input the TOML File.")
 	outDir := flag.String("outDir", "/output/temp", " Input the TOML File.")
 	flag.Parse()
 
@@ -278,8 +281,14 @@ func main() {
 	//log.Print(string(tomlData))
 
 	//2. Load Template
-	tmpl, err := ioutil.ReadFile(*templateFile)
-	check(err)
+	tmpl, err := box.FindString(*templateFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//log.Println(s)
+
+	//ioutil.ReadFile(*templateFile)
+	//check(err)
 	//log.Print("Parsed Template")
 	//log.Print(string(tmpl))
 

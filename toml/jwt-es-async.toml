@@ -1,0 +1,33 @@
+# This is a TOML Support CRUD & EventSourcing Architechture
+
+[Architechture]
+Name = "es"
+
+[API]
+Name = "JWT"
+Operations = [ { url = "/jwt/generate" , request = "JWTRequest" , response = "JWTResponse", protocol = "POST" , operationid  = "Create"},
+               { url = "/jwt/renew/{jwtToken}" , request = "JWTRenewRequest" , response = "JWTRenewResponse", protocol = "PUT" , operationid  = "Update"},
+               { url = "/jwt/verify/{jwtToken}" , request = "JWTVerifyRequest" , response = "JWTVerifyResponse", protocol = "GET" , operationid  = "Read"}]
+
+
+
+[Models]
+Model = [{ name = "JWTToken" , Variable = [{ name = "user", value = "1" , type = "string"  },{ name = "token", value = "1" , type = "string"  }] },
+        { name = "JWTRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "user", value = "user" , type = "string" }] },
+        { name = "JWTResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "JWTToken", value = "jwtToken" , type = "object" }] },
+        { name = "JWTRenewRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = " jwtToken", value = "jwtToken" , type = "string" }] },
+        { name = "JWTRenewResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "JWTToken", value = "jwtToken" , type = "object" }] },
+        { name = "JWTVerifyRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jwtToken", value = "jwtToken" , type = "string" }] },
+        { name = "JWTVerifyResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "status", value = "success" , type = "string" }] } ]
+
+[DomainModels]
+DomainModel = [{ name = "JWTTokenDomains" , Variable = [{ name = "token", value = "1" , type = "string"  },{ name = "user", value = "1" , type = "string"  }] }]
+
+
+[Mapping]
+Map = [{ name = "convertJWTTokenDomainJWTToken" , from = "JWTTokenDomains" , to = "JWTToken" , type="domain2dto", VariableMapping = [{ from = "User", to = "User" , type="string"   },{ from = "Token", to = "Token"  }]},
+     { name = "convertJWTTokenoJWTTokenDomain" , from = "JWTToken" , to = "JWTTokenDomains" , type="dto2domain", VariableMapping = [{ from = "User", to = "User" , type="string" },{ from = "Token", to = "Token" }]} ]
+
+[CommandToEvent]
+Command =  [{name = "JWTTokenCreateCommand", events= [{name = "JWTDomainsEventCreated"}]},
+            {name = "JWTTokenUpdateCommand", events= [{name = "JWTDomainsEventUpdated"}]}]

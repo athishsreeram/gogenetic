@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
+	"github.com/gobuffalo/packr"
 )
 
 var fnsCli = template.FuncMap{
@@ -130,6 +131,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	box := packr.NewBox("../template")
+
 	log.Println(dir)
 	dir = dir + "/gogenetic"
 
@@ -159,12 +163,12 @@ func main() {
 
 	//4. Set Value to the CLI Stucts input
 	if *archType == "es-cqrs" {
-		templateFile = dir + "/template/gocli/eventsource-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-with-cqrs-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
-		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
 		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
 		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
@@ -172,12 +176,12 @@ func main() {
 	}
 
 	if *archType == "es-async-cqrs" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
-		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
 		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
 		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
@@ -188,12 +192,12 @@ func main() {
 	}
 
 	if *archType == "es-async-cqrs-read" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-read-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
-		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
 		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
 		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
@@ -204,12 +208,12 @@ func main() {
 	}
 
 	if *archType == "es-cqrs-eventstore-read" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-eventstore-read-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
-		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
 		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
 		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
@@ -220,12 +224,12 @@ func main() {
 	}
 
 	if *archType == "es-async-cqrs-cmd-event-handler-cud" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-cmd-event-handler-run"
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
-		conf.Gogenetic.Escqrsread = dir + "/template/go/es-cqrs-read/"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
 		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
 		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
@@ -236,37 +240,37 @@ func main() {
 	}
 
 	if *archType == "es-async-cmdhandler-cqrs" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-cmdhandler-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-cmdhandler-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-cmdhandler-run"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Cudoutput = "/output/es-cmdhandler-cud-output"
 
 	}
 
 	if *archType == "es-async-eventhandler-cqrs" {
-		templateFile = dir + "/template/gocli/eventsource-async-cqrs-eventhandler-cli.tpl"
+		templateFile = "gocli/eventsource-async-cqrs-eventhandler-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-eventhandler-run"
-		conf.Gogenetic.Escqrscud = dir + "/template/go/es-cqrs-cud/"
+		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Cudoutput = "/output/es-eventhandler-cud-output"
 
 	}
 
 	if *archType == "crud" {
-		templateFile = dir + "/template/gocli/crud-cli.tpl"
+		templateFile = "gocli/crud-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-crud-run"
-		conf.Gogenetic.Crud = dir + "/template/go/"
+		conf.Gogenetic.Crud = "go/"
 		conf.Gogenetic.Crudoutput = "/output/crud"
 
 	}
 
 	if *archType == "es-without-cqrs" {
-		templateFile = dir + "/template/gocli/eventsource-without-cqrs-cli.tpl"
+		templateFile = "gocli/eventsource-without-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-without-cqrs-run"
-		conf.Gogenetic.Eswithoutcqrs = dir + "/template/go/"
+		conf.Gogenetic.Eswithoutcqrs = "go/"
 		conf.Gogenetic.Eswithoutcqrsoutput = "/output/es-without-cqrs"
 
 	}
@@ -276,8 +280,10 @@ func main() {
 	conf.Gogenetic.Dir = dir
 
 	//5. Load Template
-	tmpl, err := ioutil.ReadFile(templateFile)
-	checkCli(err)
+	tmpl, err := box.FindString(templateFile)
+	if err != nil {
+		log.Fatal(err)
+	}
 	//log.Print("Parsed Template")
 	//log.Print(string(tmpl))
 

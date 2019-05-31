@@ -33,7 +33,7 @@ func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
 	uuid := guuid.New().String()
-	pub.Send(cfg.Conf.NATSSubj, "{{$apiname}}{{$e.Operationid}}Command", "command", req, uuid)
+	pub.Send(cfg.Conf.NATSSubj, "{{$apiname}}{{$e.Operationid}}dCommand", "command", req, uuid)
 
 	var resp *proto.{{$e.Response}}
 	

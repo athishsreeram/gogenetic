@@ -21,13 +21,13 @@ Model = [{ name = "JWTToken" , Variable = [{ name = "user", value = "1" , type =
         { name = "JWTVerifyResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "status", value = "success" , type = "string" }] } ]
 
 [DomainModels]
-DomainModel = [{ name = "JWTTokenDomains" , Variable = [{ name = "token", value = "1" , type = "string"  },{ name = "user", value = "1" , type = "string"  }] }]
+DomainModel = [{ name = "JWTTokenDomains" , Variable = [{ name = "User", value = "1" , type = "string"  },{ name = "Token", value = "1" , type = "string"  }] }]
 
 
 [Mapping]
-Map = [{ name = "convertJWTTokenDomainJWTToken" , from = "JWTTokenDomains" , to = "JWTToken" , type="domain2dto", VariableMapping = [{ from = "User", to = "User" , type="string"   },{ from = "Token", to = "Token"  }]},
+Map = [{ name = "convertJWTTokenDomainJWTToken" , from = "JWTTokenDomains" , to = "JWTToken" , type="domain2dto", primary = "Token" , primarytype = "string" , VariableMapping = [{ from = "User", to = "User" , type="string"   },{ from = "Token", to = "Token"  }]},
      { name = "convertJWTTokenoJWTTokenDomain" , from = "JWTToken" , to = "JWTTokenDomains" , type="dto2domain", VariableMapping = [{ from = "User", to = "User" , type="string" },{ from = "Token", to = "Token" }]} ]
 
 [CommandToEvent]
-Command =  [{name = "JWTTokenCreatedCommand", events= [{name = "JWTTokenDomainsEventCreated"}]},
-            {name = "JWTTokenUpdatedCommand", events= [{name = "JWTTokenDomainsEventUpdated"}]}]
+Command =  [{name = "JWTCreatedCommand", events= [{name = "JWTTokenDomainsEventCreated"}]},
+            {name = "JWTUpdatedCommand", events= [{name = "JWTTokenDomainsEventUpdated"}]}]

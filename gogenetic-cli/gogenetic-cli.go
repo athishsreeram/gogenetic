@@ -140,7 +140,7 @@ func main() {
 	//0. Argument Options Simple CLI with go-command-line-flags
 	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
 	archType := flag.String("archType", "es-cqrs", "Architechture Type")
-	outDir := flag.String("outDir", "shoutput", " Input the TOML File.")
+	outDir := flag.String("outDir", "/output", " Input the TOML File.")
 	flag.Parse()
 
 	//go run gogentic.go /Users/anharay/go/src/gogenetic/toml/test.toml /Users/anharay/go/src/gogenetic/template/grpctemplate.goproto
@@ -169,9 +169,9 @@ func main() {
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
-		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
-		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
+		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
+		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 
 	}
 
@@ -182,9 +182,9 @@ func main() {
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
-		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
-		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
+		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
+		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 		conf.Gogenetic.Read = "True"
 		conf.Gogenetic.Cud = "True"
 		conf.Gogenetic.Eventsource = "True"
@@ -198,9 +198,9 @@ func main() {
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
-		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
-		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
+		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
+		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 		conf.Gogenetic.Read = "True"
 		conf.Gogenetic.Cud = "Flase"
 		conf.Gogenetic.Eventsource = "Flase"
@@ -214,9 +214,9 @@ func main() {
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
-		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
-		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
+		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
+		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 		conf.Gogenetic.Read = "False"
 		conf.Gogenetic.Cud = "Flase"
 		conf.Gogenetic.Eventsource = "True"
@@ -230,9 +230,9 @@ func main() {
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Esreadoutput = "/output/es-read-output"
-		conf.Gogenetic.Eventstorereadoutput = "/output/eventstore-read-output"
-		conf.Gogenetic.Cudoutput = "/output/es-cud-output"
+		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
+		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 		conf.Gogenetic.Read = "False"
 		conf.Gogenetic.Cud = "True"
 		conf.Gogenetic.Eventsource = "False"
@@ -244,7 +244,7 @@ func main() {
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-cmdhandler-run"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Cudoutput = "/output/es-cmdhandler-cud-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-cmdhandler-cud-output"
 
 	}
 
@@ -253,7 +253,7 @@ func main() {
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-eventhandler-run"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
-		conf.Gogenetic.Cudoutput = "/output/es-eventhandler-cud-output"
+		conf.Gogenetic.Cudoutput = *outDir + "/es-eventhandler-cud-output"
 
 	}
 
@@ -262,7 +262,7 @@ func main() {
 
 		conf.Gogenetic.Shname = "gogenetic-crud-run"
 		conf.Gogenetic.Crud = "go/"
-		conf.Gogenetic.Crudoutput = "/output/crud"
+		conf.Gogenetic.Crudoutput = *outDir + "/crud"
 
 	}
 
@@ -271,7 +271,7 @@ func main() {
 
 		conf.Gogenetic.Shname = "gogenetic-es-without-cqrs-run"
 		conf.Gogenetic.Eswithoutcqrs = "go/"
-		conf.Gogenetic.Eswithoutcqrsoutput = "/output/es-without-cqrs"
+		conf.Gogenetic.Eswithoutcqrsoutput = *outDir + "/es-without-cqrs"
 
 	}
 
@@ -295,7 +295,8 @@ func main() {
 		log.Fatal("Parse: ", err)
 		return
 	}
-	log.Println("Output:" + dir + "/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
+	log.Println("Output:")
+	log.Println(dir + "/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
 	createDirIfNotExistCli(dir + "/" + *outDir + "/" + filelocCli(templateFile))
 
 	f, err := os.Create(dir + "/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))

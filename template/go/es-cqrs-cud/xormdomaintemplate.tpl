@@ -30,11 +30,11 @@ func ReadAll{{$e.From}}() []{{$e.From}} {
 
 }
 
-func Read{{$e.From}}(Sno int) {{$e.From}} {
+func Read{{$e.From}}({{$e.Primary}} {{$e.Primarytype}}) {{$e.From}} {
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
-	var {{firstsmall $e.From}}  = {{$e.From}}{Sno:Sno}
+	var {{firstsmall $e.From}}  = {{$e.From}}{ {{$e.Primary}}:{{$e.Primary}} }
 	has, err := engine.Get(&{{firstsmall $e.From}})
 	log.Println("{}", {{firstsmall $e.From}})
 	if err != nil {
@@ -62,11 +62,11 @@ func Create{{$e.From}}({{firstsmall $e.From}} {{$e.From}}){{$e.From}} {
 
 }
 
-func Delete{{$e.From}}(Sno int){{$e.From}} {
+func Delete{{$e.From}}({{$e.Primary}} {{$e.Primarytype}}){{$e.From}} {
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 
-	var {{firstsmall $e.From}}  = {{$e.From}}{Sno:Sno}
+	var {{firstsmall $e.From}}  = {{$e.From}}{ {{$e.Primary}}:{{$e.Primary}} }
 	engine.Delete(&{{firstsmall $e.From}})
 
 	if err != nil {
@@ -77,7 +77,7 @@ func Delete{{$e.From}}(Sno int){{$e.From}} {
 	return {{firstsmall $e.From}}
 }
 
-func Update{{$e.From}}(Sno int, {{firstsmall $e.From}} {{$e.From}}){{$e.From}}{
+func Update{{$e.From}}({{$e.Primary}} {{$e.Primarytype}}, {{firstsmall $e.From}} {{$e.From}}){{$e.From}}{
 	var err error
     engine, err = xorm.NewEngine("mysql", cfg.Conf.DBCon)
 

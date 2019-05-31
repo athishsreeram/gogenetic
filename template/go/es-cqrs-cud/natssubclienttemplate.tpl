@@ -68,10 +68,10 @@ func main() {
 		jsonObj, _ := gabs.ParseJSON(msg.Data)
 
 		if jsonObj.ExistsP("command") == true && jsonObj.ExistsP("event") == true {
-			servicetodomain.TestEventProcesing(string(msg.Data))
+			servicetodomain.{{.API.Name}}EventProcesing(string(msg.Data))
 		}
 		if jsonObj.ExistsP("command") == true && jsonObj.ExistsP("event") == false {
-			servicetodomain.TestCommandToEvent(string(msg.Data))
+			servicetodomain.{{.API.Name}}CommandToEvent(string(msg.Data))
 		}
 
 	})

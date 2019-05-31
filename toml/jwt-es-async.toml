@@ -29,5 +29,5 @@ Map = [{ name = "convertJWTTokenDomainJWTToken" , from = "JWTTokenDomains" , to 
      { name = "convertJWTTokenoJWTTokenDomain" , from = "JWTToken" , to = "JWTTokenDomains" , type="dto2domain", VariableMapping = [{ from = "User", to = "User" , type="string" },{ from = "Token", to = "Token" }]} ]
 
 [CommandToEvent]
-Command =  [{name = "JWTTokenCreateCommand", events= [{name = "JWTDomainsEventCreated"}]},
-            {name = "JWTTokenUpdateCommand", events= [{name = "JWTDomainsEventUpdated"}]}]
+Command =  [{name = "JWTTokenCreatedCommand", events= [{name = "JWTTokenDomainsEventCreated"}]},
+            {name = "JWTTokenUpdatedCommand", events= [{name = "JWTTokenDomainsEventUpdated"}]}]

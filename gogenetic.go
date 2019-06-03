@@ -310,10 +310,10 @@ func main() {
 		log.Fatal("Parse: ", err)
 		return
 	}
-	log.Println("Output:" + dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
-	createDirIfNotExist(dir + "/" + *outDir + "/" + fileloc(*templateFile))
+	log.Println("Output:" + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	createDirIfNotExist("/" + *outDir + "/" + fileloc(*templateFile))
 
-	f, err := os.Create(dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	f, err := os.Create("/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
 	if err != nil {
 		log.Println("create file: ", err)
 		return

@@ -296,10 +296,10 @@ func main() {
 		return
 	}
 	log.Println("Output:")
-	log.Println("/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
-	createDirIfNotExistCli("/" + *outDir + "/" + filelocCli(templateFile))
+	log.Println(dir + "/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
+	createDirIfNotExistCli(dir + "/" + *outDir + "/" + filelocCli(templateFile))
 
-	f, err := os.Create("/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
+	f, err := os.Create(dir + "/" + *outDir + "/" + filelocCli(templateFile) + fileNameCli(templateFile, conf.Gogenetic.Shname))
 	if err != nil {
 		log.Println("create file: ", err)
 		return

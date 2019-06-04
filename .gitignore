@@ -8,3 +8,4 @@ gogenetic-cli/gogenetic-cli.exe
 output/* 
 shoutput/*
 swlicense/* 
+crud/*

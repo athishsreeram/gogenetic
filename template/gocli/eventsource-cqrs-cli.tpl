@@ -103,3 +103,11 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
   --swagger_out=logtostderr=true:proto {{.Gogenetic.Apiname}}-service.proto
 
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
+
+mkdir -p ~/{{.Gogenetic.OutDir}}    
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}  ~/{{.Gogenetic.OutDir}}
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Eventstorereadoutput}}  ~/{{.Gogenetic.OutDir}}
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Esreadoutput}}  ~/{{.Gogenetic.OutDir}}
+
+  cd ~/{{.Gogenetic.OutDir}}
+  go mod init {{firstslash .Gogenetic.OutDir}}

@@ -29,3 +29,8 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
   --swagger_out=logtostderr=true:proto {{.Gogenetic.Apiname}}-service.proto
 
   gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Crudoutput}}
+
+  mkdir -p ~/{{.Gogenetic.OutDir}}    
+  mv {{.Gogenetic.Dir}}{{.Gogenetic.Crudoutput}}  ~/{{.Gogenetic.OutDir}}
+  cd ~/{{.Gogenetic.OutDir}}
+  go mod init {{firstslash .Gogenetic.OutDir}}

@@ -19,3 +19,8 @@ protoc --proto_path=proto -I/usr/local/include -I. \
   --go_out=plugins=grpc:proto {{.Gogenetic.Apiname}}-service.proto
 
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
+
+mkdir -p ~/{{.Gogenetic.OutDir}}    
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}  ~/{{.Gogenetic.OutDir}}
+  cd ~/{{.Gogenetic.OutDir}}
+  go mod init {{firstslash .Gogenetic.OutDir}}

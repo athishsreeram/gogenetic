@@ -12,7 +12,7 @@ import (
 	cfg "{{.Architechture.Outputdir}}/config"
 
 	"github.com/Jeffail/gabs"
-	"github.com/nats-io/go-nats"
+	"github.com/nats-io/nats.go"
 )
 
 // NOTE: Can test with demo servers.

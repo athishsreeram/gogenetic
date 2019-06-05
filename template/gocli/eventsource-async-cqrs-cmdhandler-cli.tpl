@@ -11,3 +11,8 @@
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
 
 ls
+
+mkdir -p ~/{{.Gogenetic.OutDir}}    
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}  ~/{{.Gogenetic.OutDir}}
+  cd ~/{{.Gogenetic.OutDir}}
+  go mod init {{firstslash .Gogenetic.OutDir}}

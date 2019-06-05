@@ -62,6 +62,17 @@ var fns = template.FuncMap{
 		msgStr.WriteString(string(a[1:len(a)]))
 
 		return msgStr.String()
+	}, "firstslash": func(x string) string {
+		a := []rune(x)
+
+		var msgStr strings.Builder
+		if string(a[0:1]) == "/" {
+			msgStr.WriteString(string(a[1:len(a)]))
+		} else {
+			return x
+		}
+
+		return msgStr.String()
 	},
 }
 

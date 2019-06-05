@@ -110,3 +110,10 @@ protoc --proto_path=proto  -I/usr/local/include -I. \
 
 gofmt -w {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}
 {{end}}
+
+mkdir -p ~/{{.Gogenetic.OutDir}}    
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Cudoutput}}  ~/{{.Gogenetic.OutDir}}
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Eventstorereadoutput}}  ~/{{.Gogenetic.OutDir}}
+mv {{.Gogenetic.Dir}}{{.Gogenetic.Esreadoutput}}  ~/{{.Gogenetic.OutDir}}
+  cd ~/{{.Gogenetic.OutDir}}
+  go mod init {{firstslash .Gogenetic.OutDir}}

@@ -7,7 +7,7 @@ import (
 	natscon "{{.Architechture.Outputdir}}/client/nats/con"
 	cfg "{{.Architechture.Outputdir}}/config"
 	gabs "github.com/Jeffail/gabs"
-	"github.com/nats-io/go-nats"
+	"github.com/nats-io/nats.go"
 )
 
 var nc *nats.Conn

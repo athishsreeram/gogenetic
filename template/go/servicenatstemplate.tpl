@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"strings"
-	"github.com/nats-io/go-nats"
+	"github.com/nats-io/nats.go"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (

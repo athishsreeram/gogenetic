@@ -16,4 +16,4 @@
 
 ./gogenetic-cli/gogenetic-cli -tomlFile=$(pwd)/toml/todo.toml -archType=es-without-cqrs
 
-chmod 777 ./shoutput/cli/*.sh
+chmod 777 ./output/cli/*.sh

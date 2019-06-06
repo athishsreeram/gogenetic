@@ -73,7 +73,7 @@ func main() {
 
 	conf.Gogenetic.Apiname = confToml.API.Name
 	conf.Gogenetic.TomlDir = *tomlFile
-	conf.Gogenetic.Dir = ""
+	conf.Gogenetic.Dir = dir
 	conf.Gogenetic.OutDir = *outDir
 
 	//4. Set Value to the CLI Stucts input
@@ -182,6 +182,14 @@ func main() {
 
 		grpcswaggerargs := []string{"--proto_path=proto", "-I/usr/local/include", "-I.", "-I" + os.Getenv("GOPATH") + "/src", "-I" + os.Getenv("GOPATH") + "/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis", "--swagger_out=logtostderr=true:proto", conf.Gogenetic.Apiname + "-service.proto"}
 		gogexec.ExecuteProtoCmd(grpcswaggerargs)
+
+		gofmtargs := []string{"-w", conf.Gogenetic.Dir + "/" + conf.Gogenetic.Crudoutput}
+		gogexec.ExecuteCmd("gofmt", gofmtargs)
+
+		gogexec.MoveTo(conf.Gogenetic.Dir + "/" + conf.Gogenetic.OutDir)
+
+		gomodargs := []string{"mod", "init", *outDir}
+		gogexec.ExecuteCmd("go", gomodargs)
 	}
 
 	if *archType == "es-without-cqrs" {

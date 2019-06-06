@@ -1,12 +1,12 @@
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}servicecrudtemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcrestservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}cmdservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcclienttemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}xormdomaintemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}configtemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}devconftemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}servicecrudtemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcrestservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}cmdservertemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}grpcclienttemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}xormdomaintemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}configtemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Crud}}devconftemplate.tpl -outDir={{.Gogenetic.Crudoutput}}
 
 cd {{.Gogenetic.Dir}}{{.Gogenetic.Crudoutput}}
 

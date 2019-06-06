@@ -144,7 +144,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	box := packr.NewBox("../template")
+	box := packr.NewBox("../gogfile/template")
 
 	log.Println(dir)
 	dir = dir + "/gogenetic"

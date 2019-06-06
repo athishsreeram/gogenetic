@@ -1,16 +1,16 @@
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}servicenatstemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcrestservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}cmdservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}xormdomaintemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natssubclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natspubclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}servicetodomaintemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natsconutilclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}configtemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
-./gogenetic -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}devconftemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}proto-grpcresttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}servicenatstemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcrestservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}cmdservertemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}grpcclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}xormdomaintemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natssubclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natspubclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}servicetodomaintemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}natsconutilclienttemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}configtemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
+./gog -archType="file" -tomlFile={{.Gogenetic.TomlDir}} -templateFile={{.Gogenetic.Eswithoutcqrs}}devconftemplate.tpl -outDir={{.Gogenetic.Eswithoutcqrsoutput}}
 
 
 cd {{.Gogenetic.Dir}}{{.Gogenetic.Eswithoutcqrsoutput}}

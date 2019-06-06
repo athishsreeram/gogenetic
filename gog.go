@@ -172,8 +172,16 @@ func main() {
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"xormdomaintemplate.tpl", conf.Gogenetic.Crudoutput)
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"configtemplate.tpl", conf.Gogenetic.Crudoutput)
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"devconftemplate.tpl", conf.Gogenetic.Crudoutput)
+
 		gogexec.MoveTo(conf.Gogenetic.Crudoutput)
-		gogexec.ExecuteCmd("protoc --proto_path=proto -I/usr/local/include -I. -I$GOPATH/src -I$GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=plugins=grpc:proto Test-service.proto")
+		grpcargs := []string{"--proto_path=proto", "-I/usr/local/include", "-I.", "-I" + os.Getenv("GOPATH") + "/src", "-I" + os.Getenv("GOPATH") + "/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis", "--go_out=plugins=grpc:proto", conf.Gogenetic.Apiname + "-service.proto"}
+		gogexec.ExecuteProtoCmd(grpcargs)
+
+		grpcgatewayargs := []string{"--proto_path=proto", "-I/usr/local/include", "-I.", "-I" + os.Getenv("GOPATH") + "/src", "-I" + os.Getenv("GOPATH") + "/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis", "--grpc-gateway_out=logtostderr=true:proto", conf.Gogenetic.Apiname + "-service.proto"}
+		gogexec.ExecuteProtoCmd(grpcgatewayargs)
+
+		grpcswaggerargs := []string{"--proto_path=proto", "-I/usr/local/include", "-I.", "-I" + os.Getenv("GOPATH") + "/src", "-I" + os.Getenv("GOPATH") + "/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis", "--swagger_out=logtostderr=true:proto", conf.Gogenetic.Apiname + "-service.proto"}
+		gogexec.ExecuteProtoCmd(grpcswaggerargs)
 	}
 
 	if *archType == "es-without-cqrs" {

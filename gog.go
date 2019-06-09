@@ -76,7 +76,7 @@ func main() {
 	conf.Gogenetic.OutDir = *outDir
 
 	//4. Set Value to the CLI Stucts input
-	if *archType == "es-cqrs" {
+	if *archType == "es-sync-with-cqrs" {
 
 		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
@@ -142,9 +142,9 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs" {
+	if *archType == "es-async-with-cqrs" {
 
-		conf.Gogenetic.Tomlesread = "/toml/eventstore-read.toml"
+		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
@@ -208,9 +208,9 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs-read" {
+	if *archType == "es-async-with-cqrs-read" {
 
-		conf.Gogenetic.Tomlesread = "/toml/eventstore-read.toml"
+		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Esreadoutput = *outDir + "/es-read-output"
 
@@ -234,7 +234,7 @@ func main() {
 
 	if *archType == "es-cqrs-eventstore-read" {
 
-		conf.Gogenetic.Tomlesread = "/toml/eventstore-read.toml"
+		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrsread = "go/es-cqrs-read/"
 		conf.Gogenetic.Eventstorereadoutput = *outDir + "/eventstore-read-output"
 
@@ -261,15 +261,15 @@ func main() {
 		formatCode(conf.Gogenetic.Dir + "/" + conf.Gogenetic.Cudoutput)
 	}
 
-	if *archType == "es-async-cqrs-cmd-event-handler-cud" {
+	if *archType == "es-async-with-cqrs-cmd-event-handler-cud" {
 
-		conf.Gogenetic.Tomlesread = "/toml/eventstore-read.toml"
+		conf.Gogenetic.Tomlesread = dir + "/toml/eventstore-read.toml"
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Cudoutput = *outDir + "/es-cud-output"
 		// To-do dont know what this is for
 	}
 
-	if *archType == "es-async-cmdhandler-cqrs" {
+	if *archType == "es-async-cmdhandler-with-cqrs" {
 
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Cudoutput = *outDir + "/es-cmdhandler-cud-output"
@@ -291,7 +291,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-eventhandler-cqrs" {
+	if *archType == "es-async-eventhandler-with-cqrs" {
 
 		conf.Gogenetic.Escqrscud = "go/es-cqrs-cud/"
 		conf.Gogenetic.Cudoutput = *outDir + "/es-eventhandler-cud-output"
@@ -338,7 +338,7 @@ func main() {
 
 	}
 
-	if *archType == "es-without-cqrs" {
+	if *archType == "es-sync-without-cqrs" {
 		conf.Gogenetic.Eswithoutcqrs = "go/"
 		conf.Gogenetic.Eswithoutcqrsoutput = *outDir + "/es-without-cqrs"
 

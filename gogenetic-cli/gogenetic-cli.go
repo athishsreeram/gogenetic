@@ -174,7 +174,7 @@ func main() {
 	}
 
 	//4. Set Value to the CLI Stucts input
-	if *archType == "es-cqrs" {
+	if *archType == "es-sync-with-cqrs" {
 		templateFile = "gocli/eventsource-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-with-cqrs-run"
@@ -187,7 +187,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs" {
+	if *archType == "es-async-with-cqrs" {
 		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-run"
@@ -203,7 +203,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cqrs-read" {
+	if *archType == "es-async-with-cqrs-read" {
 		templateFile = "gocli/eventsource-async-cqrs-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-read-run"
@@ -251,7 +251,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-cmdhandler-cqrs" {
+	if *archType == "es-async-cmdhandler-with-cqrs" {
 		templateFile = "gocli/eventsource-async-cqrs-cmdhandler-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-cmdhandler-run"
@@ -260,7 +260,7 @@ func main() {
 
 	}
 
-	if *archType == "es-async-eventhandler-cqrs" {
+	if *archType == "es-async-eventhandler-with-cqrs" {
 		templateFile = "gocli/eventsource-async-cqrs-eventhandler-cli.tpl"
 
 		conf.Gogenetic.Shname = "gogenetic-es-async-with-cqrs-eventhandler-run"

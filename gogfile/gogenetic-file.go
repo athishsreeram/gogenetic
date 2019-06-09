@@ -254,6 +254,9 @@ func fileName(templateFile string, apiName string) string {
 	if strings.Contains(templateFile, "liquibase") {
 		return apiName + "-liqubase.xml"
 	}
+	if strings.Contains(templateFile, "docker") {
+		return "Dockerfile"
+	}
 
 	return ""
 
@@ -324,11 +327,12 @@ func CreateFile(tomlFile string, templateFile string, outDir string) {
 	}
 
 	// set out dir into conf
-	dirOut := []rune(outDir)
+	//dirOut := []rune(outDir)
 
-	var dirOutStr strings.Builder
+	/**var dirOutStr strings.Builder
 	dirOutStr.WriteString(string(dirOut[1:len(dirOut)]))
-	conf.Architechture.Outputdir = dirOutStr.String()
+	conf.Architechture.Outputdir = dirOutStr.String()**/
+	conf.Architechture.Outputdir = outDir
 
 	err = t1.Execute(f, conf)
 	if err != nil {

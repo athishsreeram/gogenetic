@@ -329,6 +329,7 @@ func main() {
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"xormdomaintemplate.tpl", conf.Gogenetic.Crudoutput)
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"configtemplate.tpl", conf.Gogenetic.Crudoutput)
 		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"devconftemplate.tpl", conf.Gogenetic.Crudoutput)
+		gogfile.CreateFile(*tomlFile, conf.Gogenetic.Crud+"docker/dockertemplate.tpl", conf.Gogenetic.Crudoutput)
 
 		gogexec.MoveTo(conf.Gogenetic.Crudoutput)
 

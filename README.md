@@ -37,17 +37,15 @@ It where you define you business entity from where you can clearly define busine
     1. CRUD
         archType=crud
     2. Event Source
-        archType=es-with-cqrs
+        archType=crud
+        archType=es-sync-with-cqrs
+        archType=es-sync-without-cqrs
         archType=es-async-with-cqrs
         archType=es-async-with-cqrs-read
-        archType=es-cqrs-eventstore-read
-        archType=es-async-with-cqrs-cmd-event-handler-cud
         archType=es-async-cmdhandler-with-cqrs
         archType=es-async-eventhandler-with-cqrs
-        archType=crud
-        archType=es-without-cqrs
+        archType=es-cqrs-eventstore-read
         archType=file
-
 
 # Run Gogenetic
 

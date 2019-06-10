@@ -1,4 +1,4 @@
-module github.com/athishsreeram/gogenetic
+module gogenetic
 
 go 1.12
 

@@ -1,4 +1,4 @@
-package main
+package gogfile
 
 import (
 	"html/template"
@@ -10,7 +10,6 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/gobuffalo/packr"
 
-	"flag"
 	"strings"
 )
 
@@ -255,6 +254,9 @@ func fileName(templateFile string, apiName string) string {
 	if strings.Contains(templateFile, "liquibase") {
 		return apiName + "-liqubase.xml"
 	}
+	if strings.Contains(templateFile, "docker") {
+		return "Dockerfile"
+	}
 
 	return ""
 
@@ -262,38 +264,26 @@ func fileName(templateFile string, apiName string) string {
 
 func createDirIfNotExist(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		err = os.MkdirAll(dir, 0755)
+		err = os.MkdirAll(dir, 0777)
 		if err != nil {
 			panic(err)
 		}
 	}
 }
 
-func main() {
+func CreateFile(tomlFile string, templateFile string, outDir string) {
 
 	box := packr.NewBox("./template")
 
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println(dir)
-
-	//0. Argument Options Simple CLI with go-command-line-flags
-	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
-	templateFile := flag.String("templateFile", "go/grpctemplate.goproto", " Input the TOML File.")
-	outDir := flag.String("outDir", "/output/temp", " Input the TOML File.")
-	flag.Parse()
-
 	//go run gogentic.go /Users/anharay/go/src/gogenetic/toml/test.toml /Users/anharay/go/src/gogenetic/template/grpctemplate.goproto
 	//1. Load TOML file
-	tomlData, err := ioutil.ReadFile(*tomlFile)
+	tomlData, err := ioutil.ReadFile(tomlFile)
 	check(err)
 	//log.Print("Parsed TOML")
 	//log.Print(string(tomlData))
 
 	//2. Load Template
-	tmpl, err := box.FindString(*templateFile)
+	tmpl, err := box.FindString(templateFile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -321,21 +311,28 @@ func main() {
 		log.Fatal("Parse: ", err)
 		return
 	}
-	log.Println("Output:" + dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
-	createDirIfNotExist(dir + "/" + *outDir + "/" + fileloc(*templateFile))
 
-	f, err := os.Create(dir + "/" + *outDir + "/" + fileloc(*templateFile) + fileName(*templateFile, conf.API.Name))
+	dir := outDir + "/" + fileloc(templateFile)
+	file := dir + fileName(templateFile, conf.API.Name)
+
+	createDirIfNotExist(dir)
+
+	f, err := os.Create(file)
+	log.Println("Created")
+	log.Println(file)
+
 	if err != nil {
 		log.Println("create file: ", err)
 		return
 	}
 
 	// set out dir into conf
-	dirOut := []rune(*outDir)
+	//dirOut := []rune(outDir)
 
-	var dirOutStr strings.Builder
+	/**var dirOutStr strings.Builder
 	dirOutStr.WriteString(string(dirOut[1:len(dirOut)]))
-	conf.Architechture.Outputdir = dirOutStr.String()
+	conf.Architechture.Outputdir = dirOutStr.String()**/
+	conf.Architechture.Outputdir = outDir
 
 	err = t1.Execute(f, conf)
 	if err != nil {

@@ -11,6 +11,14 @@ func MoveTo(dir string) {
 	os.Chdir(dir)
 }
 
+func RemoveFile(dir string) {
+	dir1, _ := os.Getwd()
+	err := os.Remove(dir1 + "/" + dir)
+	if err != nil {
+		log.Println(err)
+	}
+}
+
 func ExecuteProtoCmd(args []string) {
 
 	cmd := exec.Command("protoc")

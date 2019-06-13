@@ -1,21 +1,10 @@
-package com.gogenetic.restful.{{lowercase .API.Name}};
+package com.gogenetic.restful.{{lowercase .API.Name}}.model;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.math.BigDecimal;
-import java.util.Date;
-
-{{$DomainModel := .DomainModels.DomainModel}}
-{{range  $i, $e := .Mapping.Map}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
-@Entity
+{{$Ind := .Models.Index}}{{range  $i, $e := .Models.Model}}{{$temp := tostring $i}}{{if eq $temp $Ind}}
 @Data 
-public class {{$e.From}}  { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}}{{if eq $k1 $k2}}
-{{if eq $e.Primary $g1.Name}}@Id     @GeneratedValue(strategy = GenerationType.IDENTITY){{end}}
-private  {{$g1.Type}} {{$g1.Name}};{{end}}{{end}}{{end}}{{end}}
-}{{end}}{{end}}{{end}}
+public class {{$e.Name}}  {
+{{range  $j, $f := $e.Variable}}
+{{ if eq (convertjavatype $f.Type) "repeated" }}List<{{removeplural (titlecase $f.Name)}}>{{end}}{{ if ne (convertjavatype $f.Type) "" }} {{ if and (ne (convertjavatype $f.Type) "object")  (ne (convertjavatype $f.Type) "repeated") }} {{convertjavatype $f.Type}} {{end}} {{end}} {{ if eq (convertjavatype $f.Type) "object" }} {{titlecase $f.Name}}{{end}} {{$f.Name}} = {{(plus1 $i)}}; {{end}} 
+}{{end}}{{end}}

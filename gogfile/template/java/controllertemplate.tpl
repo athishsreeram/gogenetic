@@ -1,24 +1,22 @@
 package com.gogenetic.restful.{{lowercase .API.Name}};
-
-import com.gogenetic.restful.{{lowercase .API.Name}}.mode.*;
-import io.swagger.annotations.*;
+{{$API:=.API.Name}}{{$Map := .Mapping.Map}}
+import com.gogenetic.restful.todo.model.*;
+import com.sun.tools.javac.comp.Todo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-{{$Model := .Models.Model}}
-{{$API := .API.Name}}
-@Controller
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/v1")
 public class {{$API}}Controller {
 
-    private final {{$API}}Service {{lowercase $API}}Service;
-    private final {{$API}}Mapper {{lowercase $API}}Mapper;
+    private  {{$API}}Service {{lowercase $API}}Service;
+    private  {{$API}}Mapper {{lowercase $API}}Mapper;
 
     {{range $j,$a := .API.Operations}} 
     @RequestMapping(value = "{{.URL}}",
@@ -33,46 +31,73 @@ public class {{$API}}Controller {
             {{ if eq (convertjavatype $f.Type) "repeated" }}{{ (convertjavatype $f.Type) }} {{removeplural (titlecase $f.Name)}}{{end}}{{ if ne (convertjavatype $f.Type) "" }} {{ if and (ne (convertjavatype $f.Type) "object")  (ne (convertjavatype $f.Type) "repeated") }} {{convertjavatype $f.Type}} {{end}} {{end}} {{ if eq (convertjavatype $f.Type) "object" }} {{titlecase $f.Name}}{{end}} {{$f.Name}}  {{if ne $i $n}} , {{end}}{{if eq (plus1 $i) $n}} {{end}}{{end}}
         ){
             {{ if (eq $a.Operationid "Create") }}
-                {{lowercase $API}}Service.save({{lowercase $API}}Mapper.to{{$API}}({{lowercase $API}}));
-                
+            {{range  $i, $e := $Map}}
+            {{ if eq $e.Name "convertToDoDomainToDo" }}
+                {{lowercase $API}}Service.save({{lowercase $API}}Mapper.to{{$e.From}}({{firstsmall $e.To}}));
+                {{range  $j, $f := $e.VariableMapping}}
+                {{if eq $e.Primary $f.From}}
+                 {{$e.Primarytype}}  {{firstsmall $f.To}} = {{firstsmall $e.To}}.get{{$f.To}}();
+                {{end}}
+                {{end}}
             {{end}}
-
+            {{end}}
+            {{end}}
+            
             {{ if (eq $a.Operationid "Update") }}
-                {{$API}} {{lowercase $API}} = {{lowercase $API}}Mapper.to{{$API}}({{lowercase $API}});
                  {{range  $i,$f := $a.RequestVariable}}
                      {{ if eq $f.Parameter "path" }}  
-                        {{lowercase $API}}.set{{titlecase $f.Name}}({{$f.Name}});
-                        update =  {{$f.Name}};
+                        {{range  $i, $e := $Map}}
+                        {{ if eq $e.Name "convertToDoDomainToDo" }} 
+                        {{$e.From}} {{firstsmall $e.From}} = {{lowercase $API}}Mapper.to{{$e.From}}({{firstsmall $e.To}});
+                        {{firstsmall $e.From}}.set{{titlecase $e.Primary}}({{$f.Name}});
+                        {{convertjavatype $e.Primarytype}} updated =  {{$f.Name}};
+                        {{lowercase $API}}Service.save({{firstsmall $e.From}});
+                         {{end}}
+                        {{end}}
                     {{end}}
                 {{end}}
-                {{lowercase $API}}Service.save({{lowercase $API}});
+                
                  
             {{end}}
+            
             {{ if (eq $a.Operationid "Delete") }}
                 {{range  $i,$f := $a.RequestVariable}}
                      {{ if eq $f.Parameter "path" }}  
-                     delete = {{lowercase $API}}Service.delete({{$f.Name}});
+                     {{lowercase $API}}Service.deleteById(Long.valueOf({{$f.Name}}));
+                     Boolean deleted = true;
                  {{end}}
                 {{end}}   
             {{end}}
+            
             {{ if (eq $a.Operationid "Read") }}
                 {{range  $i,$f := $a.RequestVariable}}
-                 {{ if eq $f.Parameter "path" }}  
-                    Optional<{{lowercase $API}}> {{lowercase $API}} = {{lowercase $API}}Service.findBy({{$f.Name}});
-                    {{$API}} {{lowercase $API}} = {{lowercase $API}}Mapper.to{{$API}}({{lowercase $API}}.get())
+                 {{ if eq $f.Parameter "path" }} 
+                    {{range  $i, $e := $Map}}
+                        {{ if eq $e.Name "convertToDoDomainToDo" }} 
+                    Optional<{{$e.From}}> {{firstsmall $API}}Opt = {{lowercase $API}}Service.findById(Long.valueOf({{$f.Name}}));
+                    {{$e.To}} {{firstsmall $e.To}} = {{firstsmall $API}}Mapper.to{{$e.To}}({{lowercase $API}}Opt.get());
+                 {{end}}
+                {{end}} 
                  {{end}}
                 {{end}}  
             {{end}}
+            
             {{ if (eq $a.Operationid "ReadAll") }}
-               List<{{$API}}> {{lowercase $API}}s = {{lowercase $API}}Mapper.to{{$API}}s({{lowercase $API}}Service.findAll())
+                {{range  $i, $e := $Map}}
+                        {{ if eq $e.Name "convertToDoDomainToDo" }}
+               List<{{$e.To}}> {{firstsmall $e.To}}s = {{lowercase $API}}Mapper.to{{$e.To}}s({{lowercase $API}}Service.findAll());
             {{end}}
+            {{end}}
+            {{end}}
+
             {{$m := len $a.ResponseVariable}}
             {{$m := (minus1 $m) }}  
             {{$a.Response}} {{lowercase $a.Response}} = new {{$a.Response}}(
             {{range  $j,$g := $a.ResponseVariable}}
                  {{$g.Name}} {{if ne $j $m}} , {{end}}{{if eq (plus1 $j) $m}} {{end}}
             {{end}}
-            )
+            );
+            return ResponseEntity.ok({{lowercase $a.Response}});
         }
     {{end}}
  

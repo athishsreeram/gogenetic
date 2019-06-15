@@ -60,7 +60,7 @@ var fns = template.FuncMap{
 			return "object"
 		}
 		if x == "boolean" {
-			return "bool"
+			return "Boolean"
 		}
 		return ""
 	}, "lowercase": func(x string) string {

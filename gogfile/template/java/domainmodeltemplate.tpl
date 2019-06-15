@@ -17,5 +17,5 @@ import java.util.Date;
 @Data 
 public class {{$e.From}}  { {{range $k1, $g1 := $f.Variable}} {{range $k2, $g2 := $e.VariableMapping}}{{if eq $k1 $k2}}
 {{if eq $e.Primary $g1.Name}}@Id     @GeneratedValue(strategy = GenerationType.IDENTITY){{end}}
-private  {{$g1.Type}} {{$g1.Name}};{{end}}{{end}}{{end}}{{end}}
+private  {{convertjavatype $g1.Type}} {{$g1.Name}};{{end}}{{end}}{{end}}{{end}}
 }{{end}}{{end}}{{end}}

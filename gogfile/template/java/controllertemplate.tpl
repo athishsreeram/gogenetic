@@ -1,7 +1,6 @@
 package com.gogenetic.restful.{{lowercase .API.Name}};
 {{$API:=.API.Name}}{{$Map := .Mapping.Map}}
 import com.gogenetic.restful.todo.model.*;
-import com.sun.tools.javac.comp.Todo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

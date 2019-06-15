@@ -14,9 +14,6 @@ public interface {{$API}}Mapper {
         {{end}}
         {{$e.To}} to{{$e.To}}({{$e.From}} {{lowercase $e.From}});
 
-        {{range  $j, $f := $e.VariableMapping}}
-        @Mapping(source = "{{firstsmall $f.From}}", target = "{{firstsmall $f.To}}")
-        {{end}}
         List<{{$e.To}}> to{{$e.To}}s(List<{{$e.From}}> {{lowercase $e.From}});
     {{end}}
     

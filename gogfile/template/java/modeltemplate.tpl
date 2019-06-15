@@ -2,11 +2,12 @@ package com.gogenetic.restful.{{lowercase .API.Name}}.model;
 
 import lombok.Data;
 import java.util.*;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 
 {{$Ind := .Models.Index}}{{range  $i, $e := .Models.Model}}{{$temp := tostring $i}}{{if eq $temp $Ind}}
 @AllArgsConstructor
+@NoArgsConstructor
 @Data 
 public class {{$e.Name}}  {
 {{range  $j, $f := $e.Variable}}

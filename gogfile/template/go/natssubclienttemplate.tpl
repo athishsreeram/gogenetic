@@ -65,7 +65,7 @@ func main() {
 	nc.Subscribe(subj, func(msg *nats.Msg) {
 		i += 1
 		natscon.PrintMsg(msg, i)
-		servicetodomain.TestServiceProcesing(string(msg.Data))
+		servicetodomain.{{.API.Name}}ServiceProcesing(string(msg.Data))
 	})
 	nc.Flush()
 

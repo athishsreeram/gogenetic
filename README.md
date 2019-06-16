@@ -45,17 +45,26 @@ It where you define you business entity from where you can clearly define busine
         archType=es-async-cmdhandler-with-cqrs
         archType=es-async-eventhandler-with-cqrs
         archType=es-cqrs-eventstore-read
+    3. File Output
         archType=file
+
+## Architechture Supported
+
+    1. Java
+        lang=java
+    2. Go
+        lang=go
 
 # Run Gogenetic
 
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=crud
+    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=crud -lang=java
 
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl
+    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=go
 
 ## Parameter Supported
 
-    1. outDir location where the your output should be created
-    2. tomlFiles the business entity as per business toml structure
-    3. archType technical archtiture supported
-    4. templateFile need when archType is file you can pass your custom template to generate as per you need
+    1. outDir  - location where the your output should be created
+    2. tomlFiles - the business entity as per business toml structure
+    3. archType - technical archtiture supported
+    4. templateFile - need when archType is file you can pass your custom template to generate as per you need
+    5. lang - languages supported 

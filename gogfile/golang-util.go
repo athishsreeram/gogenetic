@@ -5,6 +5,10 @@ import (
 )
 
 func GoFileloc(templateFile string) string {
+
+	if strings.Contains(templateFile, "readme") {
+		return ""
+	}
 	if strings.Contains(templateFile, "proto-") {
 		return "proto/"
 	}
@@ -44,9 +48,6 @@ func GoFileloc(templateFile string) string {
 	if strings.Contains(templateFile, "commandtoevent") {
 		return "servicetodomain/"
 	}
-	if strings.Contains(templateFile, "readme") {
-		return ""
-	}
 
 	return ""
 
@@ -54,6 +55,9 @@ func GoFileloc(templateFile string) string {
 
 func GoFileName(templateFile string, apiName string) string {
 
+	if strings.Contains(templateFile, "readme") {
+		return "README.md"
+	}
 	if strings.Contains(templateFile, "proto-") {
 		return apiName + "-service.proto"
 	}
@@ -119,9 +123,6 @@ func GoFileName(templateFile string, apiName string) string {
 	}
 	if strings.Contains(templateFile, "docker") {
 		return "Dockerfile"
-	}
-	if strings.Contains(templateFile, "readme") {
-		return "README.md"
 	}
 
 	return ""

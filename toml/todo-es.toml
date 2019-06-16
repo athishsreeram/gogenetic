@@ -4,7 +4,7 @@
 Name = "es"
 
 [API]
-Name = "Test"
+Name = "Todo"
 Operations = [ { url = "/todo/all" , request = "ReadAllRequest" , response = "ReadAllResponse", protocol = "GET" , operationid  = "ReadAll"},
                { url = "/todo" , request = "CreateRequest" , response = "CreateResponse", protocol = "POST" , operationid  = "Create"},
                { url = "/todo/{id}" , request = "UpdateRequest" , response = "UpdateResponse", protocol = "PUT" , operationid  = "Update"},

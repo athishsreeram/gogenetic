@@ -6,22 +6,12 @@ To make application CRUD application with GRPC, HTTP, NATS, DB support & Externa
 
 
 
-# Build Gogenetic HTTP/GRPC Server
-    cd {{.Architechture.Outputdir}}
-    
-    go build cmd/main/{{.API.Name}}-cmdserver.go
-
 # Build Gogenetic NATS Client
 
     cd {{.Architechture.Outputdir}}
 
-    go build client/nats/sub/Test-sub-client.go 
+    go build client/nats/sub/{{.API.Name}}-sub-client.go 
     
-
-# Run Gogenetic HTTP/GRPC Server
-
-    cd {{.Architechture.Outputdir}}
-    ./{{.API.Name}}-cmdserver
 
 # Run Gogenetic NATS Client
 

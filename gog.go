@@ -49,7 +49,7 @@ func main() {
 	if _, err := toml.Decode(string(tomlData), &confToml); err != nil {
 		log.Fatal(err)
 	}
-	conf.Gogenetic.Apiname = confToml.API.Name
+	conf.API.Name = confToml.API.Name
 	conf.Gogenetic.TomlDir = *tomlFile
 	conf.Gogenetic.Dir = dir
 	conf.Gogenetic.OutDir = *outDir

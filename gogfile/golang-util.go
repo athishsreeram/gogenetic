@@ -44,6 +44,9 @@ func GoFileloc(templateFile string) string {
 	if strings.Contains(templateFile, "commandtoevent") {
 		return "servicetodomain/"
 	}
+	if strings.Contains(templateFile, "readme") {
+		return ""
+	}
 
 	return ""
 
@@ -116,6 +119,9 @@ func GoFileName(templateFile string, apiName string) string {
 	}
 	if strings.Contains(templateFile, "docker") {
 		return "Dockerfile"
+	}
+	if strings.Contains(templateFile, "readme") {
+		return "README.md"
 	}
 
 	return ""

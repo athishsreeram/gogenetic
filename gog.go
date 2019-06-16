@@ -49,15 +49,15 @@ func main() {
 	if _, err := toml.Decode(string(tomlData), &confToml); err != nil {
 		log.Fatal(err)
 	}
-
 	conf.Gogenetic.Apiname = confToml.API.Name
 	conf.Gogenetic.TomlDir = *tomlFile
 	conf.Gogenetic.Dir = dir
 	conf.Gogenetic.OutDir = *outDir
 	conf.Gogenetic.Lang = *lang
+	conf.Models = confToml.Models
 
 	if *archType == "file" {
-		gogfile.CreateFile(conf.Gogenetic.Lang, *tomlFile, *templateFile, conf.Gogenetic.OutDir)
+		gogfile.CreateFile(conf, *templateFile, conf.Gogenetic.OutDir)
 	}
 
 	if conf.Gogenetic.Lang == "go" {

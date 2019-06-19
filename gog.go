@@ -68,4 +68,7 @@ func main() {
 		arch.JavaLangArch(conf, *archType, *templateFile)
 	}
 
+    if conf.Gogenetic.Lang == "liquibase" {
+    	 gogfile.CreateFile(conf, "liquibase/liquibasetemplate.tpl", conf.Gogenetic.OutDir)
+    }
 }

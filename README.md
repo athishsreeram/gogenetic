@@ -36,6 +36,7 @@ It where you define you business entity from where you can clearly define busine
 
     1. CRUD
         archType=crud
+        archType=crud-object
     2. Event Source
         archType=crud
         archType=es-sync-with-cqrs

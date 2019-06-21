@@ -5,7 +5,6 @@ import (
 	"{{.Architechture.Outputdir}}/domain"
 	"context"
 	"log"
-	"strconv"
 )
 {{$apiname := .API.Name}} {{$model := .Models.Model}} {{$DomainModel := .DomainModels.DomainModel}} {{$MappingMap := .Mapping.Map}}
 const (
@@ -29,7 +28,7 @@ func New{{$apiname}}ServiceServer() proto.{{$apiname}}ServiceServer {
 {{range  $i, $e := .API.Operations}}
 // Create new todo task
 func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context, req *proto.{{$e.Request}}) (*proto.{{$e.Response}}, error) {
-	// TO-DO
+	// TO-DO 
 		{{ if (eq $e.Operationid "Create") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			var {{firstsmall $e.To}} *proto.{{$e.To}}
@@ -38,13 +37,10 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 			domain.Create{{$e.From}}({{firstsmall $e.From}})
 			{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.{{$e.Primary}}))
 			log.Println("Response DTO Data", {{firstsmall $e.To}})
-			
 			{{end}}{{end}}{{end}}{{end}}
-
-		
            resp := &proto.{{$e.Response}}{
             {{range  $j,$g := $e.ResponseVariable}}
-                 {{titlecase $g.Name}} : {{if ne $g.ModelVal ""}}{{firstsmall $g.ModelVal}}.Get{{titlecase $g.Name}}(){{end}} {{if eq $g.Name "v1"}} {{$g.Value}} {{end}},
+                 {{titlecase $g.Name}} : {{if ne $g.ModelVal ""}}{{firstsmall $g.ModelVal}}{{end}} {{if eq $g.Name "v1"}} {{$g.Value}} {{end}},
             {{end}}
 		   };
 
@@ -55,7 +51,7 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		{{ if (eq $e.Operationid "Update") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			var {{firstsmall $e.To}} *proto.{{$e.To}}
-			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}(req.{{titlecase $e.To}})
+			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}({{firstsmall $e.To}})
 			log.Println("Domain Data ", {{firstsmall $e.From}})
 			domain.Update{{$e.From}}({{firstsmall $e.From}}.{{$e.Primary}},{{firstsmall $e.From}} )
 			{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.From}}.{{$e.Primary}}))
@@ -64,7 +60,7 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 
 			resp := &proto.{{$e.Response}}{
             {{range  $j,$g := $e.ResponseVariable}}
-                 {{titlecase $g.Name}} : {{if ne $g.ModelVal ""}}{{firstsmall $g.ModelVal}}.Get{{titlecase $g.Name}}(){{end}} {{if eq $g.Name "v1"}} {{$g.Value}} {{end}},
+                 {{titlecase $g.Name}} : {{if ne $g.ModelVal ""}}{{firstsmall $g.ModelVal}}{{end}} {{if eq $g.Name "v1"}} {{$g.Value}} {{end}},
             {{end}}
 		   };
 
@@ -72,11 +68,9 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		{{end}}
 		{{ if (eq $e.Operationid "Delete") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
-			log.Println("DTO Data", req.Id)
-			n, err := strconv.Atoi(strconv.FormatInt(req.Id, 10))
-			if err == nil {
-				domain.Delete{{titlecase $e.From}}(n)
-			}
+			var {{firstsmall $e.To}} *proto.{{$e.To}}
+			{{firstsmall $e.From}} := domain.Convert{{titlecase $e.To}}2{{titlecase $e.From}}({{firstsmall $e.To}})
+			domain.Delete{{titlecase $e.From}}({{firstsmall $e.From}}.{{$e.Primary}})
 			{{end}}{{end}}{{end}}{{end}}
 
 			resp := &proto.{{$e.Response}}{
@@ -90,15 +84,12 @@ func (s *{{(lowercase $apiname)}}Server) {{$e.Operationid}}(ctx context.Context,
 		{{ if (eq $e.Operationid "Read") }}
 			{{range  $i, $e := $MappingMap}}	{{if eq  $e.Type "domain2dto"}} {{range  $j, $f := $DomainModel}}{{if eq  $e.From $f.Name}} 
 			var {{firstsmall $e.To}} *proto.{{$e.To}}
-			n, err := strconv.Atoi(strconv.FormatInt(req.Id, 10))
-			if err == nil {
-				{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}(n))
-			}
+			{{firstsmall $e.To}} = domain.Convert{{titlecase $e.From}}2{{titlecase $e.To}}(domain.Read{{$e.From}}({{firstsmall $e.To}}.{{$e.Primary}}))
 			{{end}}{{end}}{{end}}{{end}}
 
 			resp := &proto.{{$e.Response}}{
             {{range  $j,$g := $e.ResponseVariable}}
-                 {{titlecase $g.Name}} : {{if eq $g.Type "object"}}{{firstsmall $g.Name}}{{end}} {{if ne $g.Type "object"}}{{$g.Value}}{{end}},
+                 {{titlecase $g.Name}} : {{if eq $g.Type "object"}}{{firstsmall $g.Name}}{{end}} {{if eq $g.Type "int"}}{{$g.Value}}{{end}},
             {{end}}
 		   };
 

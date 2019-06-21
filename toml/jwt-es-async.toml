@@ -5,20 +5,20 @@ Name = "es"
 
 [API]
 Name = "JWT"
-Operations = [ { url = "/jwt/generate" , request = "JWTRequest" , response = "JWTResponse", protocol = "POST" , operationid  = "Create"},
-               { url = "/jwt/renew/{jwtToken}" , request = "JWTRenewRequest" , response = "JWTRenewResponse", protocol = "PUT" , operationid  = "Update"},
-               { url = "/jwt/verify/{jwtToken}" , request = "JWTVerifyRequest" , response = "JWTVerifyResponse", protocol = "GET" , operationid  = "Read"}]
+Operations = [ { url = "/jwt/generate" , request = "JWTCreateRequest" , response = "JWTCreateResponse", protocol = "POST" , operationid  = "Create"},
+               { url = "/jwt/renew/{jWTToken}" , request = "JWTRenewRequest" , response = "JWTRenewResponse", protocol = "PUT" , operationid  = "Update"},
+               { url = "/jwt/verify/{jWTToken}" , request = "JWTVerifyRequest" , response = "JWTVerifyResponse", protocol = "DELETE" , operationid  = "Delete"}]
 
 
 
 [Models]
 Model = [{ name = "JWTToken" , Variable = [{ name = "user", value = "1" , type = "string"  },{ name = "token", value = "1" , type = "string"  }] },
-        { name = "JWTRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "user", value = "user" , type = "string" }] },
-        { name = "JWTResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "JWTToken", value = "jwtToken" , type = "object" }] },
-        { name = "JWTRenewRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = " jwtToken", value = "jwtToken" , type = "string" }] },
-        { name = "JWTRenewResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "JWTToken", value = "jwtToken" , type = "object" }] },
-        { name = "JWTVerifyRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jwtToken", value = "jwtToken" , type = "string" }] },
-        { name = "JWTVerifyResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "status", value = "success" , type = "string" }] } ]
+        { name = "JWTCreateRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jWTToken", value = "jWTToken" , type = "object" ,  parameter="body" }] },
+        { name = "JWTCreateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jWTToken", value = "token" , type = "object" , modelVal = "JWTToken" }] },
+        { name = "JWTRenewRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = " jWTToken", value = "jWTToken" , type = "string" ,  parameter="path"  }] },
+        { name = "JWTRenewResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jWTToken", value = "token" , type = "object" , modelVal = "JWTToken" }] },
+        { name = "JWTVerifyRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "jWTToken", value = "jWTToken" , type = "string" , parameter="path"  }] },
+        { name = "JWTVerifyResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "status", value = "true" , type = "boolean" ,  modelVal = "JWTToken"}] } ]
 
 [DomainModels]
 DomainModel = [{ name = "JWTTokenDomains" , Variable = [{ name = "User", value = "1" , type = "string"  },{ name = "Token", value = "1" , type = "string"  }] }]

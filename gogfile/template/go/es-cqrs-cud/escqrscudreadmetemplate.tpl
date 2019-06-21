@@ -43,4 +43,10 @@ To make application CRUD application with GRPC, HTTP, NATS, DB support & Externa
     "NATSSubj": "Test"
     }
 
-    
+## Swagger UI Doc 
+
+    http://127.0.0.1:8080/docs/
+
+## Prometheus 
+
+    http://127.0.0.1:8080/metrics

@@ -28,4 +28,10 @@ To make application CRUD application with GRPC, HTTP, DB support & External conf
     "DBCon": "root:@tcp(localhost:3306)/GOGENETIC_SCHEMA?charset=utf8&parseTime=True&loc=Local"
     }
 
-    
+## Swagger UI Doc 
+
+    http://127.0.0.1:8080/docs/
+
+## Prometheus 
+
+    http://127.0.0.1:8080/metrics  

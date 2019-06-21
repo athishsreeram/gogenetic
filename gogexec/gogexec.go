@@ -1,10 +1,14 @@
 package gogexec
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/gobuffalo/packr"
 )
 
 func MoveTo(dir string) {
@@ -63,6 +67,50 @@ func ExecuteCmd(cmdIn string, args []string) {
 		log.Println(args)
 
 		log.Println("protoc: %v", err)
+	}
+
+}
+
+func CreateDirIfNotExist(dir string) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.MkdirAll(dir, 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+func SwaggerTemplate(dir string, file string) {
+	box := packr.NewBox("../gogfile/template/swagger/dist")
+
+	t := [6]string{"/index.html", "/swagger-ui-bundle.js", "/swagger-ui-standalone-preset.js", "/swagger-ui.css", "/favicon-32x32.png", "/favicon-16x16.png"}
+	for _, value := range t {
+		swaggerDir, err := box.Find(value)
+		copyFile(swaggerDir, dir+value)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	input, err := ioutil.ReadFile(dir + "/" + file)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	log.Println(dir + "/swagger.json")
+	copyFile(input, dir+"/swagger.json")
+	os.Remove(dir + "/" + file)
+
+}
+
+func copyFile(input []byte, destinationFile string) {
+
+	err := ioutil.WriteFile(destinationFile, input, 0644)
+	if err != nil {
+		fmt.Println("Error creating", destinationFile)
+		fmt.Println(err)
+		return
 	}
 
 }

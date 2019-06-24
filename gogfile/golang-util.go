@@ -1,7 +1,10 @@
 package gogfile
 
 import (
+	"gogenetic/config"
 	"strings"
+
+	"github.com/spf13/viper"
 )
 
 func GoFileloc(templateFile string) string {
@@ -125,6 +128,29 @@ func GoFileName(templateFile string, apiName string) string {
 		return "Dockerfile"
 	}
 
+	return ""
+
+}
+
+var files config.Files
+
+func GoFilelocRef(templateFile string) string {
+	viper.Unmarshal(&files)
+	for _, files := range files.FileLoc {
+		if files.Key == templateFile {
+			return files.FileLoc
+		}
+	}
+	return ""
+}
+
+func GoFileNameRef(templateFile string, apiName string) string {
+	viper.Unmarshal(&files)
+	for _, files := range files.FileLoc {
+		if files.Key == templateFile {
+			return apiName + files.FileName
+		}
+	}
 	return ""
 
 }

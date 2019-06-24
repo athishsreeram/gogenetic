@@ -1,0 +1,200 @@
+
+[[ArchType]]
+name = "es-sync-with-cqrs"
+projects = ["Escqrsread","Eventcqrsread","Eventcqrsreadxorm","Escqrscud"]
+
+[[ArchType]]
+name = "es-async-with-cqrs"
+projects = ["Escqrsread","Eventcqrsread","Eventcqrsreadxorm","Escqrscudasync"]
+
+[[ArchType]]
+name = "es-async-with-cqrs-read"
+projects = ["Eventcqrsread"]
+
+[[ArchType]]
+name = "es-cqrs-eventstore-read"
+projects = ["Escqrsread"]
+
+[[ArchType]]
+name = "es-async-cmdhandler-with-cqrs"
+projects = ["Escqrscudcmdhandler"]
+
+[[ArchType]]
+name = "crud"
+projects = ["Crud"]
+
+[[ArchType]]
+name = "crud-object"
+projects = ["Crud-object"]
+
+[[projects]] 
+name =  "Escqrsread"
+templateBasePath = "go/es-cqrs-read/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"servicecrudtemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"escqrsreadreadmetemplate.tpl"
+]
+OutputDir="/es-read-output"
+grpc="true"
+
+[[projects]] 
+name =  "Eventcqrsread"
+templateBasePath = "go/es-cqrs-read/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"servicecrudtemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"eventstorecqrsreadmetemplate.tpl"
+]
+templateToml="toml/eventstore-read.toml"
+OutputDir="/eventstore-read-output"
+apiName="EventStore"
+grpc="true"
+
+[[projects]] 
+name =  "Eventcqrsreadxorm"
+templateBasePath = "go/es-cqrs-cud/"
+templates = [
+		"xormesdomaintemplate.tpl"
+]
+templateToml="toml/eventstore-read.toml"
+OutputDir="/es-cud-output"
+apiName="EventStore"
+grpc="false"
+
+[[projects]] 
+name =  "Escqrscud"
+templateBasePath = "go/es-cqrs-cud/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"servicenatstemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"natssubclienttemplate.tpl"
+		,"natspubclienttemplate.tpl"
+		,"servicetodomaintemplate.tpl"
+		,"natsconutilclienttemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"commandtoeventtemplate.tpl"
+		,"xormcommandstoredomaintemplate.tpl"
+		,"escqrscudreadmetemplate.tpl"
+]
+OutputDir="/es-cud-output"
+grpc="true"
+
+[[projects]] 
+name =  "Escqrscudasync"
+templateBasePath = "go/es-cqrs-cud/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"serviceasyncnatstemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"natssubclienttemplate.tpl"
+		,"natspubclienttemplate.tpl"
+		,"servicetodomaintemplate.tpl"
+		,"natsconutilclienttemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"commandtoeventtemplate.tpl"
+		,"xormcommandstoredomaintemplate.tpl"
+		,"escqrscudreadmetemplate.tpl"
+]
+OutputDir="/es-cud-output"
+grpc="true"
+
+[[projects]] 
+name =  "Escqrscudcmdhandler"
+templateBasePath = "go/es-cqrs-cud/"
+templates = [
+		"natssubclientchtemplate.tpl"
+		,"natspubclienttemplate.tpl"
+		,"natsconutilclienttemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"xormesdomaintemplate.tpl"
+		,"commandtoeventtemplate.tpl"
+		,"xormcommandstoredomaintemplate.tpl"
+		,"escqrscudcmdeventhandlerreadmetemplate.tpl"
+]
+OutputDir="/es-cmdhandler-cud-output"
+grpc="false"
+
+[[projects]] 
+name =  "Escqrscudeventhandler"
+templateBasePath = "go/es-cqrs-cud/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"natssubclientchtemplate.tpl"
+		,"natspubclienttemplate.tpl"
+		,"natsconutilclienttemplate.tpl"
+		,"servicetodomaintemplate.tpl"
+		,"natsconutilclienttemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"xormesdomaintemplate.tpl"
+		,"xormcommandstoredomaintemplate.tpl"
+		,"escqrscudcmdeventhandlerreadmetemplate.tpl"
+]
+OutputDir="/es-eventhandler-cud-output"
+grpc="true"
+
+[[projects]] 
+name =  "Crud"
+templateBasePath = "go/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"servicecrudtemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"docker/dockertemplate.tpl"
+		,"crudreadmetemplate.tpl"
+]
+OutputDir="/crud"
+grpc="true"
+
+[[projects]] 
+name =  "Crud-object"
+templateBasePath = "go/"
+templates = [
+		"proto-grpcresttemplate.tpl"
+		,"servicecrudobjecttemplate.tpl"
+		,"grpcservertemplate.tpl"
+		,"grpcrestservertemplate.tpl"
+		,"cmdservertemplate.tpl"
+		,"grpcclienttemplate.tpl"
+		,"xormdomaintemplate.tpl"
+		,"configtemplate.tpl"
+		,"devconftemplate.tpl"
+		,"docker/dockertemplate.tpl"
+		,"crudreadmetemplate.tpl"
+]
+OutputDir="/crud"
+grpc="true"

@@ -2,7 +2,7 @@
 key = "applicationtemplate"
 fileLoc = "src/main/java/com/gogenetic/restful/"
 fileName = "Application.java"
-addApiName="true"
+addApiName="false"
 addDomainModelName="false"
 addModelName="false"
 
@@ -43,7 +43,7 @@ addModelName="false"
 [[FileLoc]]
 key = "mapstructmappertemplate"
 fileLoc = "src/main/java/com/gogenetic/restful/"
-fileName = "Repository.java"
+fileName = "Mapper.java"
 addApiName="false"
 addDomainModelName="true"
 addModelName="false"
@@ -67,9 +67,9 @@ addModelName="false"
 [[FileLoc]]
 key = "servicetemplate"
 fileLoc = "src/main/java/com/gogenetic/restful/"
-fileName = "Application.java"
+fileName = "Service.java"
 addApiName="true"
-addDomainModelName="true"
+addDomainModelName="false"
 addModelName="false"
 
 [[FileLoc]]

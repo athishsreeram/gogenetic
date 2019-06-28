@@ -18,13 +18,16 @@ func JavaFilelocRef(templateFile string, apiName string) string {
 			if strings.Contains(files.AddModelName, "true") {
 				return files.FileLoc + strings.ToLower(apiName) + "/model/"
 			}
-			if strings.Contains(templateFile, "application") {
+			if strings.Contains(files.AddApiName, "true") {
+				return files.FileLoc + strings.ToLower(apiName) + "/"
+			}
+			if strings.Contains(files.AddApiName, "true") {
+				return files.FileLoc + strings.ToLower(apiName) + "/"
+			}
+			if files.FileLoc != "" {
 				return files.FileLoc
 			}
-			if strings.Contains(templateFile, "config") {
-				return files.FileLoc
-			}
-			return files.FileLoc + strings.ToLower(apiName) + "/"
+
 		}
 
 	}

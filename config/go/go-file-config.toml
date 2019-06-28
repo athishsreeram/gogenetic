@@ -2,169 +2,205 @@
 key = "cmdservertemplate"
 fileLoc = "cmd/main/"
 fileName = "-cmdserver.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "configtemplate"
 fileLoc = "config/"
 fileName = "-config.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "crudreadmetemplate"
 fileLoc = ""
 fileName = "README.md"
+addApiName="false"
 
 [[FileLoc]]
 key = "devconftemplate"
 fileLoc = ""
 fileName = "config-dev.json"
+addApiName="false"
 
 [[FileLoc]]
 key = "eswithoutcqrscudreadmetemplate"
 fileLoc = ""
 fileName = "README.md"
+addApiName="false"
 
 [[FileLoc]]
 key = "gormdomaintemplate"
 fileLoc = "domain/"
 fileName = "-domain.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "grpcclienttemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "grpcrestservertemplate"
 fileLoc = "server/rest/"
 fileName = "-rest-server.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "grpcservertemplate"
 fileLoc = "server/rest/"
 fileName = "-server.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "natsconutilclienttemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "natspubclienttemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "natssubclienttemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "proto-grpcresttemplate"
 fileLoc = "proto/"
 fileName = "-service.proto"
+addApiName="true"
 
 [[FileLoc]]
 key = "proto-grpctemplate"
 fileLoc = "proto/"
 fileName = "-service.proto"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicebasictemplate"
 fileLoc = "service/v1/"
 fileName = "-service.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicecrudobjecttemplate"
 fileLoc = "service/v1/"
 fileName = "-crud-service.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicecrudtemplate"
 fileLoc = "server/rest/"
 fileName = "-crud-server.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicenatstemplate"
 fileLoc = "server/rest/"
 fileName = "-rest-server.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicetodomaintemplate"
 fileLoc = "servicetodomain/"
 fileName = "-domain.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "swaggertemplate"
 fileLoc = ""
 fileName = "-swagger.yml"
+addApiName="true"
 
 [[FileLoc]]
 key = "xormdomaintemplate"
 fileLoc = "servicetodomain/"
 fileName = "-domain.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "commandtoeventtemplate"
 fileLoc = "/"
-fileName = "-.go"
+fileName = "-cmd.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "escqrscudcmdeventhandlerreadmetemplate"
 fileLoc = "/"
-fileName = "-.go"
+fileName = "-cmd.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "escqrscudreadmetemplate"
 fileLoc = "/"
-fileName = "-.go"
+fileName = "-cmd.go"
+addApiName="true"
+
 
 [[FileLoc]]
 key = "natssubclientchtemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "natssubclientehtemplate"
-fileLoc = "client/grpc/v1"
+fileLoc = "client/grpc/v1/"
 fileName = "-client.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "serviceasyncnatstemplate"
 fileLoc = "service/v1/"
 fileName = "-nat-service.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicenatstemplate"
 fileLoc = "service/v1/"
 fileName = "-nat-service.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "servicetodomaintemplate"
 fileLoc = "servicetodomain1/"
 fileName = "-nat-service.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "xormcommandstoredomaintemplate"
 fileLoc = "domain/"
 fileName = "-domain.go"
+addApiName="true"
 
 
 [[FileLoc]]
 key = "xormesdomaintemplate"
 fileLoc = "domain/"
 fileName = "-domain.go"
+addApiName="true"
 
 [[FileLoc]]
 key = "escqrsreadreadmetemplate"
 fileLoc = ""
 fileName = "README.md"
+addApiName="false"
 
 [[FileLoc]]
 key = "eventstorecqrsreadmetemplate"
 fileLoc = ""
 fileName = "README.md"
+addApiName="false"
+
 
 [[FileLoc]]
 key = "dockertemplate"
 fileLoc = ""
 fileName = "Dockerfile"
+addApiName="false"

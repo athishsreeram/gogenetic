@@ -83,11 +83,11 @@ func main() {
 	}
 
 	if conf.Gogenetic.Lang == "go" {
-		arch.GoLangArch(conf, *archType)
+		arch.GoLangArchConf(conf, *archType)
 	}
 
 	if conf.Gogenetic.Lang == "java" {
-		arch.JavaLangArch(conf, *archType)
+		arch.JavaLangArchConf(conf, *archType)
 	}
 
 	if conf.Gogenetic.Lang == "liquibase" {

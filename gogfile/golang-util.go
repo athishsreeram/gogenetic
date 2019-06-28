@@ -25,7 +25,10 @@ func GoFileNameRef(templateFile string, apiName string) string {
 	viper.Unmarshal(&files)
 	for _, files := range files.FileLoc {
 		if strings.Contains(templateFile, files.Key) {
-			return apiName + files.FileName
+			if strings.Contains(files.AddApiName, "true") {
+				return apiName + files.FileName
+			}
+			return files.FileName
 		}
 	}
 	return ""

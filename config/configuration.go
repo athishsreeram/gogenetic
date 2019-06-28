@@ -18,8 +18,11 @@ type ArchTypes struct {
 
 type Files struct {
 	FileLoc []struct {
-		Key      string `toml:"key"`
-		FileLoc  string `toml:"fileLoc"`
-		FileName string `toml:"fileName"`
+		Key                string `toml:"key"`
+		FileLoc            string `toml:"fileLoc"`
+		FileName           string `toml:"fileName"`
+		AddApiName         string `toml:"addApiName"`
+		AddDomainModelName string `toml:"addDomainModelName"`
+		AddModelName       string `toml:"addModelName"`
 	} `toml:"GoFileLoc"`
 }

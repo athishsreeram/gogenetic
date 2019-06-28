@@ -1,0 +1,81 @@
+[[FileLoc]]
+key = "applicationtemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = "Application.java"
+addApiName="true"
+addDomainModelName="false"
+addModelName="false"
+
+
+[[FileLoc]]
+key = "configtemplate"
+fileLoc = "src/main/resources/"
+fileName = "application.properties"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"
+
+
+[[FileLoc]]
+key = "controllertemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = "Controller.java"
+addApiName="true"
+addDomainModelName="false"
+addModelName="false"
+
+[[FileLoc]]
+key = "crudreadmetemplate"
+fileLoc = ""
+fileName = "README.md"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"
+
+[[FileLoc]]
+key = "domainmodeltemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = ".java"
+addApiName="false"
+addDomainModelName="true"
+addModelName="false"
+
+[[FileLoc]]
+key = "mapstructmappertemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = "Repository.java"
+addApiName="false"
+addDomainModelName="true"
+addModelName="false"
+
+[[FileLoc]]
+key = "modeltemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = ".java"
+addApiName="false"
+addDomainModelName="false"
+addModelName="true"
+
+[[FileLoc]]
+key = "pomtemplate"
+fileLoc = ""
+fileName = "pom.xml"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"
+
+[[FileLoc]]
+key = "servicetemplate"
+fileLoc = "src/main/java/com/gogenetic/restful/"
+fileName = "Application.java"
+addApiName="true"
+addDomainModelName="true"
+addModelName="false"
+
+[[FileLoc]]
+key = "dockertemplate"
+fileLoc = ""
+fileName = "Dockerfile"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"

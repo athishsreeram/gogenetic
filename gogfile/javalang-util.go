@@ -21,7 +21,7 @@ func JavaFilelocRef(templateFile string, apiName string) string {
 			if strings.Contains(files.AddApiName, "true") {
 				return files.FileLoc + strings.ToLower(apiName) + "/"
 			}
-			if strings.Contains(files.AddApiName, "true") {
+			if strings.Contains(files.AddDomainModelName, "true") {
 				return files.FileLoc + strings.ToLower(apiName) + "/"
 			}
 			if files.FileLoc != "" {

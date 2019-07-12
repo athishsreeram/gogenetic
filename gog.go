@@ -55,27 +55,29 @@ func main() {
 	conf.Gogenetic.OutDir = *outDir
 	conf.Gogenetic.Lang = *lang
 
-	archConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-arch-config.toml"
-	utilConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-file-config.toml"
+	if *archType != "file" {
+		archConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-arch-config.toml"
+		utilConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-file-config.toml"
 
-	archConfigFile, err := box.FindString(archConfig)
-	if err != nil {
-		log.Fatal(err)
-	}
+		archConfigFile, err := box.FindString(archConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	err = viper.ReadConfig(bytes.NewBuffer([]byte(archConfigFile)))
-	if err != nil {
-		fmt.Println("Config not found...")
-	}
+		err = viper.ReadConfig(bytes.NewBuffer([]byte(archConfigFile)))
+		if err != nil {
+			fmt.Println("Config not found...")
+		}
 
-	utilConfigFile, err := box.FindString(utilConfig)
-	if err != nil {
-		log.Fatal(err)
-	}
+		utilConfigFile, err := box.FindString(utilConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	err = viper.MergeConfig(bytes.NewBuffer([]byte(utilConfigFile)))
-	if err != nil {
-		fmt.Println("Config not found...")
+		err = viper.MergeConfig(bytes.NewBuffer([]byte(utilConfigFile)))
+		if err != nil {
+			fmt.Println("Config not found...")
+		}
 	}
 
 	if *archType == "file" {

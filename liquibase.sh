@@ -1,1 +1,1 @@
-go run ./gen/gogentic.go -tomlFile=/Users/anharay/go/src/gogenetic/toml/todo.toml -templateFile=/Users/anharay/go/src/gogenetic/template/go/liquibasetemplate.tpl -outDir=liquibase-output
+./gog -tomlFile=/Users/anharay/workspace/gogenetic/toml/todo.toml -lang=liquibase -outDir=liquibase-output -archType=file

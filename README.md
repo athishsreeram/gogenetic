@@ -13,9 +13,7 @@ Gogenetic isn't just a framework; it's a holistic focused on business environmen
 # Build Gogenetic
     go build gog.go
 
-    cd gogenetic-cli
-    go build gogenetic-cli.go
-
+   
 # How Gogenetic works
 
     1. Load TOML file
@@ -60,7 +58,7 @@ It where you define you business entity from where you can clearly define busine
 
     ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=crud -lang=java
 
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=go
+    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=liquibase
 
 ## Parameter Supported
 

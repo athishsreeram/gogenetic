@@ -31,4 +31,10 @@ To make application CRUD application with GRPC, HTTP, DB support & External conf
     "ShowTime":true
     }
 
-    
+## Swagger UI Doc 
+
+    http://127.0.0.1:8080/docs/
+
+## Prometheus 
+
+    http://127.0.0.1:8080/metrics  

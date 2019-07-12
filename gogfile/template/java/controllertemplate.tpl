@@ -31,7 +31,7 @@ public class {{$API}}Controller {
         ){
             {{ if (eq $a.Operationid "Create") }}
             {{range  $i, $e := $Map}}
-            {{ if eq $e.Name "convertToDoDomainToDo" }}
+            {{ if eq $e.Type "domain2dto" }}
                 {{lowercase $API}}Service.save({{lowercase $API}}Mapper.to{{$e.From}}({{firstsmall $e.To}}));
                 {{range  $j, $f := $e.VariableMapping}}
                 {{if eq $e.Primary $f.From}}
@@ -46,7 +46,7 @@ public class {{$API}}Controller {
                  {{range  $i,$f := $a.RequestVariable}}
                      {{ if eq $f.Parameter "path" }}  
                         {{range  $i, $e := $Map}}
-                        {{ if eq $e.Name "convertToDoDomainToDo" }} 
+                        {{ if eq $e.Type "domain2dto" }} 
                         {{$e.From}} {{firstsmall $e.From}} = {{lowercase $API}}Mapper.to{{$e.From}}({{firstsmall $e.To}});
                         {{firstsmall $e.From}}.set{{titlecase $e.Primary}}({{$f.Name}});
                         {{convertjavatype $e.Primarytype}} updated =  {{$f.Name}};
@@ -72,7 +72,7 @@ public class {{$API}}Controller {
                 {{range  $i,$f := $a.RequestVariable}}
                  {{ if eq $f.Parameter "path" }} 
                     {{range  $i, $e := $Map}}
-                        {{ if eq $e.Name "convertToDoDomainToDo" }} 
+                        {{ if eq $e.Type "domain2dto" }} 
                     Optional<{{$e.From}}> {{firstsmall $API}}Opt = {{lowercase $API}}Service.findById(Long.valueOf({{$f.Name}}));
                     {{$e.To}} {{firstsmall $e.To}} = {{firstsmall $API}}Mapper.to{{$e.To}}({{lowercase $API}}Opt.get());
                  {{end}}
@@ -83,7 +83,7 @@ public class {{$API}}Controller {
             
             {{ if (eq $a.Operationid "ReadAll") }}
                 {{range  $i, $e := $Map}}
-                        {{ if eq $e.Name "convertToDoDomainToDo" }}
+                        {{ if eq $e.Type "domain2dto" }}
                List<{{$e.To}}> {{firstsmall $e.To}}s = {{lowercase $API}}Mapper.to{{$e.To}}s({{lowercase $API}}Service.findAll());
             {{end}}
             {{end}}

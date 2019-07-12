@@ -1,0 +1,22 @@
+
+[[ArchType]]
+name = "crud"
+projects = ["Crud"]
+
+[[projects]] 
+name =  "Crud"
+templateBasePath = "java/"
+templates = [
+		"applicationtemplate.tpl"
+		,"configtemplate.tpl"
+		,"controllertemplate.tpl"
+		,"crudreadmetemplate.tpl"
+		,"domainmodeltemplate.tpl"
+		,"mapstructmappertemplate.tpl"
+		,"modeltemplate.tpl"
+		,"pomtemplate.tpl"
+		,"servicetemplate.tpl"
+		,"docker/dockertemplate.tpl"
+]
+OutputDir="/crud"
+grpc="true"

@@ -36,6 +36,7 @@ It where you define you business entity from where you can clearly define busine
 
     1. CRUD
         archType=crud
+        archType=crud-object
     2. Event Source
         archType=crud
         archType=es-sync-with-cqrs
@@ -67,4 +68,12 @@ It where you define you business entity from where you can clearly define busine
     2. tomlFiles - the business entity as per business toml structure
     3. archType - technical archtiture supported
     4. templateFile - need when archType is file you can pass your custom template to generate as per you need
-    5. lang - languages supported 
+    5. lang - languages supported
+
+# Platform Setup
+
+## Windows
+
+    set GOROOT=E:\Software\go1.12.6.windows-386\go
+    set GOPATH=D:\go-work
+    set PATH=%PATH%;%GOPATH%\bin;%GOROOT%\bin;E:\Software\protoc-3.8.0-win32\bin

@@ -15,15 +15,15 @@ Operations = [ { url = "/todo/all" , request = "ReadAllRequest" , response = "Re
 
 [Models]
 Model = [{ name = "ToDo" , Variable = [{ name = "id", value = "1" , type = "int"  },{ name = "title", value = "1" , type = "string"  }] },
-        { name = "ReadAllRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  }] },
+        { name = "ReadAllRequest" , Variable = [{ name = "v1", value = "1" , type = "int" , parameter="query" }] },
         { name = "ReadAllResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDos", value = "list" , type = "repeated" } ] },
-        { name = "CreateRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] },
-        { name = "CreateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
-        { name = "UpdateRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] },
-        { name = "UpdateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
-        { name = "DeleteRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" }] },
-        { name = "DeleteResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "uuid", value = "uuid" , type = "string" }] },
-        { name = "ReadRequest" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" }] },
+        { name = "CreateRequest" , Variable = [{ name = "v1", value = "1" , type = "int" , parameter="query" },{ name = "toDo", value = "toDo" , type = "object" , parameter="body" }] },
+        { name = "CreateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" , modelVal = "ToDo" }] },
+        { name = "UpdateRequest" , Variable = [{ name = "v1", value = "1" , type = "int" , parameter="query" },{ name = "id", value = "1" , type = "int" , parameter="path" },{ name = "toDo", value = "toDo" , type = "object" , parameter="body"}] },
+        { name = "UpdateResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "id", value = "1" , type = "int" , modelVal = "ToDo" }] },
+        { name = "DeleteRequest" , Variable = [{ name = "v1", value = "1" , type = "int" , parameter="query" },{ name = "id", value = "1" , type = "int" , parameter="path" }] },
+        { name = "DeleteResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "deleted", value = "true" , type = "boolean" }] },
+        { name = "ReadRequest" , Variable = [{ name = "v1", value = "1" , type = "int" , parameter="query"  },{ name = "id", value = "1" , type = "int" , parameter="path" }] },
         { name = "ReadResponse" , Variable = [{ name = "v1", value = "1" , type = "int"  },{ name = "toDo", value = "toDo" , type = "object" }] } ]
 
 [DomainModels]

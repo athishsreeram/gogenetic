@@ -58,7 +58,7 @@ It where you define you business entity from where you can clearly define busine
 
     ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=crud -lang=java
 
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=liquibase
+    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=liquibase-output
 
 ## Parameter Supported
 

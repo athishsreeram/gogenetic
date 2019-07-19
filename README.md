@@ -56,6 +56,16 @@ It where you define you business entity from where you can clearly define busine
 # Run Gogenetic
 
     ./gog
+# Gogenetic Config File
+    
+    gogconfig.toml
+
+    [Gogenetic]
+    TomlDir = "/Users/anharay/workspace/gogenetic/toml/todo.toml"
+    OutDir = "output"
+    Lang = "java"
+    TemplateFile= "" 
+    ArchType= "crud"
 
 ## Parameter Supported
 

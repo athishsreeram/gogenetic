@@ -36,7 +36,6 @@ It where you define you business entity from where you can clearly define busine
         archType=crud
         archType=crud-object
     2. Event Source
-        archType=crud
         archType=es-sync-with-cqrs
         archType=es-sync-without-cqrs
         archType=es-async-with-cqrs
@@ -56,9 +55,7 @@ It where you define you business entity from where you can clearly define busine
 
 # Run Gogenetic
 
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=crud -lang=java
-
-    ./gog -outDir=output -tomlFile=$(pwd)/toml/todo.toml -archType=file -templateFile=$(pwd)/anytemplate.tpl -lang=liquibase-output
+    ./gog
 
 ## Parameter Supported
 

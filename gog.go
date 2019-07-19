@@ -8,8 +8,6 @@ import (
 
 	"io/ioutil"
 
-	"flag"
-
 	"github.com/BurntSushi/toml"
 	"github.com/gobuffalo/packr"
 	"github.com/spf13/viper"
@@ -30,17 +28,95 @@ func main() {
 		log.Fatal(err)
 	}
 
+	var tomlFile string
+	var archType string
+	var outDir string
+	var lang string
+	var templateFile string
+	var startGo string
+	for {
+		for {
+			fmt.Println("Gogenetic Toml Input File:")
+			if _, err := fmt.Scanf("%s", &tomlFile); err != nil {
+				fmt.Printf("%s\n", err)
+			} else {
+				_, err := os.Stat(tomlFile)
+				if os.IsNotExist(err) {
+					fmt.Printf("%s\n", err)
+				} else {
+					break
+				}
+			}
+		}
+
+		for {
+			fmt.Println("Enter the Arch Type:")
+			if _, err := fmt.Scanf("%s", &archType); err != nil {
+				fmt.Printf("%s\n", err)
+			} else {
+				arr := []string{"crud", "crud-object", "es-sync-with-cqrs", "es-sync-without-cqrs", "es-async-with-cqrs",
+					"es-async-with-cqrs-read", "es-async-cmdhandler-with-cqrs", "es-async-eventhandler-with-cqrs", "es-cqrs-eventstore-read"}
+				if contains(arr, archType) {
+					break
+				}
+
+			}
+		}
+
+		fmt.Println("Enter the Output Directory:")
+		if _, err := fmt.Scanf("%s", &outDir); err != nil {
+			fmt.Printf("%s\n", err)
+		}
+
+		for {
+			fmt.Println("Enter the Lang Type:")
+			if _, err := fmt.Scanf("%s", &lang); err != nil {
+				fmt.Printf("%s\n", err)
+			} else {
+				arr1 := []string{"go", "java", "file"}
+				if contains(arr1, lang) {
+					break
+				}
+
+			}
+		}
+
+		if lang == "file" {
+			fmt.Println("Enter the Template file:")
+			if _, err := fmt.Scanf("%s", &templateFile); err != nil {
+				fmt.Printf("%s\n", err)
+			}
+		}
+
+		fmt.Printf("Parameters .\n")
+		fmt.Printf("Gogenetic Toml Input File %q\n", tomlFile)
+		fmt.Printf("ArchType %q\n", archType)
+		fmt.Printf("Out Dir %q\n", outDir)
+		fmt.Printf("Template File %q\n", templateFile)
+
+		fmt.Println("Confirm Start Gogenetic Y/N:")
+		if _, err := fmt.Scanf("%s", &startGo); err != nil {
+			fmt.Printf("%s\n", err)
+		}
+
+		if startGo == "Y" {
+
+			break
+		}
+
+	}
+
 	//0. Argument Options Simple CLI with go-command-line-flags
-	tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
+	/**tomlFile := flag.String("tomlFile", dir+"/toml/test.toml", " Input the TOML File.")
 	archType := flag.String("archType", "es-cqrs", "Architechture Type")
 	outDir := flag.String("outDir", "output", " Output directory")
 	lang := flag.String("lang", "go", " Input the language")
-	templateFile := flag.String("templateFile", "go/proto-grpctemplate.tpl", " Input the TOML File.")
+	templateFile := flag.String("templateFile", "go/proto-grpctemplate.tpl", " Input the TOML File.")*/
 
-	flag.Parse()
+	//flag.Parse()
 
 	//1. Load TOML file
-	tomlData, err := ioutil.ReadFile(*tomlFile)
+	tomlData, err := ioutil.ReadFile(tomlFile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,12 +126,12 @@ func main() {
 	if _, err := toml.Decode(string(tomlData), &conf); err != nil {
 		log.Fatal(err)
 	}
-	conf.Gogenetic.TomlDir = *tomlFile
+	conf.Gogenetic.TomlDir = tomlFile
 	conf.Gogenetic.Dir = dir
-	conf.Gogenetic.OutDir = *outDir
-	conf.Gogenetic.Lang = *lang
+	conf.Gogenetic.OutDir = outDir
+	conf.Gogenetic.Lang = lang
 
-	if *archType != "file" {
+	if archType != "file" {
 		archConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-arch-config.toml"
 		utilConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-file-config.toml"
 
@@ -80,19 +156,28 @@ func main() {
 		}
 	}
 
-	if *archType == "file" {
-		gogfile.CreateFile(conf, *templateFile, conf.Gogenetic.OutDir)
+	if archType == "file" {
+		gogfile.CreateFile(conf, templateFile, conf.Gogenetic.OutDir)
 	}
 
 	if conf.Gogenetic.Lang == "go" {
-		arch.GoLangArchConf(conf, *archType)
+		arch.GoLangArchConf(conf, archType)
 	}
 
 	if conf.Gogenetic.Lang == "java" {
-		arch.JavaLangArchConf(conf, *archType)
+		arch.JavaLangArchConf(conf, archType)
 	}
 
 	if conf.Gogenetic.Lang == "liquibase" {
 		gogfile.CreateFile(conf, "liquibase/liquibasetemplate.tpl", conf.Gogenetic.OutDir)
 	}
+}
+
+func contains(arr []string, str string) bool {
+	for _, a := range arr {
+		if a == str {
+			return true
+		}
+	}
+	return false
 }

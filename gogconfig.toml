@@ -1,0 +1,6 @@
+[Gogenetic]
+TomlDir = "/Users/anharay/workspace/gogenetic/toml/todo.toml"
+OutDir = "output"
+Lang = "java"
+TemplateFile= "" 
+ArchType= "crud"

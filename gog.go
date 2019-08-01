@@ -34,6 +34,7 @@ func main() {
 	var lang string
 	var templateFile string
 	var startGo string
+	var dbType string
 	goGenConfig := dir + "/gogconfig.toml"
 
 	goGenConf, err := os.Stat(goGenConfig)
@@ -54,25 +55,27 @@ func main() {
 		outDir = goGenconf.Gogenetic.OutDir
 		templateFile = goGenconf.Gogenetic.TemplateFile
 		lang = goGenconf.Gogenetic.Lang
+		dbType = goGenconf.Gogenetic.DbType
 
-		fmt.Printf("Parameters \n")
-		fmt.Printf("Gogenetic Toml Input File %q\n", tomlFile)
-		fmt.Printf("ArchType %q\n", archType)
-		fmt.Printf("Out Dir %q\n", outDir)
-		fmt.Printf("Template File %q\n", templateFile)
-		fmt.Printf("Lang  %q\n", lang)
+		log.Printf("Parameters \n")
+		log.Printf("Gogenetic Toml Input File %q\n", tomlFile)
+		log.Printf("ArchType %q\n", archType)
+		log.Printf("Out Dir %q\n", outDir)
+		log.Printf("Template File %q\n", templateFile)
+		log.Printf("Lang  %q\n", lang)
+		log.Printf("DbType  %q\n", dbType)
 
 	} else {
 		for {
 
 			for {
-				fmt.Println("Gogenetic Toml Input File:")
+				log.Println("Gogenetic Toml Input File:")
 				if _, err := fmt.Scanf("%s", &tomlFile); err != nil {
-					fmt.Printf("%s\n", err)
+					log.Printf("%s\n", err)
 				} else {
 					_, err := os.Stat(tomlFile)
 					if os.IsNotExist(err) {
-						fmt.Printf("%s\n", err)
+						log.Printf("%s\n", err)
 					} else {
 						break
 					}
@@ -80,12 +83,12 @@ func main() {
 			}
 
 			for {
-				fmt.Println("Enter the Arch Type:")
+				log.Println("Enter the Arch Type:")
 				if _, err := fmt.Scanf("%s", &archType); err != nil {
-					fmt.Printf("%s\n", err)
+					log.Printf("%s\n", err)
 				} else {
 					arr := []string{"crud", "crud-object", "es-sync-with-cqrs", "es-sync-without-cqrs", "es-async-with-cqrs",
-						"es-async-with-cqrs-read", "es-async-cmdhandler-with-cqrs", "es-async-eventhandler-with-cqrs", "es-cqrs-eventstore-read"}
+						"es-async-with-cqrs-read", "es-async-cmdhandler-with-cqrs", "es-async-eventhandler-with-cqrs", "es-cqrs-eventstore-read", "file"}
 					if contains(arr, archType) {
 						break
 					}
@@ -93,17 +96,17 @@ func main() {
 				}
 			}
 
-			fmt.Println("Enter the Output Directory:")
+			log.Println("Enter the Output Directory:")
 			if _, err := fmt.Scanf("%s", &outDir); err != nil {
-				fmt.Printf("%s\n", err)
+				log.Printf("%s\n", err)
 			}
 
 			for {
-				fmt.Println("Enter the Lang Type:")
+				log.Println("Enter the Lang Type:")
 				if _, err := fmt.Scanf("%s", &lang); err != nil {
-					fmt.Printf("%s\n", err)
+					log.Printf("%s\n", err)
 				} else {
-					arr1 := []string{"go", "java", "file"}
+					arr1 := []string{"go", "java", "liquibase"}
 					if contains(arr1, lang) {
 						break
 					}
@@ -112,22 +115,28 @@ func main() {
 			}
 
 			if lang == "file" {
-				fmt.Println("Enter the Template file:")
+				log.Println("Enter the Template file:")
 				if _, err := fmt.Scanf("%s", &templateFile); err != nil {
-					fmt.Printf("%s\n", err)
+					log.Printf("%s\n", err)
 				}
 			}
 
-			fmt.Printf("Parameters .\n")
-			fmt.Printf("Gogenetic Toml Input File %q\n", tomlFile)
-			fmt.Printf("ArchType %q\n", archType)
-			fmt.Printf("Out Dir %q\n", outDir)
-			fmt.Printf("Template File %q\n", templateFile)
-			fmt.Printf("Lang  %q\n", lang)
+			log.Println("Enter the Database:")
+			if _, err := fmt.Scanf("%s", &dbType); err != nil {
+				log.Printf("%s\n", err)
+			}
 
-			fmt.Println("Confirm Start Gogenetic Y/N:")
+			log.Printf("Parameters .\n")
+			log.Printf("Gogenetic Toml Input File %q\n", tomlFile)
+			log.Printf("ArchType %q\n", archType)
+			log.Printf("Out Dir %q\n", outDir)
+			log.Printf("Template File %q\n", templateFile)
+			log.Printf("Lang  %q\n", lang)
+			log.Printf("Database  %q\n", dbType)
+
+			log.Println("Confirm Start Gogenetic Y/N:")
 			if _, err := fmt.Scanf("%s", &startGo); err != nil {
-				fmt.Printf("%s\n", err)
+				log.Printf("%s\n", err)
 			}
 
 			if startGo == "Y" || startGo == "y" {
@@ -162,6 +171,7 @@ func main() {
 	conf.Gogenetic.Dir = dir
 	conf.Gogenetic.OutDir = outDir
 	conf.Gogenetic.Lang = lang
+	conf.Gogenetic.DbType = dbType
 
 	if archType != "file" {
 		archConfig := conf.Gogenetic.Lang + "/" + conf.Gogenetic.Lang + "-arch-config.toml"
@@ -174,7 +184,7 @@ func main() {
 
 		err = viper.ReadConfig(bytes.NewBuffer([]byte(archConfigFile)))
 		if err != nil {
-			fmt.Println("Config not found...")
+			log.Println("Config not found...")
 		}
 
 		utilConfigFile, err := box.FindString(utilConfig)
@@ -184,12 +194,12 @@ func main() {
 
 		err = viper.MergeConfig(bytes.NewBuffer([]byte(utilConfigFile)))
 		if err != nil {
-			fmt.Println("Config not found...")
+			log.Println("Config not found...")
 		}
 	}
 
 	if archType == "file" {
-		gogfile.CreateFile(conf, templateFile, conf.Gogenetic.OutDir)
+		gogfile.CreateFile(conf, templateFile, conf.Gogenetic.OutDir, "file")
 	}
 
 	if conf.Gogenetic.Lang == "go" {
@@ -200,9 +210,10 @@ func main() {
 		arch.JavaLangArchConf(conf, archType)
 	}
 
-	if conf.Gogenetic.Lang == "liquibase" {
-		gogfile.CreateFile(conf, "liquibase/liquibasetemplate.tpl", conf.Gogenetic.OutDir)
+	if dbType == "mysql" {
+		gogfile.CreateFile(conf, "liquibase/liquibasetemplate.tpl", conf.Gogenetic.OutDir, "db")
 	}
+
 }
 
 func contains(arr []string, str string) bool {

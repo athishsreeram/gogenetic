@@ -1,6 +1,7 @@
 [Gogenetic]
 TomlDir = "/Users/anharay/workspace/gogenetic/toml/todo.toml"
 OutDir = "output"
-Lang = "java"
+Lang = "go"
 TemplateFile= "" 
 ArchType= "crud"
+DbType = "mysql"

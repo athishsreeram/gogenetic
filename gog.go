@@ -210,8 +210,32 @@ func main() {
 		arch.JavaLangArchConf(conf, archType)
 	}
 
-	if dbType == "mysql" {
-		gogfile.CreateFile(conf, "liquibase/liquibasetemplate.tpl", conf.Gogenetic.OutDir, "db")
+	if dbType != "" {
+
+		archConfig := "liquibase/liquibase-arch-config.toml"
+		utilConfig := "liquibase/liquibase-file-config.toml"
+
+		archConfigFile, err := box.FindString(archConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = viper.ReadConfig(bytes.NewBuffer([]byte(archConfigFile)))
+		if err != nil {
+			log.Println("Config not found...")
+		}
+
+		utilConfigFile, err := box.FindString(utilConfig)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = viper.MergeConfig(bytes.NewBuffer([]byte(utilConfigFile)))
+		if err != nil {
+			log.Println("Config not found...")
+		}
+
+		arch.LiquibaseLangArchConf(conf, dbType)
 	}
 
 }

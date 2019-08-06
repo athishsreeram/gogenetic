@@ -1,0 +1,13 @@
+[[FileLoc]]
+key = "liquibasetemplate"
+fileLoc = ""
+fileName = "-liquibase-changelog.xml"
+addApiName="true"
+
+[[FileLoc]]
+key = "dockertemplate"
+fileLoc = ""
+fileName = "Dockerfile"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"

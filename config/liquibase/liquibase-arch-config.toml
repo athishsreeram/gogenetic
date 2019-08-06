@@ -1,0 +1,12 @@
+
+[[ArchType]]
+name = "mysql"
+projects = ["mysql"]
+
+[[projects]] 
+name =  "mysql"
+templateBasePath = "liquibase/"
+templates = [
+		"liquibasetemplate.tpl"
+]
+OutputDir="/sql"

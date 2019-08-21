@@ -1,7 +1,7 @@
 [[FileLoc]]
 key = "liquibasetemplate"
 fileLoc = ""
-fileName = "-liquibase-changelog.xml"
+fileName = "liquibase-changelog.xml"
 addApiName="true"
 
 [[FileLoc]]

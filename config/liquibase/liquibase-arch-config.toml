@@ -8,5 +8,6 @@ name =  "mysql"
 templateBasePath = "liquibase/"
 templates = [
 		"liquibasetemplate.tpl"
+		,"docker/dockertemplate.tpl"
 ]
 OutputDir="/sql"

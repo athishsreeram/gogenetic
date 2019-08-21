@@ -17,9 +17,8 @@ func LiquibaseFileloc(templateFile string) string {
 func LiquibaseFileName(templateFile string, apiName string) string {
 
 	if strings.Contains(templateFile, "liquibase") {
-		return apiName +"-liquibase-changelog.xml"
+		return "liquibase-changelog.xml"
 	}
 	return ""
 
 }
-

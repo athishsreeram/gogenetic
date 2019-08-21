@@ -56,7 +56,11 @@ func ExecuteCmd(cmdIn string, args []string) {
 		log.Println("RUNNING: ", strings.Join(cmd.Args, " "))
 	}
 	if len(out) > 0 {
-		log.Println(string(out))
+		log.Println("output " + string(out))
+		if cmdIn == "java" && cmd.Args[5] == "updateSQL" {
+			writeFile(out, "liquibaseout.sql")
+		}
+
 	}
 	if err != nil {
 
@@ -69,6 +73,37 @@ func ExecuteCmd(cmdIn string, args []string) {
 		log.Println("protoc: %v", err)
 	}
 
+}
+
+func writeFile(inData []byte, filename string) {
+
+	err := ioutil.WriteFile("tmp.txt", inData, 0644)
+	check(err)
+
+	input, err := ioutil.ReadFile("tmp.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	lines := strings.Split(string(input), "\n")
+
+	for i, _ := range lines {
+		if i == 0 {
+			lines[i] = ""
+		}
+	}
+	output := strings.Join(lines, "\n")
+	err = ioutil.WriteFile(filename, []byte(output), 0644)
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
+func check(e error) {
+	if e != nil {
+		log.Println(e)
+		panic(e)
+	}
 }
 
 func CreateDirIfNotExist(dir string) {
@@ -101,6 +136,34 @@ func SwaggerTemplate(dir string, file string) {
 	log.Println(dir + "/swagger.json")
 	copyFile(input, dir+"/swagger.json")
 	os.Remove(dir + "/" + file)
+
+}
+
+func LiquibaseTemplate(dir string) {
+	box := packr.NewBox("../gogfile/template/liquibaseexec")
+
+	t := [5]string{"/liquibase.jar", "/logback-classic-1.2.3.jar", "/logback-core-1.2.3.jar", "/slf4j-api-1.7.25.jar", "/snakeyaml-1.23.jar"}
+	for _, value := range t {
+		liquibaseDir, err := box.Find(value)
+		copyFile(liquibaseDir, dir+value)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+}
+
+func LiquibaseMySQLTemplate(dir string) {
+	box := packr.NewBox("../gogfile/template/liquibaseexec/mysql")
+
+	t := [2]string{"/liquibase.properties", "/mysql-connector-java-5.0.5.jar"}
+	for _, value := range t {
+		liquibaseDir, err := box.Find(value)
+		copyFile(liquibaseDir, dir+value)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
 }
 

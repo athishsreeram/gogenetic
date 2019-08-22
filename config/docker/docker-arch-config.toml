@@ -1,0 +1,12 @@
+
+[[ArchType]]
+name = "dockercompose"
+projects = ["dockercompose"]
+
+[[projects]] 
+name =  "dockercompose"
+templateBasePath = "docker/"
+templates = [
+		"dockercomposetemplate.tpl"
+]
+OutputDir=""

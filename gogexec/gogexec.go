@@ -1,7 +1,6 @@
 package gogexec
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -58,32 +57,27 @@ func ExecuteCmd(cmdIn string, args []string) {
 	if len(out) > 0 {
 		log.Println("output " + string(out))
 		if cmdIn == "java" && cmd.Args[5] == "updateSQL" {
-			writeFile(out, "liquibaseout.sql")
+			sqlWriteFile(out, "liquibaseout.sql")
 		}
 
 	}
 	if err != nil {
-
 		dir, err := os.Getwd()
-
 		log.Println(dir)
 		log.Println(cmdIn)
 		log.Println(args)
-
-		log.Println("protoc: %v", err)
+		check(err)
 	}
 
 }
 
-func writeFile(inData []byte, filename string) {
+func sqlWriteFile(inData []byte, filename string) {
 
 	err := ioutil.WriteFile("tmp.txt", inData, 0644)
 	check(err)
 
 	input, err := ioutil.ReadFile("tmp.txt")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	check(err)
 
 	lines := strings.Split(string(input), "\n")
 
@@ -94,9 +88,7 @@ func writeFile(inData []byte, filename string) {
 	}
 	output := strings.Join(lines, "\n")
 	err = ioutil.WriteFile(filename, []byte(output), 0644)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	check(err)
 }
 
 func check(e error) {
@@ -109,9 +101,7 @@ func check(e error) {
 func CreateDirIfNotExist(dir string) {
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err = os.MkdirAll(dir, 0777)
-		if err != nil {
-			panic(err)
-		}
+		check(err)
 	}
 }
 
@@ -122,16 +112,11 @@ func SwaggerTemplate(dir string, file string) {
 	for _, value := range t {
 		swaggerDir, err := box.Find(value)
 		copyFile(swaggerDir, dir+value)
-		if err != nil {
-			log.Fatal(err)
-		}
+		check(err)
 	}
 
 	input, err := ioutil.ReadFile(dir + "/" + file)
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
+	check(err)
 
 	log.Println(dir + "/swagger.json")
 	copyFile(input, dir+"/swagger.json")
@@ -146,9 +131,7 @@ func LiquibaseTemplate(dir string) {
 	for _, value := range t {
 		liquibaseDir, err := box.Find(value)
 		copyFile(liquibaseDir, dir+value)
-		if err != nil {
-			log.Fatal(err)
-		}
+		check(err)
 	}
 
 }
@@ -160,20 +143,12 @@ func LiquibaseMySQLTemplate(dir string) {
 	for _, value := range t {
 		liquibaseDir, err := box.Find(value)
 		copyFile(liquibaseDir, dir+value)
-		if err != nil {
-			log.Fatal(err)
-		}
+		check(err)
 	}
 
 }
 
 func copyFile(input []byte, destinationFile string) {
-
 	err := ioutil.WriteFile(destinationFile, input, 0644)
-	if err != nil {
-		fmt.Println("Error creating", destinationFile)
-		fmt.Println(err)
-		return
-	}
-
+	check(err)
 }

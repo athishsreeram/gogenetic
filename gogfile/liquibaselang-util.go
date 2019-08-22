@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func LiquibaseFileloc(templateFile string) string {
+func Fileloc(templateFile string) string {
 	var files config.Files
 	viper.Unmarshal(&files)
 	for _, files := range files.FileLoc {
@@ -20,7 +20,7 @@ func LiquibaseFileloc(templateFile string) string {
 
 }
 
-func LiquibaseFileName(templateFile string, apiName string) string {
+func FileName(templateFile string, apiName string) string {
 	var files config.Files
 	viper.Unmarshal(&files)
 	for _, files := range files.FileLoc {

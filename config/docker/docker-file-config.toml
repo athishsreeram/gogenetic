@@ -1,0 +1,7 @@
+[[FileLoc]]
+key = "dockercomposetemplate"
+fileLoc = ""
+fileName = "Dockerfile"
+addApiName="false"
+addDomainModelName="false"
+addModelName="false"
